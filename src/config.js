@@ -16,22 +16,17 @@ module.exports = Object.assign({
       appId: process.env.GOOGLE_ANALYTIC_ID || 'UA-XXXXXXXX-X'
     },
     title: 'React Universal Saga Modular',
-    description: 'Universal & Modular React Kit ft. Redux Saga',
+    description: 'Application used to predict the health effects arising from exposure to various chemicals.',
     head: {
-      titleTemplate: 'React Universal Saga Modular',
+      titleTemplate: 'PLETHEM',
       meta: [
-        { name: 'description', content: 'Universal & Modular React Kit ft. Redux Saga' },
+        { name: 'description', content: 'Application used to predict the health effects arising from exposure to various chemicals.' },
         { charset: 'utf-8' },
-        { property: 'og:site_name', content: 'React Universal Saga Modular' },
-        { property: 'og:image', content: 'https://facebook.github.io/react/img/logo_og.png' },
+        { property: 'og:site_name', content: 'PLETHEM' },
         { property: 'og:locale', content: 'en_US' },
-        { property: 'og:title', content: 'React Universal Saga Modular' },
-        { property: 'og:description', content: 'Universal & Modular React Kit ft. Redux Saga' },
-        { property: 'og:card', content: 'summary' },
-        { property: 'og:site', content: '@xkawi' },
-        { property: 'og:creator', content: '@xkawi' },
-        { property: 'og:image:width', content: '200' },
-        { property: 'og:image:height', content: '200' }
+        { property: 'og:title', content: 'PLETHEM' },
+        { property: 'og:description', content: 'Application used to predict the health effects arising from exposure to various chemicals.' },
+        { property: 'og:card', content: 'summary' }
       ]
     }
   },
