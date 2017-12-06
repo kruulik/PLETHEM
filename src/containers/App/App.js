@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { Explore } from 'components';
 import {
   navigate,
   updateRouterState,
@@ -40,14 +39,13 @@ class App extends Component {
   }
 
   render() {
-    const { children, inputValue } = this.props;
+    const { children } = this.props;
     return (
       <div className={styles.app}>
         <Helmet
           title="React Universal Saga Modular"
           meta={[{ property: 'og:site_name', content: 'React Universal Saga Modular' }]}
         />
-        <Explore value={inputValue} onChange={this.handleChange} />
         <div className={styles.content}>
           {children}
         </div>
@@ -58,7 +56,6 @@ class App extends Component {
 
 App.propTypes = {
   errorMessage: PropTypes.string,
-  inputValue: PropTypes.string.isRequired,
   navigate: PropTypes.func.isRequired,
   updateRouterState: PropTypes.func.isRequired,
   resetErrorMessage: PropTypes.func.isRequired,
