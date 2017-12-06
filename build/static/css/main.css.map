@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./app/src/styles/app/src/styles/main.scss"],"names":[],"mappings":"AAAA,GACE,WAAY","file":"static/css/main.css","sourcesContent":["h1 {\n  color: green;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./app/src/styles/app/src/styles/main.scss"],"sourceRoot":""}

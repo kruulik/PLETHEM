@@ -7,6 +7,9 @@
 const commonPaths = require("./common-paths");
 const config = {
     target: 'web',
+    resolve: {
+      extensions: ['.js', '.jsx', '*']
+    },
     entry: {
         'bundle': './app/src/index'
     },
