@@ -5,7 +5,7 @@ import merge from 'lodash/merge';
 import { getStoredState } from 'redux-persist/es/getStoredState';
 import { createPersistoid } from 'redux-persist/es/createPersistoid';
 import storage from 'redux-persist/es/storage';
-import { loadState, saveState } from 'localStorage';
+import { loadState, saveState } from 'store/localStorage';
 
 import Root from './containers/Root/Root';
 import rootSaga from './modules/rootSaga';
