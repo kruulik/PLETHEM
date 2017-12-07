@@ -63,23 +63,23 @@ const callApi = (endpoint, schema) => {
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
 // Schemas for Github API responses.
-const userSchema = new Schema('users', {
-  idAttribute: 'login'
-});
-
-const repoSchema = new Schema('repos', {
-  idAttribute: 'fullName'
-});
-
-repoSchema.define({
-  owner: userSchema
-});
-
-const userSchemaArray = arrayOf(userSchema);
-const repoSchemaArray = arrayOf(repoSchema);
-
-// api services
-export const fetchUser = login => callApi(`users/${login}`, userSchema);
-export const fetchRepo = fullName => callApi(`repos/${fullName}`, repoSchema);
-export const fetchStarred = url => callApi(url, repoSchemaArray);
-export const fetchStargazers = url => callApi(url, userSchemaArray);
+// const userSchema = new Schema('users', {
+//   idAttribute: 'login'
+// });
+//
+// const repoSchema = new Schema('repos', {
+//   idAttribute: 'fullName'
+// });
+//
+// repoSchema.define({
+//   owner: userSchema
+// });
+//
+// const userSchemaArray = arrayOf(userSchema);
+// const repoSchemaArray = arrayOf(repoSchema);
+//
+// // api services
+// export const fetchUser = login => callApi(`users/${login}`, userSchema);
+// export const fetchRepo = fullName => callApi(`repos/${fullName}`, repoSchema);
+// export const fetchStarred = url => callApi(url, repoSchemaArray);
+// export const fetchStargazers = url => callApi(url, userSchemaArray);

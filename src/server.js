@@ -8,7 +8,8 @@ import proxy from 'express-http-proxy';
 import path from 'path';
 import url from 'url';
 import PrettyError from 'pretty-error';
-import { match, createMemoryHistory } from 'react-router';
+import { match } from 'react-router';
+import { createMemoryHistory } from 'history';
 
 import config from './config';
 import configureStore from './store/configureStore';

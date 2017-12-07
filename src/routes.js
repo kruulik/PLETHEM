@@ -3,7 +3,7 @@ import { Route } from 'react-router';
 import {
   App,
   NotFound
-} from 'containers';
+} from './containers';
 
 export default () => (
   <Route path="/" component={App}>

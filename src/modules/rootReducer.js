@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { errorMessage, router } from './common/reducers';
-import { entities, pagination } from './github/reducers';
+// import { entities, pagination } from './github/reducers';
 
 const rootReducer = combineReducers({
-  entities,
-  pagination,
+  // entities,
+  // pagination,
   errorMessage,
   router
 });
