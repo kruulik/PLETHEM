@@ -1,9 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Router, Route } from 'react-router-dom';
 import {
   App,
   NotFound
-} from './containers';
+} from 'containers';
 
 export default () => (
   <Route path="/" component={App}>

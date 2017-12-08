@@ -1,22 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import {
-  navigate,
-  updateRouterState,
-  resetErrorMessage
-} from 'modules/common/actions';
 
-import styles from './App.scss'; // eslint-disable-line
-
-class App extends Component {
-  componentWillMount() {
-    this.props.updateRouterState({
-      pathname: this.props.location.pathname,
-      params: this.props.params
-    });
-  }
+export default class App extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errorMessage && this.props.errorMessage !== nextProps.errorMessage) {
@@ -29,51 +13,9 @@ class App extends Component {
       });
     }
   }
-
-  handleDismissClick(e) {
-    this.props.resetErrorMessage();
-    e.preventDefault();
-  }
-
-  handleChange = (nextValue) => {
-    this.props.navigate(`/${nextValue}`);
-  }
-
   render() {
-    const { children } = this.props;
-    return (
-      <div className={styles.app}>
-        <Helmet
-          title="React Universal Saga Modular"
-          meta={[{ property: 'og:site_name', content: 'React Universal Saga Modular' }]}
-        />
-        <div className={styles.content}>
-          {children}
-        </div>
-      </div>
-    );
+      return (
+        <h1>wtffff</h1>
+      );
   }
 }
-
-App.propTypes = {
-  errorMessage: PropTypes.string,
-  navigate: PropTypes.func.isRequired,
-  updateRouterState: PropTypes.func.isRequired,
-  resetErrorMessage: PropTypes.func.isRequired,
-  children: PropTypes.node,
-  location: PropTypes.shape({
-    pathname: PropTypes.string
-  }),
-  params: PropTypes.object
-};
-
-const mapStateToProps = state => ({
-  errorMessage: state.errorMessage,
-  inputValue: state.router.pathname.substring(1)
-});
-
-export default connect(mapStateToProps, {
-  navigate,
-  updateRouterState,
-  resetErrorMessage
-})(App);

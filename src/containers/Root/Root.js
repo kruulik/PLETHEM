@@ -1,5 +1,14 @@
-if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./Root.prod'); // eslint-disable-line global-require
-} else {
-  module.exports = require('./Root.dev'); // eslint-disable-line global-require
-}
+import React from 'react';
+import { Provider } from 'react-redux';
+import { HashRouter } from 'react-router-dom';
+import {App} from 'containers/App';
+
+const Root = ({ store }) => (
+  <Provider store={ store }>
+    <HashRouter>
+      <App/>
+    </HashRouter>
+  </Provider>
+);
+
+export default Root;
