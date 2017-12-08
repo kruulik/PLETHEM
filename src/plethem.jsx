@@ -8,29 +8,14 @@ import { loadState, saveState } from 'store/localStorage';
 
 import throttle from 'lodash/throttle';
 
-import Root from 'containers/Root/Root';
+import Root from 'containers/Root';
+
+import 'stylesheets/main.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
 
   const storedState = loadState();
-  // let preloadedState;
-  //
-  // if (window.currentUser) {
-  //   preloadedState = {
-  //     session: {
-  //       currentUser: window.currentUser
-  //     }
-  //   };
-  //   delete window.currentUser;
-  // } else {
-  //   preloadedState = {
-  //     session: {
-  //       currentUser: null
-  //     }
-  //   }
-  // }
 
-  // const initialState = merge({}, preloadedState, storedState);
   const store = configureStore(storedState);
 
   window.store = store;
@@ -53,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Webpack Hot Module Replacement API
   if (module.hot) {
-    module.hot.accept('./containers/Root/Root', () => { render(Root) })
+    module.hot.accept('./containers/Root', () => { render(Root) })
   }
 
 });

@@ -1,0 +1,20 @@
+.app-header {
+  background-color: black;
+  height: 60px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 900;
+  color: white;
+}
+
+.logo {
+  font-size: $font-size-h1;
+  color: white;
+  font-weight: $headings-font-weight;
+  font-family: $headings-font-family;
+  vertical-align: middle;
+}
