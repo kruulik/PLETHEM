@@ -9,6 +9,8 @@
   top: 0;
   z-index: 900;
   color: white;
+  justify-content: space-between;
+  padding: 0 12px 0 12px;
 }
 
 .logo {
@@ -17,4 +19,8 @@
   font-weight: $headings-font-weight;
   font-family: $headings-font-family;
   vertical-align: middle;
+}
+
+.right-nav Button {
+  margin-left: 10px;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Switch, Route, Link } from 'react-router-dom';
-import MainContainer from './MainContainer';
+import Main from './Main';
 
 class App extends Component {
 
@@ -20,7 +20,7 @@ class App extends Component {
   render() {
       return (
         <Switch>
-          <Route path="/" component={MainContainer} />
+          <Route path="/" component={Main} />
         </Switch>
       );
   }

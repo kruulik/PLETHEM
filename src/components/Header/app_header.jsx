@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 
-import { Layout } from 'antd';
+import { Layout, Button, Icon } from 'antd';
 const { Header } = Layout;
 
 export default class AppHeader extends Component {
@@ -14,9 +14,13 @@ export default class AppHeader extends Component {
 
   render() {
     return (
-      <div className="app-header">
-        <Header style={{ background: 'black', padding: 0, position: 'absolute', height: 60, width: '100%' }}>AppHeader</Header>
-      </div>
+      <Header className="app-header">
+        <span className="logo">PLETHEM PRO</span>
+        <div className="right-nav">
+          <Button type="default"  icon="download">Save Project</Button>
+          <Button type="default"  icon="upload">Load Project</Button>
+        </div>
+      </Header>
     );
   }
 }
