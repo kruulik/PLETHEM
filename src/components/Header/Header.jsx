@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Button } from 'antd';
 
-import { requestTestState } from 'actions/testActions';
-
-class Header extends Component {
+export default class Header extends Component {
 
   componentDidMount(){
     this.props.requestTestState('some BS');
@@ -27,20 +25,8 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({ state }) => {
-  return {
-    state
-  };
-};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    requestTestState: () => dispatch(requestTestState())
-  };
-};
 
 Header.propTypes = {
   onPress: PropTypes.func,
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);

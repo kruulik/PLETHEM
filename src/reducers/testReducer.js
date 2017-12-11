@@ -8,7 +8,6 @@ const test = (state = initialState, action) => {
 
   switch (action.type) {
     case TEST_ACTION:
-    debugger
       return merge({}, state, action.items);;
     default:
       return state;
