@@ -4,28 +4,17 @@ import { AppContainer } from 'react-hot-loader'; // required for HMR
 import merge from 'lodash/merge';
 
 import configureStore from 'store/configureStore';
-import { loadState, saveState } from 'store/localStorage';
-
-import throttle from 'lodash/throttle';
-
 import Root from 'views/Root';
 
 import 'stylesheets/main.scss';
-// import 'stylesheets/ant-theme-vars.less';
 
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const storedState = loadState();
-
-  const store = configureStore(storedState);
+  const store = configureStore();
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-
-  store.subscribe(throttle(() => {
-    saveState(store.getState());
-  }, 1000));
 
   const renderApp = Component => {
     ReactDOM.render(

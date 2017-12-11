@@ -1,3 +1,8 @@
+// Will be switching to redux-persist later
+// Hot module reloading not available yet
+// https://github.com/rt2zz/redux-persist
+
+
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');

@@ -7,10 +7,8 @@ import { loadState, saveState } from './localStorage'
 
 import rootReducer from 'reducers/rootReducer';
 
-const persistedState = loadState();
-
 const configureStore = () => {
-
+  const persistedState = loadState();
   const store = createStore(
     rootReducer,
     persistedState,

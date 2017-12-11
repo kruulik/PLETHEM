@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import {Switch, Route, Link, Redirect} from 'react-router-dom';
 
-import { HeaderContainer } from "components";
+import { Header } from 'components';
+import { Sidebar } from 'components';
+
+import { Layout } from 'antd';
+const { Content, Sider } = Layout;
+
 
 class MainContainer extends Component {
   render() {
     return (
-      <div className="main-content">
-        <HeaderContainer />
-      </div>
+      <Layout>
+        <Header />
+        <Sidebar />
+        <Content style={{ height: '100%'}}>
+
+          <div style={{minHeight: '100vh'}}></div>
+        </Content>
+      </Layout>
     );
   }
 }
