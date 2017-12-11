@@ -8,9 +8,11 @@ import { loadState, saveState } from 'store/localStorage';
 
 import throttle from 'lodash/throttle';
 
-import Root from 'containers/Root';
+import Root from 'views/Root';
 
 import 'stylesheets/main.scss';
+// import 'stylesheets/ant-theme-vars.less';
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -18,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const store = configureStore(storedState);
 
-  window.store = store;
   window.getState = store.getState;
+  window.dispatch = store.dispatch;
 
   store.subscribe(throttle(() => {
     saveState(store.getState());
@@ -38,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Webpack Hot Module Replacement API
   if (module.hot) {
-    module.hot.accept('./containers/Root', () => { render(Root) })
+    module.hot.accept('./views/Root', () => { render(Root) })
   }
 
 });
