@@ -20,6 +20,10 @@ class SettingsSelect extends React.Component {
     )
   }
 
+  componentDidMount(){
+    this.props.handleChange(this.state.selected);
+  }
+
   render() {
     // console.log(this.state.selected);
     const { items, selectedIdx, label, reducer } = this.props;

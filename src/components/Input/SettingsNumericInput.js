@@ -28,10 +28,10 @@ class SettingsNumericInput extends Component {
               <td width='30%'>
                 <InputNumber
                   reducer={reducer}
-                  type='secondary' 
+                  type='secondary'
                   size='default'
                   defaultValue={defaultVal}
-                  onChange={this.props.handleChange}/>
+                  onChange={() => this.props.handleChange(this.state.checked)}/>
               </td>
             </tr>
           </tbody>

@@ -7,26 +7,29 @@ class SettingsCheckBox extends Component {
     this.state = ({
       checked: this.props.checked
     });
-    // this.onChange = this.onChange.bind(this);
   }
 
-  onChange(e) {
-    debugger
-    this.setState({checked: e.target.checked});
+  componentDidMount(){
+    this.handleChange();
+  }
+
+  handleChange = () => {
+    this.setState({checked: !this.state.checked})
+    this.props.handleChange(this.state.checked)
   }
 
   render() {
-    // console.log(this.state.checked);
     const { id, checked, label, reducer } = this.props;
+    const val = this.state.checked
     return (
       <div className='checkbox-wrapper' >
         <Checkbox
-          reducer={reducer}
           defaultChecked={checked}
-          onChange={(e) => this.props.handleChange(e)}>
+          onChange={this.handleChange}>
           {label}
         </Checkbox>
-      </div> )
+      </div>
+    )
   }
 }
 

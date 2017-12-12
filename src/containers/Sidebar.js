@@ -42,107 +42,114 @@ class Sidebar extends Component {
   }
 
   render() {
-    return ( <Sider className="app-sidebar" width={300} style={styles.sidebar}>
-      <Collapse style={styles.collapse} bordered={false} defaultActiveKey={[ '1', '2', '3', '4' ]}>
+    return (
+      <Sider
+        className="app-sidebar"
+        width={300}
+        style={styles.sidebar}>
 
-        <Panel header="Compound Data" key="1">
-          <SettingsSelect
-            reducer="datasets"
-            items={options.datasets}
-            selectedIdx={0}
-            label='Dataset'
-            handleChange={this.props.setDataset}/>
-          <SettingsButton label='Import Dataset...'/>
-        </Panel>
+        <Collapse
+          style={styles.collapse}
+          bordered={false}
+          defaultActiveKey={[ '1', '2', '3', '4' ]}>
 
-        <Panel header="Physiology" key="2">
-          <SettingsSelect
-            handleChange={this.props.setSpecies}
-            items={options.species}
-            selectedIdx={0}
-          label='Target Species'/>
-          <SettingsCheckBox
-            handleChange={this.props.setAgeDep}
-            label='Include Age Dependence'
-            id='agedepcb'
-            checked={true}/>
-          <SettingsCheckBox
-            handleChange={this.props.setVariability}
-            reducer="variability"
-            label='Include Variability'
-            id='variabilitycb'
-            checked={true}/>
-          <SettingsNumericInput
-            handleChange={this.props.setPopSize}
-            label='Population Size'
-            defaultVal={50}/>
-          <SettingsNumericInput
-            handleChange={this.props.setPercMale}
-            label='Percent Male'
-            defaultVal={50}/>
-          <SettingsNumericInput
-            handleChange={this.props.setMinAge}
-            label='Minimum Age (years)'
-            defaultVal={10}/>
-          <SettingsNumericInput
-            handleChange={this.props.setMaxAge}
-            label='Maximum Age (years)'
-            defaultVal={80}/>
-        </Panel>
+          <Panel header="Compound Data" key="1">
+            <SettingsSelect
+              reducer="datasets"
+              items={options.datasets}
+              selectedIdx={0}
+              label='Dataset'
+              handleChange={this.props.setDataset}/>
+            <SettingsButton label='Import Dataset...'/>
+          </Panel>
 
-        <Panel header="ADME" key="3">
-          <SettingsSelect
-            reducer="adme"
-            handleChange={this.handleChange}
-            items={options.metabParameterSource}
-            selectedIdx={1}
-          label='Metabolic Parameter Source'/>
-          <SettingsSelect
-            reducer="ivAssay"
-            handleChange={this.handleChange}
-            items={options.assayType}
-            selectedIdx={0}
-          label='In Vitro Assay'/>
-          <SettingsCheckBox
-            reducer="satMet"
-            handleChange={this.handleChange}
-            label='Use Saturable Metabolism'
-            id='satmetabcb'
-            checked={true}/>
-          <SettingsSelect
-            reducer="renalElim"
-            handleChange={this.handleChange}
-            items={options.renalElimSource}
-            selectedIdx={0}
-          label='Renal Elimination Source'/>
-          <SettingsCheckBox
-            reducer="includeehccb"
-            handleChange={this.handleChange}
-            label='Include Enterohepatic Cycling'
-            id='includeehccb'
-            checked={true}/>
-        </Panel>
+          <Panel header="Physiology" key="2">
+            <SettingsSelect
+              handleChange={this.props.setSpecies}
+              items={options.species}
+              selectedIdx={0}
+            label='Target Species'/>
+            <SettingsCheckBox
+              handleChange={this.props.setAgeDep}
+              label='Include Age Dependence'
+              id='agedepcb'
+              checked={true}/>
+            <SettingsCheckBox
+              handleChange={this.props.setVariability}
+              label='Include Variability'
+              id='variabilitycb'
+              checked={true}/>
+            <SettingsNumericInput
+              handleChange={this.props.setPopSize}
+              label='Population Size'
+              defaultVal={50}/>
+            <SettingsNumericInput
+              handleChange={this.props.setPercMale}
+              label='Percent Male'
+              defaultVal={50}/>
+            <SettingsNumericInput
+              handleChange={this.props.setMinAge}
+              label='Minimum Age (years)'
+              defaultVal={10}/>
+            <SettingsNumericInput
+              handleChange={this.props.setMaxAge}
+              label='Maximum Age (years)'
+              defaultVal={80}/>
+          </Panel>
 
-        <Panel header="Simulation" key="4">
-          <SettingsNumericInput
-            reducer="timestep"
-            handleChange={this.handleChange}
-            label='Time Step (hours)'
-            defaultVal={0.1}/>
-          <SettingsNumericInput
-            reducer="startAge"
-            handleChange={this.handleChange}
-            label='Start Age (years)'
-            defaultVal={25}/>
-          <SettingsNumericInput
-            reducer="duration"
-            handleChange={this.handleChange}
-            label='Duration (days)'
-            defaultVal={7}/>
-        </Panel>
+          <Panel header="ADME" key="3">
+            <SettingsSelect
+              reducer="metParaSource"
+              handleChange={this.props.setMetParaSource}
+              items={options.metabParameterSource}
+              selectedIdx={1}
+            label='Metabolic Parameter Source'/>
+            <SettingsSelect
+              reducer="ivAssay"
+              handleChange={this.props.setIVAssay}
+              items={options.assayType}
+              selectedIdx={0}
+            label='In Vitro Assay'/>
+            <SettingsCheckBox
+              reducer="satMet"
+              handleChange={this.props.setSatMet}
+              label='Use Saturable Metabolism'
+              id='satmetabcb'
+              checked={true}/>
+            <SettingsSelect
+              reducer="renalElim"
+              handleChange={this.props.setRenalElim}
+              items={options.renalElimSource}
+              selectedIdx={0}
+            label='Renal Elimination Source'/>
+            <SettingsCheckBox
+              reducer="includeehccb"
+              handleChange={this.props.setIncludeEhccb}
+              label='Include Enterohepatic Cycling'
+              id='includeehccb'
+              checked={true}/>
+          </Panel>
 
-      </Collapse>
-    </Sider> );
+          <Panel header="Simulation" key="4">
+            <SettingsNumericInput
+              reducer="timestep"
+              handleChange={this.props.setTimestep}
+              label='Time Step (hours)'
+              defaultVal={0.1}/>
+            <SettingsNumericInput
+              reducer="startAge"
+              handleChange={this.props.setStartAge}
+              label='Start Age (years)'
+              defaultVal={25}/>
+            <SettingsNumericInput
+              reducer="duration"
+              handleChange={this.props.setDuration}
+              label='Duration (days)'
+              defaultVal={7}/>
+          </Panel>
+
+        </Collapse>
+      </Sider> );
   }
 }
 
