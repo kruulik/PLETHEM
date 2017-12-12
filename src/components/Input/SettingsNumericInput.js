@@ -16,7 +16,7 @@ class SettingsNumericInput extends Component {
 
   render() {
     // console.log(this.state.value)
-    const { label, defaultVal } = this.props;
+    const { label, defaultVal, reducer } = this.props;
     return (
       <div className='settingdiv'>
         <table style={style}>
@@ -26,7 +26,12 @@ class SettingsNumericInput extends Component {
                 {label}
               </td>
               <td width='30%'>
-                <InputNumber type='secondary' size='default' defaultValue={defaultVal} onChange={this.onChange}/>
+                <InputNumber
+                  reducer={reducer}
+                  type='secondary' 
+                  size='default'
+                  defaultValue={defaultVal}
+                  onChange={this.props.handleChange}/>
               </td>
             </tr>
           </tbody>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
 import PropTypes from 'prop-types';
 
@@ -12,8 +13,10 @@ import { SettingsButton } from 'components';
 import { SettingsCheckBox } from 'components';
 import { SettingsNumericInput } from 'components';
 
+import * as SettingsActions from 'actions/settingsActions';
+
 const options = {
-  datasets: ['Default HTTK Dataset'],
+  datasets: ['Default HTTK Dataset', 'Other Dataset'],
   species: [
     "Human", "Mouse", "Rat", "Dog"
   ],
@@ -32,36 +35,143 @@ const options = {
   renalElimSource: [ "User-specified", "Calculated" ]
 }
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
+
+  constructor(props){
+    super(props);
+  }
+
+  // handleChange(value){
+  //   debugger
+  //   switch(this.reducer){
+  //     case "datasets":
+  //     case "species":
+  //     case "ageDep":
+  //     case "variability":
+  //     case "popSize":
+  //     case "perMale":
+  //     case "minAge":
+  //     case "maxAge":
+  //     case "adme":
+  //     case "ivAssay":
+  //     case "satMet":
+  //     case "renalElim":
+  //     case "includeehccb":
+  //     case "timeStep":
+  //     case "startAge":
+  //     case "duration":
+  //     default:
+  //     console.log(this.reducer, value);
+  //     break;
+  //   }
+  // }
 
   render() {
     return ( <Sider className="app-sidebar" width={300} style={styles.sidebar}>
       <Collapse style={styles.collapse} bordered={false} defaultActiveKey={[ '1', '2', '3', '4' ]}>
+
         <Panel header="Compound Data" key="1">
-          <SettingsSelect items={options.datasets} selectedIdx={0} label='Dataset'/>
+          <SettingsSelect
+            reducer="datasets"
+            items={options.datasets}
+            selectedIdx={0}
+            label='Dataset'
+            handleChange={this.props.setDataset}/>
           <SettingsButton label='Import Dataset...'/>
         </Panel>
+
         <Panel header="Physiology" key="2">
-          <SettingsSelect items={options.species} selectedIdx={0} label='Target Species'/>
-          <SettingsCheckBox label='Include Age Dependence' id='agedepcb' checked={true}/>
-          <SettingsCheckBox label='Include Variability' id='variabilitycb' checked={true}/>
-          <SettingsNumericInput label='Population Size' defaultVal={50}/>
-          <SettingsNumericInput label='Percent Male' defaultVal={50}/>
-          <SettingsNumericInput label='Minimum Age (years)' defaultVal={10}/>
-          <SettingsNumericInput label='Maximum Age (years)' defaultVal={80}/>
+          <SettingsSelect
+            handleChange={this.props.setDataset}
+            reducer="species"
+            items={options.species}
+            selectedIdx={0}
+          label='Target Species'/>
+          <SettingsCheckBox
+            handleChange={this.props.setDataset}
+            reducer="ageDep"
+            label='Include Age Dependence'
+            id='agedepcb'
+            checked={true}/>
+          <SettingsCheckBox
+            handleChange={this.props.setDataset}
+            reducer="variability"
+            label='Include Variability'
+            id='variabilitycb'
+            checked={true}/>
+          <SettingsNumericInput
+            handleChange={this.props.setDataset}
+            reducer="popSize"
+            label='Population Size'
+            defaultVal={50}/>
+          <SettingsNumericInput
+            handleChange={this.props.setDataset}
+            reducer="perMale"
+            label='Percent Male'
+            defaultVal={50}/>
+          <SettingsNumericInput
+            handleChange={this.props.setDataset}
+            reducer="minAge"
+            label='Minimum Age (years)'
+            defaultVal={10}/>
+          <SettingsNumericInput
+            handleChange={this.props.setDataset}
+            reducer="maxAge"
+            label='Maximum Age (years)'
+            defaultVal={80}/>
         </Panel>
+
         <Panel header="ADME" key="3">
-          <SettingsSelect items={options.metabParameterSource} selectedIdx={1} label='Metabolic Parameter Source'/>
-          <SettingsSelect items={options.assayType} selectedIdx={0} label='In Vitro Assay'/>
-          <SettingsCheckBox label='Use Saturable Metabolism' id='satmetabcb' checked={true}/>
-          <SettingsSelect items={options.renalElimSource} selectedIdx={0} label='Renal Elimination Source'/>
-          <SettingsCheckBox label='Include Enterohepatic Cycling' id='includeehccb' checked={true}/>
+          <SettingsSelect
+            reducer="adme"
+            handleChange={this.handleChange}
+            items={options.metabParameterSource}
+            selectedIdx={1}
+          label='Metabolic Parameter Source'/>
+          <SettingsSelect
+            reducer="ivAssay"
+            handleChange={this.handleChange}
+            items={options.assayType}
+            selectedIdx={0}
+          label='In Vitro Assay'/>
+          <SettingsCheckBox
+            reducer="satMet"
+            handleChange={this.handleChange}
+            label='Use Saturable Metabolism'
+            id='satmetabcb'
+            checked={true}/>
+          <SettingsSelect
+            reducer="renalElim"
+            handleChange={this.handleChange}
+            items={options.renalElimSource}
+            selectedIdx={0}
+          label='Renal Elimination Source'/>
+          <SettingsCheckBox
+            reducer="includeehccb"
+            handleChange={this.handleChange}
+            label='Include Enterohepatic Cycling'
+            id='includeehccb'
+            checked={true}/>
         </Panel>
+
         <Panel header="Simulation" key="4">
-          <SettingsNumericInput label='Time Step (hours)' defaultVal={0.1}/>
-          <SettingsNumericInput label='Start Age (years)' defaultVal={25}/>
-          <SettingsNumericInput label='Duration (days)' defaultVal={7}/>
+          <SettingsNumericInput
+            reducer="timestep"
+            handleChange={this.handleChange}
+            label='Time Step (hours)'
+            defaultVal={0.1}/>
+          <SettingsNumericInput
+            reducer="startAge"
+            handleChange={this.handleChange}
+            label='Start Age (years)'
+            defaultVal={25}/>
+          <SettingsNumericInput
+            reducer="duration"
+            handleChange={this.handleChange}
+            label='Duration (days)'
+            defaultVal={7}/>
         </Panel>
+
       </Collapse>
     </Sider> );
   }
@@ -85,3 +195,15 @@ const styles = {
     padding: '8px'
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    state
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({...SettingsActions}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

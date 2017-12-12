@@ -16,10 +16,13 @@ class SettingsCheckBox extends Component {
 
   render() {
     // console.log(this.state.checked);
-    const { id, checked, label } = this.props;
+    const { id, checked, label, reducer } = this.props;
     return (
       <div className='checkbox-wrapper' >
-        <Checkbox id={id} defaultChecked={checked} onChange={this.onChange}>
+        <Checkbox 
+          reducer={reducer}
+          defaultChecked={checked}
+          onChange={this.props.handleChange}>
           {label}
         </Checkbox>
       </div> )

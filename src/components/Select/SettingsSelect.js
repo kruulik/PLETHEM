@@ -20,13 +20,9 @@ class SettingsSelect extends React.Component {
     )
   }
 
-  onChange = (value) => {
-    this.setState({selected: value})
-  }
-
   render() {
-    console.log(this.state.selected);
-    const { items, selectedIdx, label } = this.props;
+    // console.log(this.state.selected);
+    const { items, selectedIdx, label, reducer } = this.props;
     const defaultValue = items[selectedIdx];
 
     return (
@@ -34,7 +30,13 @@ class SettingsSelect extends React.Component {
         <div className='label' style={style.label}>
           {label}
         </div>
-        <Select size='default' defaultValue={defaultValue} style={style.select} placeholder={this.props.placeholder} onChange={this.onChange}>
+        <Select
+          size='default'
+          reducer={reducer}
+          defaultValue={defaultValue}
+          style={style.select}
+          placeholder={this.props.placeholder} onChange={this.props.handleChange}
+        >
           {this.mapOptions(items)}
         </Select>
       </div>
