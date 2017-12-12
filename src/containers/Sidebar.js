@@ -85,19 +85,19 @@ class Sidebar extends Component {
             <SettingsNumericInput
               handleChange={this.props.setPopSize}
               label='Population Size'
-              defaultVal={50}/>
+              defaultVal={settings.popSize ? settings.popSize : 50}/>
             <SettingsNumericInput
               handleChange={this.props.setPercMale}
               label='Percent Male'
-              defaultVal={50}/>
+              defaultVal={settings.percMale ? settings.percMale : 50}/>
             <SettingsNumericInput
               handleChange={this.props.setMinAge}
               label='Minimum Age (years)'
-              defaultVal={10}/>
+              defaultVal={settings.minAge ? settings.minAge : 10}/>
             <SettingsNumericInput
               handleChange={this.props.setMaxAge}
               label='Maximum Age (years)'
-              defaultVal={80}/>
+              defaultVal={settings.maxAge ? settings.maxAge : 80}/>
           </Panel>
 
           <Panel header="ADME" key="3">
@@ -105,7 +105,7 @@ class Sidebar extends Component {
               reducer="metParaSource"
               handleChange={this.props.setMetParaSource}
               items={options.metabParameterSource}
-              defaultVal={1}
+              defaultVal={settings.metParaSource}
             label='Metabolic Parameter Source'/>
             <SettingsSelect
               reducer="ivAssay"
@@ -138,17 +138,17 @@ class Sidebar extends Component {
               reducer="timestep"
               handleChange={this.props.setTimestep}
               label='Time Step (hours)'
-              defaultVal={0.1}/>
+              defaultVal={settings.timestep ? settings.timestep : 0.1}/>
             <SettingsNumericInput
               reducer="startAge"
               handleChange={this.props.setStartAge}
               label='Start Age (years)'
-              defaultVal={25}/>
+              defaultVal={settings.startAge ? settings.startAge : 25}/>
             <SettingsNumericInput
               reducer="duration"
               handleChange={this.props.setDuration}
               label='Duration (days)'
-              defaultVal={7}/>
+              defaultVal={settings.duration ? settings.duration : 7}/>
           </Panel>
 
         </Collapse>

@@ -34,7 +34,6 @@ const settings = ( state = initialState, action ) => {
     case CHANGE_SPECIES:
       return merge( {}, state, { species: action.value } );;
     case CHANGE_AGEDEP:
-    debugger
       return merge( {}, state, { ageDep: action.value } );;
     case CHANGE_VARIABILITY:
       return merge( {}, state, { variability: action.value } );;

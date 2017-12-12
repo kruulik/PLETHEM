@@ -13,7 +13,6 @@ class SettingsCheckBox extends Component {
     if (typeof this.props.checked !== 'undefined') {
       this.handleChange(this.state.checked);
     } else {
-      debugger
       this.props.handleChange(true)
     }
   }
