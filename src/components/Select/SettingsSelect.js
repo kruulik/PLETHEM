@@ -6,7 +6,7 @@ class SettingsSelect extends React.Component {
   constructor(props){
     super(props);
     this.state = ({
-      selected: this.props.items[this.props.selectedIdx]
+      selected: this.props.defaultVal
     })
   }
 
@@ -21,17 +21,17 @@ class SettingsSelect extends React.Component {
   }
 
   componentDidMount(){
-    if (this.props.selectedIdx){
+    if (this.props.defaultVal){
       this.props.handleChange(this.state.selected);
     } else {
-      debugger
+      this.props.handleChange(this.props.items[0]);
     }
-
   }
+
 
   render() {
     // console.log(this.state.selected);
-    const { items, selectedIdx, label, reducer } = this.props;
+    const { items, defaultVal, label, reducer } = this.props;
     const defaultValue = items[0];
 
     return (
@@ -42,7 +42,7 @@ class SettingsSelect extends React.Component {
         <Select
           size='default'
           reducer={reducer}
-          defaultValue={selectedIdx}
+          defaultValue={defaultVal ? defaultVal : this.props.items[0]}
           style={style.select}
           placeholder={this.props.placeholder} onChange={this.props.handleChange}
         >

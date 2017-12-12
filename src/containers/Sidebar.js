@@ -60,7 +60,7 @@ class Sidebar extends Component {
             <SettingsSelect
               reducer="datasets"
               items={options.datasets}
-              selectedIdx={settings.dataset}
+              defaultVal={settings.dataset}
               label='Dataset'
               handleChange={this.props.setDataset}/>
             <SettingsButton label='Import Dataset...'/>
@@ -70,7 +70,7 @@ class Sidebar extends Component {
             <SettingsSelect
               handleChange={this.props.setSpecies}
               items={options.species}
-              selectedIdx={settings.species}
+              defaultVal={settings.species}
             label='Target Species'/>
             <SettingsCheckBox
               handleChange={this.props.setAgeDep}
@@ -81,7 +81,7 @@ class Sidebar extends Component {
               handleChange={this.props.setVariability}
               label='Include Variability'
               id='variabilitycb'
-              checked={true}/>
+              checked={settings.variability}/>
             <SettingsNumericInput
               handleChange={this.props.setPopSize}
               label='Population Size'
@@ -105,13 +105,13 @@ class Sidebar extends Component {
               reducer="metParaSource"
               handleChange={this.props.setMetParaSource}
               items={options.metabParameterSource}
-              selectedIdx={1}
+              defaultVal={1}
             label='Metabolic Parameter Source'/>
             <SettingsSelect
               reducer="ivAssay"
               handleChange={this.props.setIVAssay}
               items={options.assayType}
-              selectedIdx={0}
+              defaultVal={0}
             label='In Vitro Assay'/>
             <SettingsCheckBox
               reducer="satMet"
@@ -123,7 +123,7 @@ class Sidebar extends Component {
               reducer="renalElim"
               handleChange={this.props.setRenalElim}
               items={options.renalElimSource}
-              selectedIdx={0}
+              defaultVal={0}
             label='Renal Elimination Source'/>
             <SettingsCheckBox
               reducer="includeehccb"

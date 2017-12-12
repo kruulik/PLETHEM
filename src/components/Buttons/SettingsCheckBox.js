@@ -10,7 +10,12 @@ class SettingsCheckBox extends Component {
   }
 
   componentDidMount(){
-    this.handleChange();
+    if (typeof this.props.checked !== 'undefined') {
+      this.handleChange(this.state.checked);
+    } else {
+      debugger
+      this.props.handleChange(true)
+    }
   }
 
   handleChange = () => {
@@ -24,7 +29,7 @@ class SettingsCheckBox extends Component {
     return (
       <div className='checkbox-wrapper' >
         <Checkbox
-          defaultChecked={checked}
+          defaultChecked={typeof checked === 'undefined' ? true : checked }
           onChange={this.handleChange}>
           {label}
         </Checkbox>
