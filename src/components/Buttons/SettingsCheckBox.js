@@ -10,7 +10,8 @@ class SettingsCheckBox extends Component {
     // this.onChange = this.onChange.bind(this);
   }
 
-  onChange = (e) => {
+  onChange(e) {
+    debugger
     this.setState({checked: e.target.checked});
   }
 
@@ -19,10 +20,10 @@ class SettingsCheckBox extends Component {
     const { id, checked, label, reducer } = this.props;
     return (
       <div className='checkbox-wrapper' >
-        <Checkbox 
+        <Checkbox
           reducer={reducer}
           defaultChecked={checked}
-          onChange={this.props.handleChange}>
+          onChange={(e) => this.props.handleChange(e)}>
           {label}
         </Checkbox>
       </div> )

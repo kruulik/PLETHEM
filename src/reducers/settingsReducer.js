@@ -22,9 +22,9 @@ const settings = ( state = initialState, action ) => {
     case CHANGE_SPECIES:
       return merge( {}, state, { species: action.value } );;
     case CHANGE_AGEDEP:
-      return merge( {}, state, { ageDep: action.value } );;
+      return merge( {}, state, { ageDep: action.value.target.checked } );;
     case CHANGE_VARIABILITY:
-      return merge( {}, state, { variability: action.value } );;
+      return merge( {}, state, { variability: action.value.target.checked } );;
     case CHANGE_POPSIZE:
       return merge( {}, state, { popSize: action.value } );;
     case CHANGE_PERCMALE:
