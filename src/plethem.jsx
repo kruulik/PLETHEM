@@ -4,7 +4,7 @@ import { AppContainer } from 'react-hot-loader'; // required for HMR
 import merge from 'lodash/merge';
 
 import configureStore from 'store/configureStore';
-import Root from 'views/Root';
+import Root from 'containers/Root';
 
 import 'stylesheets/main.scss';
 

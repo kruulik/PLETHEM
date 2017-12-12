@@ -8,10 +8,6 @@ const { Header } = Layout;
 
 export default class AppHeader extends Component {
 
-  componentDidMount(){
-    this.props.requestTestState('some BS');
-  }
-
   render() {
     return (
       <Header className="app-header">

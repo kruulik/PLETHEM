@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Switch, Route, Link, Redirect} from 'react-router-dom';
 
-import { Header } from 'components';
-import { Sidebar } from 'components';
+import Sidebar from './Sidebar';
+import Header from './Header';
 
 import { Layout } from 'antd';
 const { Content, Sider } = Layout;
