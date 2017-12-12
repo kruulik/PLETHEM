@@ -35,7 +35,7 @@ const options = {
 export default class Sidebar extends Component {
 
   render() {
-    return (<Sider className="app-sidebar" width={300} style={styles.sidebar}>
+    return ( <Sider className="app-sidebar" width={300} style={styles.sidebar}>
       <Collapse style={styles.collapse} bordered={false} defaultActiveKey={[ '1', '2', '3', '4' ]}>
         <Panel header="Compound Data" key="1">
           <SettingsSelect items={options.datasets} selectedIdx={0} label='Dataset'/>
@@ -63,12 +63,25 @@ export default class Sidebar extends Component {
           <SettingsNumericInput label='Duration (days)' defaultVal={7}/>
         </Panel>
       </Collapse>
-    </Sider>
-    ); } } Sidebar.propTypes = {onPress: PropTypes.func}; const styles = {
-      collapse: {
-        width: '100%',
-        backgroundColor: '#eee',
-        borderStyle: 'none'
-      },
-      sidebar: {}
-    }
+    </Sider> );
+  }
+}
+
+Sidebar.propTypes = {
+  onPress: PropTypes.func
+};
+const styles = {
+  collapse: {
+    width: '100%',
+    backgroundColor: '#eee',
+    borderStyle: 'none'
+  },
+  sidebar: {
+    overflow: 'auto',
+    height: 'calc(100vh - 60px)',
+    position: 'fixed',
+    left: 0,
+    top: '60px',
+    padding: '8px'
+  }
+}
