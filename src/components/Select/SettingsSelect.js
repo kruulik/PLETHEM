@@ -21,13 +21,18 @@ class SettingsSelect extends React.Component {
   }
 
   componentDidMount(){
-    this.props.handleChange(this.state.selected);
+    if (this.props.selectedIdx){
+      this.props.handleChange(this.state.selected);
+    } else {
+      debugger
+    }
+
   }
 
   render() {
     // console.log(this.state.selected);
     const { items, selectedIdx, label, reducer } = this.props;
-    const defaultValue = items[selectedIdx];
+    const defaultValue = items[0];
 
     return (
       <div className='setting-wrapper'>
@@ -37,7 +42,7 @@ class SettingsSelect extends React.Component {
         <Select
           size='default'
           reducer={reducer}
-          defaultValue={defaultValue}
+          defaultValue={selectedIdx}
           style={style.select}
           placeholder={this.props.placeholder} onChange={this.props.handleChange}
         >

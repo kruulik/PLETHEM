@@ -42,6 +42,9 @@ class Sidebar extends Component {
   }
 
   render() {
+
+    const {settings} = this.props;
+
     return (
       <Sider
         className="app-sidebar"
@@ -57,7 +60,7 @@ class Sidebar extends Component {
             <SettingsSelect
               reducer="datasets"
               items={options.datasets}
-              selectedIdx={0}
+              selectedIdx={settings.dataset}
               label='Dataset'
               handleChange={this.props.setDataset}/>
             <SettingsButton label='Import Dataset...'/>
@@ -67,13 +70,13 @@ class Sidebar extends Component {
             <SettingsSelect
               handleChange={this.props.setSpecies}
               items={options.species}
-              selectedIdx={0}
+              selectedIdx={settings.species}
             label='Target Species'/>
             <SettingsCheckBox
               handleChange={this.props.setAgeDep}
               label='Include Age Dependence'
               id='agedepcb'
-              checked={true}/>
+              checked={settings.ageDep}/>
             <SettingsCheckBox
               handleChange={this.props.setVariability}
               label='Include Variability'
@@ -173,8 +176,9 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
+  const settings = state.settings
   return {
-    state
+    settings
   };
 };
 

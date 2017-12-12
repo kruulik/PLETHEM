@@ -10,12 +10,11 @@ class SettingsNumericInput extends Component {
     })
   }
 
-  onChange = (e) => {
-    this.setState({value: e})
+  componentDidMount(){
+    this.props.handleChange(this.state.value)
   }
 
   render() {
-    // console.log(this.state.value)
     const { label, defaultVal, reducer } = this.props;
     return (
       <div className='settingdiv'>
@@ -31,7 +30,7 @@ class SettingsNumericInput extends Component {
                   type='secondary'
                   size='default'
                   defaultValue={defaultVal}
-                  onChange={() => this.props.handleChange(this.state.checked)}/>
+                  onChange={this.props.handleChange}/>
               </td>
             </tr>
           </tbody>
