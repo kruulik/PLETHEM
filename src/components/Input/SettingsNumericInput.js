@@ -3,9 +3,20 @@ import React, { Component } from 'react';
 import { InputNumber } from 'antd';
 
 class SettingsNumericInput extends Component {
+  constructor(props){
+    super(props);
+    this.state = ({
+      value: this.props.defaultVal
+    })
+  }
+
+  onChange = (e) => {
+    this.setState({value: e})
+  }
 
   render() {
-    const { label, defaultVal } = this.props; 
+    // console.log(this.state.value)
+    const { label, defaultVal } = this.props;
     return (
       <div className='settingdiv'>
         <table style={style}>
@@ -15,7 +26,7 @@ class SettingsNumericInput extends Component {
                 {label}
               </td>
               <td width='30%'>
-                <InputNumber type='secondary' size='default' defaultValue={defaultVal}/>
+                <InputNumber type='secondary' size='default' defaultValue={defaultVal} onChange={this.onChange}/>
               </td>
             </tr>
           </tbody>

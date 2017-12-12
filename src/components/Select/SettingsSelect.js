@@ -3,6 +3,12 @@ import { Select } from 'antd';
 const Option = Select.Option
 
 class SettingsSelect extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = ({
+      selected: this.props.items[this.props.selectedIdx]
+    })
+  }
 
   mapOptions(items) {
     return (
@@ -14,7 +20,12 @@ class SettingsSelect extends React.Component {
     )
   }
 
+  onChange = (value) => {
+    this.setState({selected: value})
+  }
+
   render() {
+    console.log(this.state.selected);
     const { items, selectedIdx, label } = this.props;
     const defaultValue = items[selectedIdx];
 
@@ -23,7 +34,7 @@ class SettingsSelect extends React.Component {
         <div className='label' style={style.label}>
           {label}
         </div>
-        <Select size='default' defaultValue={defaultValue} style={style.select} placeholder={this.props.placeholder}>
+        <Select size='default' defaultValue={defaultValue} style={style.select} placeholder={this.props.placeholder} onChange={this.onChange}>
           {this.mapOptions(items)}
         </Select>
       </div>
