@@ -41,31 +41,6 @@ class Sidebar extends Component {
     super(props);
   }
 
-  // handleChange(value){
-  //   debugger
-  //   switch(this.reducer){
-  //     case "datasets":
-  //     case "species":
-  //     case "ageDep":
-  //     case "variability":
-  //     case "popSize":
-  //     case "perMale":
-  //     case "minAge":
-  //     case "maxAge":
-  //     case "adme":
-  //     case "ivAssay":
-  //     case "satMet":
-  //     case "renalElim":
-  //     case "includeehccb":
-  //     case "timeStep":
-  //     case "startAge":
-  //     case "duration":
-  //     default:
-  //     console.log(this.reducer, value);
-  //     break;
-  //   }
-  // }
-
   render() {
     return ( <Sider className="app-sidebar" width={300} style={styles.sidebar}>
       <Collapse style={styles.collapse} bordered={false} defaultActiveKey={[ '1', '2', '3', '4' ]}>
@@ -82,41 +57,35 @@ class Sidebar extends Component {
 
         <Panel header="Physiology" key="2">
           <SettingsSelect
-            handleChange={this.props.setDataset}
-            reducer="species"
+            handleChange={this.props.setSpecies}
             items={options.species}
             selectedIdx={0}
           label='Target Species'/>
           <SettingsCheckBox
-            handleChange={this.props.setDataset}
-            reducer="ageDep"
+            handleChange={this.props.setAgeDep}
             label='Include Age Dependence'
             id='agedepcb'
             checked={true}/>
           <SettingsCheckBox
-            handleChange={this.props.setDataset}
+            handleChange={this.props.setVariability}
             reducer="variability"
             label='Include Variability'
             id='variabilitycb'
             checked={true}/>
           <SettingsNumericInput
-            handleChange={this.props.setDataset}
-            reducer="popSize"
+            handleChange={this.props.setPopSize}
             label='Population Size'
             defaultVal={50}/>
           <SettingsNumericInput
-            handleChange={this.props.setDataset}
-            reducer="perMale"
+            handleChange={this.props.setPercMale}
             label='Percent Male'
             defaultVal={50}/>
           <SettingsNumericInput
-            handleChange={this.props.setDataset}
-            reducer="minAge"
+            handleChange={this.props.setMinAge}
             label='Minimum Age (years)'
             defaultVal={10}/>
           <SettingsNumericInput
-            handleChange={this.props.setDataset}
-            reducer="maxAge"
+            handleChange={this.props.setMaxAge}
             label='Maximum Age (years)'
             defaultVal={80}/>
         </Panel>
