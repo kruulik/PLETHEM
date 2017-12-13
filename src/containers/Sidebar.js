@@ -41,10 +41,13 @@ class Sidebar extends Component {
     super(props);
   }
 
+  componentWillReceiveProps(){
+    debugger
+  }
+
   render() {
 
     const {settings} = this.props;
-
     return (
       <Sider
         className="app-sidebar"

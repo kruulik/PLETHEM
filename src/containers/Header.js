@@ -9,15 +9,13 @@ import PropTypes from 'prop-types';
 import { Layout, Button, Icon } from 'antd';
 const { Header } = Layout;
 
-import * as FileActions from 'actions/fileActions';
+import * as ProjectActions from 'actions/projectActions';
 
 class AppHeader extends Component {
 
   constructor(props) {
   super(props)
 
-    // this.readFiles = this.readFiles.bind(this);
-    this.upload = this.upload.bind(this);
   }
 
   handleSave = () => {
@@ -37,19 +35,13 @@ class AppHeader extends Component {
 
   readFiles = ( input ) => {
     const reader = new FileReader();
-    const file = reader.onload = (e) => {
-      debugger
-      return reader.result;
+    const upload = this.props.uploadProject
+    reader.onload = (e) => {
+      const project = JSON.parse(reader.result);
+      return upload(project)
     }
-
-    debugger
     reader.readAsText( input.target.files[ 0 ] );
   }
-
-  upload(file) {
-    this.props.uploadProject
-  }
-
 
   render() {
 
@@ -82,9 +74,7 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators( {
-    ...FileActions
-  }, dispatch );
+  return bindActionCreators({...ProjectActions}, dispatch);
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( AppHeader );

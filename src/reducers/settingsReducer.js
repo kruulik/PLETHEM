@@ -17,6 +17,7 @@ import {
   CHANGE_DURATION
 } from '../actions/settingsActions';
 
+
 import merge from 'lodash/merge';
 
 const initialState = {};
@@ -25,7 +26,7 @@ const settings = ( state = initialState, action ) => {
   Object.freeze( state );
 
   switch ( action.type ) {
-
+  
     // Dataset
     case CHANGE_DATASET:
       return merge( {}, state, { dataset: action.value } );;
