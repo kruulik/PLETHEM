@@ -39,15 +39,18 @@ class Sidebar extends Component {
 
   constructor(props){
     super(props);
+    this.state = ({
+      settings: this.props.settings
+    })
   }
 
-  componentWillReceiveProps(){
-    debugger
+  componentWillReceiveProps(nextProps){
+    this.setState({settings: nextProps.settings})
   }
 
   render() {
 
-    const {settings} = this.props;
+    const {settings} = this.state;
     return (
       <Sider
         className="app-sidebar"
@@ -63,7 +66,7 @@ class Sidebar extends Component {
             <SettingsSelect
               reducer="datasets"
               items={options.datasets}
-              defaultVal={settings.dataset}
+              value={settings.dataset}
               label='Dataset'
               handleChange={this.props.setDataset}/>
             <SettingsButton label='Import Dataset...'/>
@@ -73,7 +76,7 @@ class Sidebar extends Component {
             <SettingsSelect
               handleChange={this.props.setSpecies}
               items={options.species}
-              defaultVal={settings.species}
+              value={settings.species}
             label='Target Species'/>
             <SettingsCheckBox
               handleChange={this.props.setAgeDep}
@@ -88,19 +91,19 @@ class Sidebar extends Component {
             <SettingsNumericInput
               handleChange={this.props.setPopSize}
               label='Population Size'
-              defaultVal={settings.popSize ? settings.popSize : 50}/>
+              value={settings.popSize ? settings.popSize : 50}/>
             <SettingsNumericInput
               handleChange={this.props.setPercMale}
               label='Percent Male'
-              defaultVal={settings.percMale ? settings.percMale : 50}/>
+              value={settings.percMale ? settings.percMale : 50}/>
             <SettingsNumericInput
               handleChange={this.props.setMinAge}
               label='Minimum Age (years)'
-              defaultVal={settings.minAge ? settings.minAge : 10}/>
+              value={settings.minAge ? settings.minAge : 10}/>
             <SettingsNumericInput
               handleChange={this.props.setMaxAge}
               label='Maximum Age (years)'
-              defaultVal={settings.maxAge ? settings.maxAge : 80}/>
+              value={settings.maxAge ? settings.maxAge : 80}/>
           </Panel>
 
           <Panel header="ADME" key="3">
@@ -108,13 +111,13 @@ class Sidebar extends Component {
               reducer="metParaSource"
               handleChange={this.props.setMetParaSource}
               items={options.metabParameterSource}
-              defaultVal={settings.metParaSource}
+              value={settings.metParaSource}
             label='Metabolic Parameter Source'/>
             <SettingsSelect
               reducer="ivAssay"
               handleChange={this.props.setIVAssay}
               items={options.assayType}
-              defaultVal={0}
+              value={0}
             label='In Vitro Assay'/>
             <SettingsCheckBox
               reducer="satMet"
@@ -126,7 +129,7 @@ class Sidebar extends Component {
               reducer="renalElim"
               handleChange={this.props.setRenalElim}
               items={options.renalElimSource}
-              defaultVal={0}
+              value={0}
             label='Renal Elimination Source'/>
             <SettingsCheckBox
               reducer="includeehccb"
@@ -141,17 +144,17 @@ class Sidebar extends Component {
               reducer="timestep"
               handleChange={this.props.setTimestep}
               label='Time Step (hours)'
-              defaultVal={settings.timestep ? settings.timestep : 0.1}/>
+              value={settings.timestep ? settings.timestep : 0.1}/>
             <SettingsNumericInput
               reducer="startAge"
               handleChange={this.props.setStartAge}
               label='Start Age (years)'
-              defaultVal={settings.startAge ? settings.startAge : 25}/>
+              value={settings.startAge ? settings.startAge : 25}/>
             <SettingsNumericInput
               reducer="duration"
               handleChange={this.props.setDuration}
               label='Duration (days)'
-              defaultVal={settings.duration ? settings.duration : 7}/>
+              value={settings.duration ? settings.duration : 7}/>
           </Panel>
 
         </Collapse>
