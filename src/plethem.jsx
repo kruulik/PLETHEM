@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Webpack Hot Module Replacement API
   if (module.hot) {
-    module.hot.accept('./views/Root', () => { render(Root) })
+    module.hot.accept('./containers/Root', () => { render(Root) })
   }
 
 });
