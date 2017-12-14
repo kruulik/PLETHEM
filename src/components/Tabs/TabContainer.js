@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import {Switch, Route, Link, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import Sidebar from './Sidebar';
-import Header from './Header';
 
 import { Tabs } from 'antd';
 const TabPane = Tabs.TabPane;
+
+import { EditableTable } from 'components';
 
 class TabContainer extends Component {
 
@@ -14,7 +12,7 @@ class TabContainer extends Component {
     return (
       <Tabs type="card">
         <TabPane tab="Organisms" key="1">
-          <div>Tab Contents</div>
+          <EditableTable />
         </TabPane>
         <TabPane tab="Exposure Scenarios" key="2">
           <div>Tab Contents</div>

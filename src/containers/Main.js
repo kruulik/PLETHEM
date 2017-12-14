@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 import Sidebar from './Sidebar';
 import Header from './Header';
-import TabContainer from './TabContainer';
+
+import { TabContainer } from 'components';
 
 import { Layout } from 'antd';
 // const TabPane = Tabs.TabPane;
@@ -21,7 +22,6 @@ class Main extends Component {
         <Layout style={style.contentWrapper}>
           <Content style={{ height: '100%', overflow: 'initial'}}>
             <TabContainer />
-
           </Content>
         </Layout>
       </Layout>
