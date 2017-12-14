@@ -29,18 +29,23 @@ class SettingsCheckBox extends Component {
 
   render() {
     const { id, checked, label, reducer } = this.props;
-    const val = this.state.checked
+
+// This is just stupid but it works:
+// checked={checked.target ? checked.target.checked : checked}
+
     return (
       <div className='checkbox-wrapper' >
         <Checkbox
-          defaultChecked={typeof checked === 'undefined' ? true : checked }
-          onChange={this.handleChange}>
+          checked={checked.target ? checked.target.checked : checked}
+          onChange={this.props.handleChange}>
           {label}
         </Checkbox>
       </div>
     )
   }
 }
+
+// defaultChecked={typeof checked === 'undefined' ? true : checked }
 
 export default SettingsCheckBox;
 

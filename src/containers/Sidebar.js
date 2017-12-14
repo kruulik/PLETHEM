@@ -76,18 +76,18 @@ class Sidebar extends Component {
             <SettingsSelect
               handleChange={this.props.setSpecies}
               items={options.species}
-              value={settings.species}
+              value={settings.species ? settings.species : options.species[0]}
             label='Target Species'/>
             <SettingsCheckBox
               handleChange={this.props.setAgeDep}
               label='Include Age Dependence'
               id='agedepcb'
-              checked={settings.ageDep}/>
+              checked={typeof settings.ageDep !== 'undefined' ? settings.ageDep : true}/>
             <SettingsCheckBox
               handleChange={this.props.setVariability}
               label='Include Variability'
               id='variabilitycb'
-              checked={settings.variability}/>
+              checked={typeof settings.variability !== 'undefined' ? settings.variability : true}/>
             <SettingsNumericInput
               handleChange={this.props.setPopSize}
               label='Population Size'
@@ -108,50 +108,42 @@ class Sidebar extends Component {
 
           <Panel header="ADME" key="3">
             <SettingsSelect
-              reducer="metParaSource"
               handleChange={this.props.setMetParaSource}
               items={options.metabParameterSource}
-              value={settings.metParaSource}
+              value={settings.metParaSource ? settings.metParaSource : options.metabParameterSource[0]}
             label='Metabolic Parameter Source'/>
             <SettingsSelect
-              reducer="ivAssay"
               handleChange={this.props.setIVAssay}
               items={options.assayType}
-              value={0}
+              value={settings.ivAssay ? settings.ivAssay : options.assayType[0]}
             label='In Vitro Assay'/>
             <SettingsCheckBox
-              reducer="satMet"
               handleChange={this.props.setSatMet}
               label='Use Saturable Metabolism'
               id='satmetabcb'
-              checked={true}/>
+              checked={typeof settings.satMet !== 'undefined' ? settings.satMet : true}/>
             <SettingsSelect
-              reducer="renalElim"
               handleChange={this.props.setRenalElim}
               items={options.renalElimSource}
-              value={0}
+              value={settings.renalElim ? settings.renalElim : options.renalElimSource[0]}
             label='Renal Elimination Source'/>
             <SettingsCheckBox
-              reducer="includeehccb"
               handleChange={this.props.setIncludeEhccb}
               label='Include Enterohepatic Cycling'
               id='includeehccb'
-              checked={true}/>
+              checked={typeof settings.includeehccb !== 'undefined' ? settings.includeehccb : true}/>
           </Panel>
 
           <Panel header="Simulation" key="4">
             <SettingsNumericInput
-              reducer="timestep"
               handleChange={this.props.setTimestep}
               label='Time Step (hours)'
               value={settings.timestep ? settings.timestep : 0.1}/>
             <SettingsNumericInput
-              reducer="startAge"
               handleChange={this.props.setStartAge}
               label='Start Age (years)'
               value={settings.startAge ? settings.startAge : 25}/>
             <SettingsNumericInput
-              reducer="duration"
               handleChange={this.props.setDuration}
               label='Duration (days)'
               value={settings.duration ? settings.duration : 7}/>

@@ -29,7 +29,6 @@ const settings = ( state = initialState, action ) => {
 
     // Dataset
     case CHANGE_DATASET:
-    debugger
       return merge( {}, state, { dataset: action.value } );;
 
     // Physiology
