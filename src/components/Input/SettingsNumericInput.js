@@ -14,12 +14,13 @@ class SettingsNumericInput extends Component {
     this.props.handleChange(this.state.value)
   }
 
+// This ensures each child component rerenders
   componentWillReceiveProps(nextProps){
     this.setState({value: nextProps.value})
   }
 
   render() {
-    const { label, value, reducer } = this.props;
+    const { label, value } = this.props;
     return (
       <div className='settingdiv'>
         <table style={style}>
@@ -30,7 +31,6 @@ class SettingsNumericInput extends Component {
               </td>
               <td width='30%'>
                 <InputNumber
-                  reducer={reducer}
                   type='secondary'
                   size='default'
                   value={value}

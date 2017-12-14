@@ -25,10 +25,12 @@ export const CHANGE_DURATION = 'CHANGE_DURATION';
 
 
 // Dataset
-export const setDataset = value => ({
+export const setDataset = value => {
+debugger
+  return{
     type: CHANGE_DATASET,
     value
-})
+}}
 
 // Physiology
 export const setSpecies = value => ({

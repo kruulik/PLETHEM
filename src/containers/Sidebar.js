@@ -66,7 +66,7 @@ class Sidebar extends Component {
             <SettingsSelect
               reducer="datasets"
               items={options.datasets}
-              value={settings.dataset}
+              value={settings.dataset ? settings.dataset : options.datasets[0]}
               label='Dataset'
               handleChange={this.props.setDataset}/>
             <SettingsButton label='Import Dataset...'/>

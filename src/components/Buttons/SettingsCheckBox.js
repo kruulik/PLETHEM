@@ -17,6 +17,11 @@ class SettingsCheckBox extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    // debugger
+    this.setState({checked: nextProps.checked})
+  }
+
   handleChange = () => {
     this.setState({checked: !this.state.checked})
     this.props.handleChange(this.state.checked)

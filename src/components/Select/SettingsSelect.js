@@ -6,7 +6,7 @@ class SettingsSelect extends React.Component {
   constructor(props){
     super(props);
     this.state = ({
-      selected: this.props.defaultVal
+      selected: this.props.value
     })
   }
 
@@ -21,19 +21,15 @@ class SettingsSelect extends React.Component {
   }
 
   componentDidMount(){
-    if (this.props.defaultVal){
-      this.props.handleChange(this.state.selected);
-    } else {
-      this.props.handleChange(this.props.items[0]);
-    }
+    this.props.handleChange(this.state.selected)
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({selected: nextProps.value})
+  }
 
   render() {
-    // console.log(this.state.selected);
-    const { items, defaultVal, label, reducer } = this.props;
-    const defaultValue = items[0];
-
+    const { items, value, label } = this.props;
     return (
       <div className='setting-wrapper'>
         <div className='label' style={style.label}>
@@ -41,10 +37,9 @@ class SettingsSelect extends React.Component {
         </div>
         <Select
           size='default'
-          reducer={reducer}
-          defaultValue={defaultVal ? defaultVal : this.props.items[0]}
+          value={value}
           style={style.select}
-          placeholder={this.props.placeholder} onChange={this.props.handleChange}
+          onChange={this.props.handleChange}
         >
           {this.mapOptions(items)}
         </Select>
