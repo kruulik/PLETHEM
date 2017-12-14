@@ -50,7 +50,7 @@ class AppHeader extends Component {
         <span className="logo">PLETHEM PRO</span>
         <div className="right-nav">
           <Button type="default" onClick={this.handleSave} icon="download">Save Project</Button>
-          <Button type="default" onClick={this.selectFile} icon="upload">Save Project</Button>
+          <Button type="default" onClick={this.selectFile} icon="upload">Load Project</Button>
         </div>
         <input
           type="file"
