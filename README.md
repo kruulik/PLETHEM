@@ -1,5 +1,20 @@
 # PLETHEM
 
+## Running locally
+
+npm install
+
+To run dev:
+npm run start
+
+open on localhost:3000
+
+open dev console in chrome to see redux-logger
+
+### Functionality
+
+All settings panel UI elements affect the redux store directly. This can be seen in the stringified JSON and redux logger. Saving project downloads the state from localStorage as timestamped JSON file. Uploading a json file will update the state and UI to the correct parameters.  
+
 ## Overview
 This application is used to predict the health effects arising from exposure to various chemicals.  To do this, assorted lists of necessary input information are specified by the user in tables and other input fields in the UI.  These values are sent to the computational backend, which returns a variety of scalar and vector values to be displayed in other tables and plots within the UI.  It will be possible to perform analyses in “batch mode,” meaning the necessary information for a group of chemicals can be supplied and submitted to the backend for processing in parallel.  As such, it will be important for the UI to support asynchronous computation of predictions and resulting presentation of results, the details of which will be described in the following sections.
 
