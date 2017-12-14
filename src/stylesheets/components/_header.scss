@@ -1,5 +1,5 @@
 .app-header {
-  background-color: black;
+  // background-color: gray;
   height: 60px;
   position: fixed;
   display: flex;
@@ -11,6 +11,7 @@
   color: white;
   justify-content: space-between;
   padding: 0 12px 0 12px;
+  border-bottom: 1px solid lightgray;
 }
 
 .logo {
@@ -21,6 +22,9 @@
   vertical-align: middle;
 }
 
+.left-nav Button {
+  margin-left: 10px;
+}
 .right-nav Button {
   margin-left: 10px;
 }
