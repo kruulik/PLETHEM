@@ -1,0 +1,28 @@
+.setting-wrapper.left-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .label {
+    flex-shrink: 0;
+    margin-right: 8px;
+  }
+  .ant-select, .ant-input-number {
+    width: 40%;
+  }
+
+}
+
+.setting-wrapper {
+  width: 100%;
+  padding-bottom: 12px;
+  .ant-select {
+    width: 100%;
+  }
+  .ant-input-number {
+  width: 100%
+  }
+}
+
+.checkbox-wrapper {
+  margin-bottom: 8px;
+}

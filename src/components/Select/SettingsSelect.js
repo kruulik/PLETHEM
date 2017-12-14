@@ -29,9 +29,9 @@ class SettingsSelect extends React.Component {
   }
 
   render() {
-    const { items, value, label } = this.props;
+    const { items, value, label, classes } = this.props;
     return (
-      <div className='setting-wrapper'>
+      <div className={`setting-wrapper ${classes}`}>
         <div className='label' style={style.label}>
           {label}
         </div>
@@ -52,12 +52,7 @@ export default SettingsSelect;
 
 const style = {
   label: {
-    paddingBottom: '6px',
     paddingLeft: '2px',
     fontSize: '13px'
-  },
-  select: {
-    width: '100%',
-    paddingBottom: '12px'
   }
 }
