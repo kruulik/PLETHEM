@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import PropTypes from 'prop-types';
 
-import { Layout, Collapse } from 'antd';
+import { Layout, Collapse, Button } from 'antd';
 const { Sider } = Layout;
 const { Panel } = Collapse;
 
@@ -16,9 +16,15 @@ import { SettingsNumericInput } from 'components';
 import * as SettingsActions from 'actions/settingsActions';
 
 const options = {
-  datasets: ['Default HTTK Dataset', 'Other Dataset'],
+  analysisTypes: ['Default HTTK Dataset', 'Other Dataset'],
   species: [
     "Human", "Mouse", "Rat", "Dog"
+  ],
+  pcMethods: [
+    "QSAR", "Tissue Model", "User Specified"
+  ],
+  oralAbsMethods: [
+    "First Order", "Multicompartment Transit"
   ],
   metabParameterSource: [
     "User-specified", "IVIVE"
@@ -26,8 +32,20 @@ const options = {
   assayType: [
     "Human Liver Microsomes", "Hepatocytes", "S9 Fraction", "Individual Enzymes"
   ],
+  massUnits: [
+    "g", "mg", "ug", "mol", "mmol", "umol"
+  ],
+  timeUnits: [
+    "min", "h", "d"
+  ],
+  volUnits: [
+    "L", "mL"
+  ],
   metabType: [
     "Linear", "Saturable"
+  ],
+  algorithms: [
+    "Stiff", "Non-Stiff"
   ],
   metabParameterSource: [
     "User-specified", "IVIVE"
@@ -62,27 +80,12 @@ class Sidebar extends Component {
           bordered={false}
           defaultActiveKey={[ '1', '2', '3', '4' ]}>
 
-          <Panel header="Compound Data" key="1">
+          <Panel header="Analysis" key="1">
             <SettingsSelect
-              reducer="datasets"
-              items={options.datasets}
-              value={settings.dataset ? settings.dataset : options.datasets[0]}
-              label='Dataset'
-              handleChange={this.props.setDataset}/>
-            <SettingsButton label='Import Dataset...'/>
-          </Panel>
-
-          <Panel header="Physiology" key="2">
-            <SettingsSelect
-              handleChange={this.props.setSpecies}
-              items={options.species}
-              value={settings.species ? settings.species : options.species[0]}
-            label='Target Species'/>
-            <SettingsCheckBox
-              handleChange={this.props.setAgeDep}
-              label='Include Age Dependence'
-              id='agedepcb'
-              checked={typeof settings.ageDep !== 'undefined' ? settings.ageDep : true}/>
+              items={options.analysisTypes}
+              value={settings.analysis ? settings.analysis : options.analysisTypes[0]}
+              label='Analysis Type'
+              handleChange={this.props.setAnalysisType}/>
             <SettingsCheckBox
               handleChange={this.props.setVariability}
               label='Include Variability'
@@ -91,62 +94,95 @@ class Sidebar extends Component {
             <SettingsNumericInput
               handleChange={this.props.setPopSize}
               label='Population Size'
-              value={settings.popSize ? settings.popSize : 50}/>
-            <SettingsNumericInput
-              handleChange={this.props.setPercMale}
-              label='Percent Male'
-              value={settings.percMale ? settings.percMale : 50}/>
-            <SettingsNumericInput
-              handleChange={this.props.setMinAge}
-              label='Minimum Age (years)'
-              value={settings.minAge ? settings.minAge : 10}/>
-            <SettingsNumericInput
-              handleChange={this.props.setMaxAge}
-              label='Maximum Age (years)'
-              value={settings.maxAge ? settings.maxAge : 80}/>
+              value={settings.popSize ? settings.popSize : 100}
+            />
           </Panel>
 
-          <Panel header="ADME" key="3">
+          <Panel header="Model Configuration" key="2">
+
+            <Button type="default">Configure PBPK Compartments...</Button>
+
             <SettingsSelect
-              handleChange={this.props.setMetParaSource}
-              items={options.metabParameterSource}
-              value={settings.metParaSource ? settings.metParaSource : options.metabParameterSource[0]}
-            label='Metabolic Parameter Source'/>
+              handleChange={this.props.setPCMethod}
+              items={options.pcMethods}
+              value={settings.pcMethod ? settings.pcMethod : options.pcMethods[0]}
+              label='Default PC Method'
+            />
             <SettingsSelect
-              handleChange={this.props.setIVAssay}
-              items={options.assayType}
-              value={settings.ivAssay ? settings.ivAssay : options.assayType[0]}
-            label='In Vitro Assay'/>
+              handleChange={this.props.setOralAbsMethod}
+              items={options.oralAbsMethods}
+              value={settings.oralAbsMethod ? settings.oralAbsMethod : options.oralAbsMethods[0]}
+              label='TOral Absorption Method'
+            />
             <SettingsCheckBox
-              handleChange={this.props.setSatMet}
-              label='Use Saturable Metabolism'
-              id='satmetabcb'
-              checked={typeof settings.satMet !== 'undefined' ? settings.satMet : true}/>
-            <SettingsSelect
-              handleChange={this.props.setRenalElim}
-              items={options.renalElimSource}
-              value={settings.renalElim ? settings.renalElim : options.renalElimSource[0]}
-            label='Renal Elimination Source'/>
+              handleChange={this.props.setEHPMet}
+              label='Enable Extrahepatic Metabolism'
+              checked={typeof settings.EHPMet !== 'undefined' ? settings.EHPMet : false}
+            />
             <SettingsCheckBox
-              handleChange={this.props.setIncludeEhccb}
-              label='Include Enterohepatic Cycling'
-              id='includeehccb'
-              checked={typeof settings.includeehccb !== 'undefined' ? settings.includeehccb : true}/>
+              handleChange={this.props.setMetTracking}
+              label='Enable Metabolite Tracking'
+              checked={typeof settings.metTrack !== 'undefined' ? settings.metTrack : false}/>
+            <SettingsCheckBox
+              handleChange={this.props.setActiveTransport}
+              label='Enable Active Transport'
+              checked={typeof settings.activeTrans !== 'undefined' ? settings.activeTrans : false}/>
+            <SettingsCheckBox
+              handleChange={this.props.setInhib}
+              label='Enable Inhibition / Induction'
+              checked={typeof settings.inhib !== 'undefined' ? settings.inhib : false}
+            />
+          </Panel>
+
+          <Panel header="Display Units" key="3">
+            <SettingsSelect
+              label='Mass Units'
+              handleChange={this.props.setMassUnit}
+              items={options.massUnits}
+              value={settings.massUnit ? settings.massUnit : options.massUnits[0]}
+              classes="left-label"
+            />
+            <SettingsSelect
+              label='Volume Units'
+              handleChange={this.props.setVolUnit}
+              items={options.volUnits}
+              value={settings.volUnit ? settings.volUnit : options.volUnits[0]}
+              classes="left-label"
+            />
+            <SettingsSelect
+              label='Time Units'
+              handleChange={this.props.setTimeUnit}
+              items={options.timeUnits}
+              value={settings.timeUnit ? settings.timeUnit : options.timeUnits[0]}
+              classes="left-label"
+            />
           </Panel>
 
           <Panel header="Simulation" key="4">
             <SettingsNumericInput
               handleChange={this.props.setTimestep}
               label='Time Step (hours)'
-              value={settings.timestep ? settings.timestep : 0.1}/>
+              value={settings.timestep ? settings.timestep : 0.1}
+            />
+            <SettingsSelect
+              label='Time Units'
+              handleChange={this.props.setAlgorithm}
+              items={options.algorithms}
+              value={settings.algorithm ? settings.algorithm : options.algorithms[0]}
+              classes="left-label"
+            />
             <SettingsNumericInput
-              handleChange={this.props.setStartAge}
-              label='Start Age (years)'
-              value={settings.startAge ? settings.startAge : 25}/>
+              handleChange={this.props.setRelErr}
+              label='Relative Err. Total'
+              value={settings.relErr ? settings.relErr : '1e-8'}
+            />
             <SettingsNumericInput
-              handleChange={this.props.setDuration}
-              label='Duration (days)'
-              value={settings.duration ? settings.duration : 7}/>
+              handleChange={this.props.setAbsErr}
+              label='Absolute Err. Total'
+              value={settings.absErr ? settings.absErr : '1e-12'}
+            />
+            <Button type="default">Parameter Estimation Settings...</Button>
+            <Button type="default">Sensitivity Analysis Settings...</Button>
           </Panel>
 
         </Collapse>
