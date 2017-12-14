@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {Switch, Route, Link, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import Sidebar from './Sidebar';
-import Header from './Header';
-
-import { Tabs } from 'antd';
-const TabPane = Tabs.TabPane;
 
 import { Input, Icon } from 'antd';
 
