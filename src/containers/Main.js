@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 
 import Sidebar from './Sidebar';
 import Header from './Header';
+import TabContainer from './TabContainer';
 
 import { Layout } from 'antd';
+// const TabPane = Tabs.TabPane;
 const { Content, Sider } = Layout;
 
 
@@ -18,11 +20,8 @@ class Main extends Component {
         <Sidebar />
         <Layout style={style.contentWrapper}>
           <Content style={{ height: '100%', overflow: 'initial'}}>
-            <div>
-              Printing from redux store:
-              <br/>
-              {JSON.stringify(this.props.state)}
-            </div>
+            <TabContainer />
+
           </Content>
         </Layout>
       </Layout>
