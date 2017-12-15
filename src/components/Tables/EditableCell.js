@@ -27,27 +27,22 @@ class EditableCell extends React.Component {
       <div className="editable-cell">
         {
           editable ?
-            <div className="editable-cell-input-wrapper">
+            <div className="editable-cell-input-wrapper"  >
               <Input
                 value={value}
                 onChange={this.handleChange}
                 onPressEnter={this.check}
-              />
-              <Icon
-                type="check"
-                className="editable-cell-icon-check"
-                onClick={this.check}
+                suffix={<Icon type="check" onClick={this.check}/>}
               />
             </div>
-            :
-            <div className="editable-cell-text-wrapper">
-              {value || ' '}
-              <Icon
-                type="edit"
-                className="editable-cell-icon"
-                onClick={this.edit}
-              />
-            </div>
+          :
+          <div className="editable-cell-text-wrapper" onClick={this.edit}>
+            {value || ' No Value '}
+            <Icon
+              type="edit"
+              className="editable-cell-icon"
+            />
+          </div>
         }
       </div>
     );

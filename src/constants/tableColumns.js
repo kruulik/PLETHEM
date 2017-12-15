@@ -41,7 +41,7 @@ const tableColumns = {
       title: 'BMI',
       dataIndex: 'bmi',
       key: 'bmi',
-      editable: 'true',
+      editable: false,
       type: 'select'
     }, {
       title: 'BSA',

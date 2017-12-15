@@ -56,12 +56,18 @@ class EditableTable extends React.Component {
         return ( {
             title : col.title,
             dataIndex: col.dataIndex,
-            render: ( text, record ) => ( <EditableCell value={text} onChange={this.onCellChange( record.key, col.dataIndex )}/> )
+            render: ( text, record ) => (
+              <EditableCell
+                type={col.type}
+                value={text}
+                onChange={this.onCellChange( record.key, col.dataIndex )}
+              /> )
           } )
       } else {
         return ( {
-            title : 'name',
-            dataIndex: 'name'
+            title : col.title,
+            dataIndex: col.dataIndex,
+            key: col.key
           } )
       }
     } );
@@ -81,7 +87,11 @@ class EditableTable extends React.Component {
     return ( <div>
       <Button className="editable-add-btn" onClick={this.handleAdd}>Add</Button>
 
-      <Table bordered={true} dataSource={dataSource} columns={columns ? columns : []}/>
+      <Table 
+        bordered={true}
+        dataSource={dataSource}
+        columns={columns ? columns : []}
+      />
     </div> );
   }
 }
