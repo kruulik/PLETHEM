@@ -4,35 +4,51 @@ const tableColumns = {
     {
       title: 'Organism Name',
       dataIndex: 'name',
-      key: 'name'
+      key: 'name',
+      editable: 'true',
+      type: 'select'
     }, {
       title: 'Species',
       dataIndex: 'species',
-      key: 'species'
+      key: 'species',
+      editable: 'true',
+      type: 'select'
     }, {
       title: 'Gender',
       dataIndex: 'gender',
-      key: 'gender'
+      key: 'gender',
+      editable: 'true',
+      type: 'select'
     }, {
       title: 'Age',
       dataIndex: 'age',
-      key: 'age'
+      key: 'age',
+      editable: 'true',
+      type: 'select'
     }, {
       title: 'Height',
       dataIndex: 'height',
-      key: 'height'
+      key: 'height',
+      editable: 'true',
+      type: 'select'
     }, {
       title: 'BW',
       dataIndex: 'bw',
-      key: 'bw'
+      key: 'bw',
+      editable: 'true',
+      type: 'select'
     }, {
       title: 'BMI',
       dataIndex: 'bmi',
-      key: 'bmi'
+      key: 'bmi',
+      editable: 'true',
+      type: 'select'
     }, {
       title: 'BSA',
       dataIndex: 'bsa',
-      key: 'bsa'
+      key: 'bsa',
+      editable: 'true',
+      type: 'select'
     }
   ],
   exposure: [

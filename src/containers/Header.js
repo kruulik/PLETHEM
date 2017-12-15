@@ -47,14 +47,14 @@ class AppHeader extends Component {
 
     return (
       <Header className="app-header">
-        {/* <span className="logo">PLETHEM PRO</span> */}
+        <span className="logo">PLETHEM PRO</span>
         <div className="left-nav">
-          <Button type="default" onClick={this.handleSave} icon="download">Save Project</Button>
-          <Button type="default" onClick={this.selectFile} icon="upload">Load Project</Button>
+          <Button type="default" ghost onClick={this.handleSave} icon="download">Save Project</Button>
+          <Button type="default" ghost onClick={this.selectFile} icon="upload">Load Project</Button>
         </div>
         <div className="right-nav">
-          <Button type="default" onClick={console.log('Start Pressed')} icon="caret-right">Start Run</Button>
-          <Button type="danger" onClick={console.log('Stop Pressed')} icon="pause">Stop Run</Button>
+          <Button type="default" ghost onClick={console.log('Start Pressed')} icon="caret-right">Start Run</Button>
+          <Button type="danger" ghost onClick={console.log('Stop Pressed')} icon="pause">Stop Run</Button>
         </div>
         <input
           type="file"
