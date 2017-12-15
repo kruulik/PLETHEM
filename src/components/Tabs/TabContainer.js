@@ -6,54 +6,36 @@ const TabPane = Tabs.TabPane;
 
 import { EditableTable } from 'components';
 
+
+import tableColumns from 'constants/tableColumns';
+
+
 class TabContainer extends Component {
 
   render(){
+
+  const columns = tableColumns
+
     return (
       <div className="tabs-wrapper">
         <Tabs type="card" >
           <TabPane tab="Organisms" key="1">
-            <EditableTable
-              columns={[{
-                title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-              }, {
-                title: 'Age',
-                dataIndex: 'age',
-                key: 'age',
-              }, {
-                title: 'Address',
-                dataIndex: 'address',
-                key: 'address',
-              }]}
-              dataSource={[{
-                key: '1',
-                name: 'Mike',
-                age: 32,
-                address: '10 Downing Street'
-              }, {
-                key: '2',
-                name: 'John',
-                age: 42,
-                address: '10 Downing Street'
-              }]}
-            />
+            <EditableTable dataSource={[]} columns={columns.organisms}/>
           </TabPane>
           <TabPane tab="Exposure Scenarios" key="2">
-            <div>Tab Contents</div>
+            <EditableTable dataSource={[]} columns={columns.exposure}/>
           </TabPane>
           <TabPane tab="Compounds" key="3">
-            <div>Tab Contents</div>
+            <EditableTable dataSource={[]} columns={columns.compounds}/>
           </TabPane>
           <TabPane tab="Reactions" key="4">
-            <div>Tab Contents</div>
+            <EditableTable dataSource={[]} columns={columns.reactions}/>
           </TabPane>
           <TabPane tab="Observations" key="5">
             <div>Tab Contents</div>
           </TabPane>
           <TabPane tab="Simulations" key="6">
-            <div>Tab Contents</div>
+            <EditableTable dataSource={[]} columns={columns.simulations}/>
           </TabPane>
           <TabPane tab="Results" key="7">
             <div>Tab Contents</div>

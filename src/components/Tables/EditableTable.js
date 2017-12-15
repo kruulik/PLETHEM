@@ -14,8 +14,6 @@ class EditableTable extends React.Component {
       count: 0,
     };
 
-    this.columns = [];
-
   }
 
   onCellChange = (key, dataIndex) => {
@@ -46,6 +44,7 @@ class EditableTable extends React.Component {
   }
 
   componentDidMount(){
+
     const { dataSource, columns } = this.props;
 
     this.columns = columns;
@@ -54,8 +53,8 @@ class EditableTable extends React.Component {
 
   render() {
     const { dataSource } = this.state;
-    const columns = this.columns;
-    debugger
+    const { columns } = this.props;
+
     return (
       <div>
         <Button className="editable-add-btn" onClick={this.handleAdd}>Add</Button>

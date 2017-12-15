@@ -8,9 +8,7 @@ import Header from './Header';
 import { TabContainer } from 'components';
 
 import { Layout } from 'antd';
-// const TabPane = Tabs.TabPane;
 const { Content, Sider } = Layout;
-
 
 class Main extends Component {
 
