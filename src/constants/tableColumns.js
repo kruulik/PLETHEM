@@ -3,8 +3,8 @@ const tableColumns = {
   organisms: [
     {
       title: 'Organism Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'organismName',
+      key: 'organismName',
       editable: 'true',
       type: 'select'
     }, {
@@ -41,7 +41,7 @@ const tableColumns = {
       title: 'BMI',
       dataIndex: 'bmi',
       key: 'bmi',
-      editable: false,
+      editable: true,
       type: 'select'
     }, {
       title: 'BSA',
@@ -54,8 +54,8 @@ const tableColumns = {
   exposure: [
     {
       title: 'Schedule Name',
-      dataIndex: 'name',
-      key: 'name'
+      dataIndex: 'scheduleName',
+      key: 'scheduleName'
     }, {
       title: 'Route',
       dataIndex: 'route',
@@ -121,8 +121,8 @@ const tableColumns = {
   compounds: [
     {
       title: 'Compound Name',
-      dataIndex: 'name',
-      key: 'name'
+      dataIndex: 'compoundName',
+      key: 'compoundName'
     }, {
       title: 'MW',
       dataIndex: 'mw',
@@ -167,24 +167,24 @@ const tableColumns = {
   simulations: [
     {
       title: 'Include',
-      dataIndex: 'include',
-      key: 'include'
+      dataIndex: 'simInclude',
+      key: 'simInclude'
     }, {
       title: 'Scenario Name',
-      dataIndex: 'name',
-      key: 'name'
+      dataIndex: 'simScenarioName',
+      key: 'simScenarioName'
     }, {
       title: 'Organism',
-      dataIndex: 'organism',
-      key: 'organism'
+      dataIndex: 'simOrganism',
+      key: 'simOrganism'
     }, {
       title: 'Compound',
-      dataIndex: 'compound',
-      key: 'compound'
+      dataIndex: 'simCompound',
+      key: 'simCompound'
     }, {
       title: 'Exposure',
-      dataIndex: 'exposure',
-      key: 'exposure'
+      dataIndex: 'simExposure',
+      key: 'simExposure'
     }
   ]
 }

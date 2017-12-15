@@ -3,9 +3,11 @@ import merge from 'lodash/merge';
 
 
 import settings from './settingsReducer'
+import tables from './tableReducer'
 
 const appReducer = combineReducers ({
-  settings
+  settings,
+  tables
 })
 
 const rootReducer = (state, action) => {

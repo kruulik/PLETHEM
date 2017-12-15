@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
 import { Table, Icon, Popconfirm, Button } from 'antd';
 
 import { EditableCell } from 'components';
+
+import * as TableActions from 'actions/tableActions';
 
 class EditableTable extends React.Component {
   constructor( props ) {
@@ -24,6 +27,9 @@ class EditableTable extends React.Component {
       if ( target ) {
         target[ dataIndex ] = value;
         this.setState( { dataSource } );
+        // Here I can dispatch an action to store: {key: dataIndex, value: value}
+        debugger
+        this.props.updateCell({dataIndex, value})
       }
     };
   }
@@ -36,6 +42,7 @@ class EditableTable extends React.Component {
   }
 
   handleAdd = () => {
+    debugger
     const { count, dataSource } = this.state;
     const newData = {
       key: count
@@ -60,7 +67,7 @@ class EditableTable extends React.Component {
               <EditableCell
                 type={col.type}
                 value={text}
-                onChange={this.onCellChange( record.key, col.dataIndex )}
+                onChange={this.onCellChange( record.key, col.key )}
               /> )
           } )
       } else {
@@ -87,7 +94,7 @@ class EditableTable extends React.Component {
     return ( <div>
       <Button className="editable-add-btn" onClick={this.handleAdd}>Add</Button>
 
-      <Table 
+      <Table
         bordered={true}
         dataSource={dataSource}
         columns={columns ? columns : []}
@@ -101,9 +108,7 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return bindActionCreators({...TableActions}, dispatch);
 };
 
-const style = {}
-
-export default connect( mapStateToProps, null )( EditableTable );
+export default connect( mapStateToProps, mapDispatchToProps )( EditableTable );
