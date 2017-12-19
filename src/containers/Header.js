@@ -53,8 +53,8 @@ class AppHeader extends Component {
           <Button type="default" ghost onClick={this.selectFile} icon="upload">Load Project</Button>
         </div>
           <div className="right-nav">
-            <Button type="default" ghost onClick={console.log('Start Pressed')} icon="caret-right">Start Run</Button>
-            <Button type="danger" ghost onClick={console.log('Stop Pressed')} icon="pause">Stop Run</Button>
+            <Button type="default" ghost icon="caret-right">Start Run</Button>
+            <Button type="danger" ghost icon="pause">Stop Run</Button>
           </div>
         </div>
         <input

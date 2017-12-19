@@ -4,14 +4,14 @@ import logger from 'redux-logger';
 import throttle from 'lodash/throttle';
 
 import { loadState, saveState } from './localStorage'
+import tableColumns from 'constants/tableColumns';
 
 import rootReducer from 'reducers/rootReducer';
 
 const configureStore = () => {
-  // const persistedState = {}
-  const persistedState = loadState();
-  // something strange is happening..
 
+  const persistedState = loadState();
+  
   const store = createStore(
     rootReducer,
     persistedState,

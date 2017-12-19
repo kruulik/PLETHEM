@@ -4,6 +4,7 @@ import merge from 'lodash/merge';
 
 import settings from './settingsReducer'
 import tables from './tableReducer'
+// import tableData from './tableDataReducer'
 
 const appReducer = combineReducers ({
   settings,
