@@ -2,11 +2,15 @@ export const UPDATE_CELL = 'UPDATE_CELL';
 export const RECEIVE_TABLE = 'RECEIVE_TABLE';
 export const RECEIVE_ROW = 'RECEIVE_ROW';
 
-export const updateCell = () => {
-  debugger
+export const updateCell = (row, value, table, column) => {
+
+  console.log(value)
   return ({
     type: UPDATE_CELL,
-
+    row,
+    value,
+    table,
+    column
   })
 }
 

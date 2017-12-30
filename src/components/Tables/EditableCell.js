@@ -26,6 +26,7 @@ class EditableCell extends React.Component {
   }
 
   render() {
+
     const { value, editable } = this.state;
     return (
       <div className="editable-cell">

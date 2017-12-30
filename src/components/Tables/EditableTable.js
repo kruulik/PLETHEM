@@ -18,51 +18,32 @@ class EditableTable extends React.Component {
       table: this.props.table,
       columns: [],
       dataSource: [],
-      count: 0
+      count: this.props.dataSource.length
     };
 
   }
 
   onCellChange = ( key, dataIndex ) => {
-
-    return( value ) => {
-      debugger
+    return (value) => {
       const dataSource = [...this.props.dataSource];
-      const target = dataSource.find( item => item.key === key );
-      debugger
-      if ( target ) {
-        target[ dataIndex ] = value;
-        this.setState( { dataSource } );
-        debugger
-        this.props.updateCell();
-      }
+      const {table} = this.props;
+      const row = dataSource.find( item => item.key === key ).key;
+      const column = dataIndex;
+      this.props.updateCell(row, value, table, column);
     };
-
   }
 
-  onDelete = ( key ) => {
-    const dataSource = [...this.state.dataSource];
-    this.setState( {
-      dataSource: dataSource.filter( item => item.key !== key )
-    } );
-  }
+  // onDelete = ( key ) => {
+  //   const dataSource = [...this.state.dataSource];
+  //   this.setState( {
+  //     dataSource: dataSource.filter( item => item.key !== key )
+  //   } );
+  // }
 
   handleAdd = () => {
     const { count, table } = this.state;
-    // const newData = {
-    //   key: count
-    // };
-
     this.props.addRow(table, count );
     this.setState({count: count + 1});
-
-    // this.setState( {
-    //   dataSource: [
-    //     ...dataSource,
-    //     newData
-    //   ],
-    //   count: count + 1
-    // } );
   }
 
   createColumns = ( columns ) => {
@@ -73,17 +54,15 @@ class EditableTable extends React.Component {
             dataIndex: col.dataIndex,
             render: ( text, record ) => (
               <EditableCell
-
                 type={col.type}
                 value={text}
-                onChange={this.onCellChange( record.key, col.key )}
+                onChange={this.onCellChange( record.key, col.dataIndex )}
               /> )
           } )
       } else {
         return ( {
             title : col.title,
             dataIndex: col.dataIndex,
-            key: col.key
           } )
       }
     } );
@@ -91,23 +70,15 @@ class EditableTable extends React.Component {
   }
 
   componentDidMount() {
-    const { table } = this.props;
+    const { table, dataSource } = this.props;
     const columns = tableColumns[table];
-
-    // selector gets table's data from the tableData slice of state
-    // and sets it to props
-    // this.setState( { dataSource: dataSource } );
-
-    this.props.createTable(table);
     this.createColumns(columns);
-
+    this.props.createTable(table);
   }
 
   render() {
     const { columns } = this.state;
     const { dataSource } = this.props;
-
-// debugger
 
     return (
       <div>

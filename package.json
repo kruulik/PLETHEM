@@ -163,6 +163,7 @@
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.2.10",
+    "redux-devtools-extension": "^2.13.2",
     "remote-redux-devtools": "^0.5.7",
     "resolve-url-loader": "^2.2.0",
     "sass-loader": "^6.0.6",

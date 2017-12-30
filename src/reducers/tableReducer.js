@@ -5,8 +5,21 @@ import {
 
 import merge from 'lodash/merge';
 
-const tables = (state = {}, action) => {
+const initialState = {
+  organisms: [],
+  exposure: [],
+  compounds: [],
+  reactins: [],
+  observations: [],
+  simulations: [],
+  results: [],
+  plots: []
+}
+
+const tables = (state = initialState, action) => {
   Object.freeze( state );
+
+  let prev, next, table, column;
 
   switch(action.type) {
     case 'RECEIVE_TABLE':
@@ -14,18 +27,27 @@ const tables = (state = {}, action) => {
         [action.tableName]: []
       });
     case 'RECEIVE_ROW':
-    // debugger
-      // const rows = state[action.table];
-      // const newRows = rows.concat( action.rowID: {id: action.rowID} )
-      const prev = state[action.table]
-      const newRow = {key: action.rowID}
+      prev = state[action.table];
+      next = {key: action.rowID};
       const rows = [
         ...prev,
-        newRow
+        next
       ]
+      return merge({}, state, {[action.table]: rows});
+    case 'UPDATE_CELL':
 
-      debugger
-      return merge({}, state, {[action.table]: rows})
+      prev = state[action.table][action.row] ? state[action.table][action.row] : {};
+      next = merge({}, prev, {[action.column]: action.value});
+      // const newRows = merge({}, state[action.table][action.row], next);
+      //
+      //
+      // return merge({}, state, newRows)
+
+      return {
+        ...state,
+        [action.table]: [[action.row]: [next]]
+      }
+
     default:
       return state;
   }
