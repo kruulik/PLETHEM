@@ -1,0 +1,11 @@
+Package: plethembase
+Type: Package
+Title: Population Lifecourse Exposure to Health Effects Model
+Version: 0.1.0
+Author: Scitovation
+Maintainer: Conrad Housand <chousand@scitovation.com>
+Description: PLETHEM provides a freely available, open-source, user-friendly platform for rapid modeling across the source-to-outcome continuum.
+License: TBD
+Encoding: UTF-8
+LazyData: true
+Depends: RMySQL

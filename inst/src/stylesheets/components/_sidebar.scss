@@ -1,0 +1,18 @@
+// .app-sidebar.ant-layout-sider {
+//   overflow: auto;
+//   position: fixed;
+//   height: calc(100vh - 60px);
+//   left: 0;
+//   top: 60px;
+//   padding: 8px;
+//   // width: 300px;
+//   // width must be set inline (less)
+// }
+
+.app-sidebar{
+  Button {
+    margin-bottom: 8px;
+    width: 100%
+  }
+  border-right: 1px solid lightgray;
+}

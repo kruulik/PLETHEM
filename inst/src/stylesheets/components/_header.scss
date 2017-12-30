@@ -1,0 +1,43 @@
+.app-header {
+  background-color: #2d2d2d;
+  height: 60px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 900;
+  color: white;
+  justify-content: space-between;
+  padding: 0 12px 0 12px;
+  border-bottom: 2px solid lightgray;
+}
+
+.logo {
+  font-size: $font-size-h1;
+  color: white;
+  font-weight: $headings-font-weight;
+  font-family: $headings-font-family;
+  vertical-align: middle;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.left-nav Button {
+  margin-left: 10px;
+}
+
+.right-nav:before {
+  content: "";
+  height: 100%;
+  border-right: 1px solid white;
+  margin-left: 10px;
+}
+
+.right-nav Button {
+  margin-left: 10px;
+}

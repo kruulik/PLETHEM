@@ -1,0 +1,10 @@
+// Base styling
+@import './base/typography';
+@import './base/ui';
+// @import './base/reset';
+
+// Components styling
+@import './components/header';
+@import './components/sidebar';
+@import './components/tabs';
+@import './components/tables';
