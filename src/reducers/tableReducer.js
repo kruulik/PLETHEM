@@ -6,14 +6,14 @@ import {
 import merge from 'lodash/merge';
 
 const initialState = {
-  organisms: [],
-  exposure: [],
-  compounds: [],
-  reactins: [],
-  observations: [],
-  simulations: [],
-  results: [],
-  plots: []
+  organisms: {},
+  exposure: {},
+  compounds: {},
+  reactins: {},
+  observations: {},
+  simulations: {},
+  results: {},
+  plots: {}
 }
 
 const tables = (state = initialState, action) => {
@@ -24,29 +24,25 @@ const tables = (state = initialState, action) => {
   switch(action.type) {
     case 'RECEIVE_TABLE':
       return merge({}, state, {
-        [action.tableName]: []
+        [action.tableName]: {}
       });
     case 'RECEIVE_ROW':
       prev = state[action.table];
-      next = {key: action.rowID};
-      const rows = [
-        ...prev,
-        next
-      ]
+      next = {[action.rowID]: {key: action.rowID}};
+      // const rows = {
+      //   ...prev,
+      //   next
+      // }
+      const rows = merge({}, prev, next);
       return merge({}, state, {[action.table]: rows});
     case 'UPDATE_CELL':
+      // prev = state[action.table][action.row] ? state[action.table][action.row] : {};
+      prev = state[action.table];
+      next = Object.assign({}, prev[action.row], {[action.column]: action.value});
 
-      prev = state[action.table][action.row] ? state[action.table][action.row] : {};
-      next = merge({}, prev, {[action.column]: action.value});
-      // const newRows = merge({}, state[action.table][action.row], next);
-      //
-      //
-      // return merge({}, state, newRows)
-
-      return {
-        ...state,
-        [action.table]: [[action.row]: [next]]
-      }
+      return merge({}, state, { [action.table]: {
+        [action.row]: next
+      }})
 
     default:
       return state;
