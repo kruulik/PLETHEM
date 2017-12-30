@@ -56,17 +56,19 @@ class AppHeader extends Component {
             <Button type="default" ghost icon="caret-right">Start Run</Button>
             <Button type="danger" ghost icon="pause">Stop Run</Button>
           </div>
+
         </div>
-        <input
-          type="file"
-          className="file"
-          id="loadprojectfileinput"
-          name="loadprojectfileinput"
-          style={{
-            display: 'none'
-          }}
-          onChange={this.readFiles}/>
-      </Header> );
+        
+          <input
+            type="file"
+            className="file"
+            id="loadprojectfileinput"
+            name="loadprojectfileinput"
+            style={{
+              display: 'none'
+            }}
+            onChange={this.readFiles}/>
+        </Header> );
   }
 }
 
