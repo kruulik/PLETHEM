@@ -9,7 +9,6 @@ const project = (state = initialState, action) => {
 
   switch (action.type) {
     case UPLOAD_PROJECT:
-    debugger
     merge( {}, state.project, action.project)
     default:
       return state;

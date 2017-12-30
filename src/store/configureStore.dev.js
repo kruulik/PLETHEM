@@ -1,21 +1,25 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import throttle from 'lodash/throttle';
 
 import { loadState, saveState } from './localStorage'
+import tableColumns from 'constants/tableColumns';
 
 import rootReducer from 'reducers/rootReducer';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 
 const configureStore = () => {
-  // const persistedState = {}
+
   const persistedState = loadState();
-  // something strange is happening..
 
   const store = createStore(
     rootReducer,
     persistedState,
-    applyMiddleware(thunk, logger)
+    compose(
+      applyMiddleware(thunk, logger),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
   );
 
   // store state to local storage but throttle save rate

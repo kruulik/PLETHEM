@@ -18,7 +18,6 @@ class SettingsCheckBox extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    // debugger
     this.setState({checked: nextProps.checked})
   }
 
