@@ -4,7 +4,6 @@ export const RECEIVE_ROW = 'RECEIVE_ROW';
 
 export const updateCell = (row, value, table, column) => {
 
-  console.log(value)
   return ({
     type: UPDATE_CELL,
     row,

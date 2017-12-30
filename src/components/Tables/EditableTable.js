@@ -25,9 +25,11 @@ class EditableTable extends React.Component {
 
   onCellChange = ( key, dataIndex ) => {
     return (value) => {
+      // console.log('onCellChange: ' + key, dataIndex, value)
       const dataSource = [...this.props.dataSource];
       const {table} = this.props;
-      const row = dataSource.find( item => item.key === key ).key;
+      const row = dataSource.find( item => item.key === key ).key.toString();
+      console.log('row: ' + row);
       const column = dataIndex;
       this.props.updateCell(row, value, table, column);
     };
@@ -42,7 +44,7 @@ class EditableTable extends React.Component {
 
   handleAdd = () => {
     const { count, table } = this.state;
-    this.props.addRow(table, count );
+    this.props.addRow(table, count.toString() );
     this.setState({count: count + 1});
   }
 
@@ -78,8 +80,13 @@ class EditableTable extends React.Component {
 
   render() {
     const { columns } = this.state;
-    const { dataSource } = this.props;
+    let { dataSource } = this.props;
+    // dataSource = Object.values(dataSource);
 
+if (dataSource && columns) {
+  console.log(dataSource)
+  console.log(columns)
+}
     return (
       <div>
         <Button className="editable-add-btn" onClick={this.handleAdd}>Add</Button>
