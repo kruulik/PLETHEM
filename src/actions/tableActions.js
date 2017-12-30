@@ -23,18 +23,3 @@ export const addRow = (table, rowID) => ({
   table,
   rowID
 })
-
-
-// sample state for table data
-// tables: {
-//   oganisms: ['dataID1', 'dataID2', 'dataID3'],
-//   exposure: ['dataID4', 'dataID5', 'dataID6'],
-// }
-//
-// tableData: {
-//   dataID1: {
-//     organismName: 'blabla',
-//     species: 'bla',
-//     ...
-//   }
-// }
