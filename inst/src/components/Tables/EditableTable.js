@@ -19,7 +19,7 @@ class EditableTable extends React.Component {
       columns: [],
       dataSource: [],
       count: this.props.dataSource.length,
-      selectedRows: []
+      selectedRowKeys: []
     };
 
   }
@@ -34,12 +34,12 @@ class EditableTable extends React.Component {
     };
   }
 
-  // onDelete = ( key ) => {
-  //   const dataSource = [...this.state.dataSource];
-  //   this.setState( {
-  //     dataSource: dataSource.filter( item => item.key !== key )
-  //   } );
-  // }
+  handleRemove = () => {
+    const rowIDs = this.state.selectedRowKeys;
+    const {table} = this.props;
+    this.props.removeRows( table, rowIDs );
+    this.setState({ selectedRowKeys: [] });
+  }
 
   handleAdd = () => {
     const { count, table } = this.state;
@@ -94,7 +94,8 @@ class EditableTable extends React.Component {
 
     return (
       <div>
-        <Button className="editable-add-btn" onClick={this.handleAdd}>Add</Button>
+        <Button className="editable-add-btn" onClick={this.handleAdd}>Add Item</Button>
+        <Button className="editable-add-btn" onClick={this.handleRemove}>Remove Selection</Button>
 
         <Table
           scroll={{ x: scrollX}}
