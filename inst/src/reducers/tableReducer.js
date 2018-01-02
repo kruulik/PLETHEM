@@ -19,7 +19,7 @@ const initialState = {
 const tables = (state = initialState, action) => {
   Object.freeze( state );
 
-  let prev, next, table, column;
+  let prev, next, table, column, rows;
 
   switch(action.type) {
     case 'RECEIVE_TABLE':
@@ -29,8 +29,18 @@ const tables = (state = initialState, action) => {
     case 'RECEIVE_ROW':
       prev = state[action.table];
       next = {[action.rowID]: {key: action.rowID}};
-      const rows = merge({}, prev, next);
+      rows = merge({}, prev, next);
       return merge({}, state, {[action.table]: rows});
+    case'REMOVE_ROWS':
+      rows = action.rowIDs;
+      next = merge({}, state);
+      debugger
+      rows.forEach(row => {
+        delete next[action.table][row];
+      });
+
+    debugger
+      return next;
     case 'UPDATE_CELL':
       prev = state[action.table];
       next = Object.assign({}, prev[action.row], {[action.column]: action.value});
