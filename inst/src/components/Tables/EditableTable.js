@@ -94,9 +94,10 @@ class EditableTable extends React.Component {
 
     return (
       <div>
-        <Button className="editable-add-btn" onClick={this.handleAdd}>Add Item</Button>
-        <Button className="editable-add-btn" onClick={this.handleRemove}>Remove Selection</Button>
-
+        <div className="table-actions-row">
+          <Button ghost type="primary" className="editable-table-btn" onClick={this.handleAdd}>Add Item</Button>
+          <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
+        </div>
         <Table
           scroll={{ x: scrollX}}
           bordered={true}
