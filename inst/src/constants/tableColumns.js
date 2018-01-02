@@ -55,113 +55,139 @@ const tableColumns = {
     {
       title: 'Schedule Name',
       dataIndex: 'scheduleName',
-      key: 'scheduleName'
+      key: 'scheduleName',
+      editable: 'true'
     }, {
       title: 'Route',
       dataIndex: 'route',
-      key: 'route'
+      key: 'route',
+      editable: 'true'
     }, {
       title: 'Activity Site',
       dataIndex: 'site',
-      key: 'site'
+      key: 'site',
+      editable: 'true'
     }, {
       title: 'Doses/day',
       dataIndex: 'doseDay',
-      key: 'doseDay'
+      key: 'doseDay',
+      editable: 'true'
     }, {
       title: 'Doses/week',
       dataIndex: 'doseWeek',
-      key: 'doseWeek'
+      key: 'doseWeek',
+      editable: 'true'
     }, {
       title: 'Total Weight',
       dataIndex: 'totalWeight',
-      key: 'totalWeight'
+      key: 'totalWeight',
+      editable: 'true'
     }, {
       title: 'Oral Dose',
       dataIndex: 'oralDose',
-      key: 'oralDose'
+      key: 'oralDose',
+      editable: 'true'
     }, {
       title: 'IV Dose',
       dataIndex: 'ivDose',
-      key: 'ivDose'
+      key: 'ivDose',
+      editable: 'true'
     }, {
       title: 'Air Conc.',
       dataIndex: 'airConc',
-      key: 'airConc'
+      key: 'airConc',
+      editable: 'true'
     }, {
       title: 'Dermal Dose',
       dataIndex: 'dermalDose',
-      key: 'dermalDose'
+      key: 'dermalDose',
+      editable: 'true'
     }, {
       title: 'Start Time',
       dataIndex: 'startTime',
-      key: 'startTime'
+      key: 'startTime',
+      editable: 'true'
     }, {
       title: 'Duration',
       dataIndex: 'duration',
-      key: 'duration'
+      key: 'duration',
+      editable: 'true'
     }, {
       title: 'Interval',
       dataIndex: 'interval',
-      key: 'interval'
+      key: 'interval',
+      editable: 'true'
     }, {
       title: 'Exposed Skin Area',
       dataIndex: 'exposedSkinArea',
-      key: 'exposedSkinArea'
+      key: 'exposedSkinArea',
+      editable: 'true'
     }, {
       title: 'Skin Temp',
       dataIndex: 'skinTemp',
-      key: 'skinTemp'
+      key: 'skinTemp',
+      editable: 'true'
     }, {
       title: 'Air Temp',
       dataIndex: 'airTemp',
-      key: 'airTemp'
+      key: 'airTemp',
+      editable: 'true'
     }
   ],
   compounds: [
     {
       title: 'Compound Name',
       dataIndex: 'compoundName',
-      key: 'compoundName'
+      key: 'compoundName',
+      editable: 'true'
     }, {
       title: 'MW',
       dataIndex: 'mw',
-      key: 'mw'
+      key: 'mw',
+      editable: 'true'
     }, {
       title: 'LogP',
       dataIndex: 'logP',
-      key: 'logP'
+      key: 'logP',
+      editable: 'true'
     }, {
       title: 'Ion Class',
       dataIndex: 'ionClass',
-      key: 'ionClass'
+      key: 'ionClass',
+      editable: 'true'
     }, {
       title: 'More Columns.....',
       dataIndex: 'moreColumns',
-      key: 'moreColumns'
+      key: 'moreColumns',
+      editable: 'true'
     }
   ],
   reactions: [
     {
       title: 'Parent',
       dataIndex: 'parent',
-      key: 'parent'
+      key: 'parent',
+      editable: 'true'
     }, {
       title: 'Metabolite',
       dataIndex: 'metabolite',
-      key: 'metabolite'
+      key: 'metabolite',
+      editable: 'true'
     }, {
       title: 'Method',
       dataIndex: 'method',
-      key: 'method'
+      key: 'method',
+      editable: 'true'
     }, {
       title: 'Type',
       dataIndex: 'type',
-      key: 'type'
+      key: 'type',
+      editable: 'true'
     }, {
       title: 'Organ',
       dataIndex: 'organ',
-      key: 'organ'
+      key: 'organ',
+      editable: 'true'
     }
   ],
   simulations: [

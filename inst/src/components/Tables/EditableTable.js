@@ -18,7 +18,8 @@ class EditableTable extends React.Component {
       table: this.props.table,
       columns: [],
       dataSource: [],
-      count: this.props.dataSource.length
+      count: this.props.dataSource.length,
+      selectedRows: []
     };
 
   }
@@ -44,6 +45,11 @@ class EditableTable extends React.Component {
     const { count, table } = this.state;
     this.props.addRow(table, count.toString() );
     this.setState({count: count + 1});
+  }
+
+  onSelectChange = (selectedRowKeys) => {
+    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    this.setState({ selectedRowKeys });
   }
 
   createColumns = ( columns ) => {
@@ -77,16 +83,24 @@ class EditableTable extends React.Component {
   }
 
   render() {
-    const { columns } = this.state;
+    const { columns, selectedRowKeys } = this.state;
     let { dataSource } = this.props;
+    const rowSelection = {
+      selectedRowKeys,
+      fixed: true,
+      onChange: this.onSelectChange
+    };
+    let scrollX = 1500;
 
     return (
       <div>
         <Button className="editable-add-btn" onClick={this.handleAdd}>Add</Button>
 
         <Table
+          scroll={{ x: scrollX}}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
+          rowSelection={rowSelection}
           columns={columns ? columns : []}
         />
       </div> );

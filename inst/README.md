@@ -2,14 +2,13 @@
 
 ## Running locally
 
+cd into inst/
 npm install
-
-To run dev:
 npm run start
 
-open on localhost:3000
+open in browser on localhost:3000
 
-open dev console in chrome to see redux-logger
+open dev console in chrome to see redux-logger responding to input changes.
 
 ### Functionality
 
