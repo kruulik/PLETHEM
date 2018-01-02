@@ -33,14 +33,14 @@ const tables = (state = initialState, action) => {
       return merge({}, state, {[action.table]: rows});
     case'REMOVE_ROWS':
       rows = action.rowIDs;
-      next = merge({}, state[action.table]);
+      next = merge({}, state);
       debugger
       rows.forEach(row => {
-        delete next[row];
+        delete next[action.table][row];
       });
 
     debugger
-      return merge({}, state[action.table], {[action.table]: next});
+      return next;
     case 'UPDATE_CELL':
       prev = state[action.table];
       next = Object.assign({}, prev[action.row], {[action.column]: action.value});
