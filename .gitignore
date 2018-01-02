@@ -1,6 +1,7 @@
 .idea/
 node_modules/
 www/
+build/
 dist/
 *.iml
 webpack-assets.json
