@@ -56,10 +56,13 @@ class EditableTable extends React.Component {
     const cols = columns.map( col => {
       if ( col.editable ) {
         return ( {
-            title : col.title,
+            title: col.title,
             dataIndex: col.dataIndex,
+            width: 200,
             render: ( text, record ) => (
               <EditableCell
+                style={{width: 200}}
+                options={col.options}
                 type={col.type}
                 value={text}
                 onChange={this.onCellChange( record.key, col.dataIndex )}
@@ -99,10 +102,10 @@ class EditableTable extends React.Component {
           <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
         </div>
         <Table
-          scroll={{ x: scrollX}}
+          scroll={{ x: scrollX }}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
-          rowSelection={rowSelection}
+          // rowSelection={rowSelection}
           columns={columns ? columns : []}
         />
       </div> );

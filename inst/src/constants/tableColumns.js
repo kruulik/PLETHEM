@@ -1,54 +1,65 @@
-
 const tableColumns = {
   organisms: [
     {
       title: 'Organism Name',
+      fixed: 'left',
+      width: 200,
       dataIndex: 'organismName',
       key: 'organismName',
       editable: 'true',
-      type: 'select'
+      type: 'text',
     }, {
       title: 'Species',
       dataIndex: 'species',
       key: 'species',
       editable: 'true',
-      type: 'select'
+      type: 'select',
+      options: [
+        'Mouse',
+        'Rat',
+        'GuineaPigadFwefwEFwerfawefawefawefaw',
+        'Rabbit',
+        'Dog',
+        'Mokey',
+        'Human'
+      ]
     }, {
       title: 'Gender',
       dataIndex: 'gender',
       key: 'gender',
       editable: 'true',
-      type: 'select'
+      type: 'select',
+      options: [ 'Male', 'Female' ]
     }, {
       title: 'Age',
       dataIndex: 'age',
       key: 'age',
       editable: 'true',
-      type: 'select'
+      type: 'numeric'
     }, {
       title: 'Height',
       dataIndex: 'height',
       key: 'height',
       editable: 'true',
-      type: 'select'
+      type: 'numeric'
     }, {
       title: 'BW',
       dataIndex: 'bw',
       key: 'bw',
       editable: 'true',
-      type: 'select'
+      type: 'numeric'
     }, {
       title: 'BMI',
       dataIndex: 'bmi',
       key: 'bmi',
-      editable: true,
-      type: 'select'
+      editable: 'true',
+      type: 'numeric'
     }, {
       title: 'BSA',
       dataIndex: 'bsa',
       key: 'bsa',
       editable: 'true',
-      type: 'select'
+      type: 'numeric'
     }
   ],
   exposure: [
@@ -214,6 +225,5 @@ const tableColumns = {
     }
   ]
 }
-
 
 export default tableColumns;

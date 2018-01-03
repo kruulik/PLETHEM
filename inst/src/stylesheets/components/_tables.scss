@@ -18,9 +18,14 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 8px; 
+  margin-bottom: 8px;
 }
 
 .editable-table-btn {
   border: none;
+}
+
+.editable-cell-input-wrapper .ant-select {
+  width: 100%;
+  max-width: 200px;
 }
