@@ -61,6 +61,20 @@ class EditableCell extends React.Component {
             }
           </Select>
         );
+      case 'action':
+      return (
+        <div className="editable-row-operations">
+          {
+            editable ?
+              <span>
+                <a onClick={() => this.save(record.key)}>Save</a>
+                <Popconfirm title="Sure to cancel?" onConfirm={() => this.cancel(record.key)}>
+                  <a>Cancel</a>
+                </Popconfirm>
+              </span>
+            : <a onClick={() => this.edit(record.key)}>Edit</a>
+          }
+        </div>)
       default:
       return null;
     }

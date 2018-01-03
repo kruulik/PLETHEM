@@ -21,7 +21,10 @@ class EditableTable extends React.Component {
       count: this.props.dataSource.length,
       selectedRowKeys: []
     };
+  }
 
+  componentDidMount() {
+    document.addEventListener('onClick')
   }
 
   onCellChange = ( key, dataIndex ) => {
@@ -71,6 +74,11 @@ class EditableTable extends React.Component {
     this.setState({columns: cols})
   }
 
+  handleRowClick = (record) => {
+    debugger
+    console.log('waaaat');
+  }
+
   componentDidMount() {
     const { table, dataSource } = this.props;
     const columns = tableColumns[table];
@@ -89,6 +97,7 @@ class EditableTable extends React.Component {
           <Button ghost type="primary" className="editable-table-btn" onClick={this.handleAdd}>Add Item</Button>
         </div>
         <Table
+          onRow={(record) => ({ onClick: this.handleRowClick(record) })}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
           columns={columns ? columns : []}
