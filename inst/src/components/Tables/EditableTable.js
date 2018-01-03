@@ -96,6 +96,12 @@ class EditableTable extends React.Component {
     let { dataSource } = this.props;
     let scrollX = 1500;
 
+    const rowClassName = (record) => {
+      if (selectedRowKeys.includes(record.key)) {
+        return 'row-selected';
+      }
+    }
+
     return (
       <div>
         <div className="table-actions-row">
@@ -106,6 +112,7 @@ class EditableTable extends React.Component {
           onRow={(record) => ({
             onClick: (e) => this.handleRowClick(e, record)
           })}
+          rowClassName={rowClassName}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
           columns={columns ? columns : []}

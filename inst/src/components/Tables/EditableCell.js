@@ -16,7 +16,6 @@ class EditableCell extends React.Component {
   }
 
   handleChangeNum = (value) => {
-
     this.setState({ value });
   }
 
@@ -62,7 +61,7 @@ class EditableCell extends React.Component {
 
         return (
           <Select
-            onChange={this.handleChangeSelect} 
+            onChange={this.handleChangeSelect}
             value={value || this.props.options[0]}
           >
             {
