@@ -5,9 +5,12 @@ import { Input, InputNumber, Select, Icon } from 'antd';
 const Option = Select.Option;
 
 class EditableCell extends React.Component {
-  state = {
-    value: this.props.value || 0,
-    editable: false,
+
+  constructor(props){
+    this.state = {
+      value: this.props.value,
+      editable: false,
+    }
   }
 
   handleChangeText = (e) => {
@@ -15,13 +18,12 @@ class EditableCell extends React.Component {
     this.setState({ value });
   }
 
-  handleChangeNum = (value) => {
-    this.setState({ value });
-  }
+  handleChangeInput = (value) => {
 
-  handleChangeSelect = (value) => {
-    this.setState({ editable: false });
-    this.setState({ value });
+    // NOTE:  Might need to throttle redux store update
+
+    this.setState({ editable: false, value });
+    this.props.onChange(value);
   }
 
   check = () => {
@@ -51,9 +53,8 @@ class EditableCell extends React.Component {
       case 'numeric':
         return (
           <InputNumber
-            value={value}
-            onChange={this.handleChangeNum}
-            onBlur={() => this.setState({ editable: false })}
+            value={value || 0}
+            onChange={this.handleChangeInput}
             suffix={<Icon type="check" onClick={this.check}/>}
           />
         );
@@ -61,7 +62,7 @@ class EditableCell extends React.Component {
 
         return (
           <Select
-            onChange={this.handleChangeSelect}
+            onChange={this.handleChangeInput}
             value={value || this.props.options[0]}
           >
             {
@@ -75,8 +76,6 @@ class EditableCell extends React.Component {
       return null;
     }
   }
-
-
 
   render() {
     const { type } = this.props;
@@ -102,11 +101,8 @@ class EditableCell extends React.Component {
       <div className="editable-cell-input-wrapper" onClick={ this.edit }>
         {this.cellType(type, value)}
       </div>
-    )
+      )
     }
-
-
-
 
     return (
       <div className="editable-cell">
@@ -116,20 +112,4 @@ class EditableCell extends React.Component {
   }
 }
 
-
-const mapStateToProps = (state) => {
-  return {
-    state
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-
-  };
-};
-
-const style = {
-}
-
-export default connect(mapStateToProps, null)(EditableCell);
+export default connect()(EditableCell);

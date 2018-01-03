@@ -91,7 +91,7 @@ class EditableTable extends React.Component {
   }
 
   render() {
-    console.log(this.state.selectedRowKeys);
+
     const { columns, selectedRowKeys } = this.state;
     let { dataSource } = this.props;
     let scrollX = 1500;
