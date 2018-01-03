@@ -2,8 +2,6 @@ const tableColumns = {
   organisms: [
     {
       title: 'Organism Name',
-      fixed: 'left',
-      width: 200,
       dataIndex: 'organismName',
       key: 'organismName',
       editable: 'true',

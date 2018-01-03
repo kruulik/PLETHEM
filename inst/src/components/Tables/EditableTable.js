@@ -21,7 +21,6 @@ class EditableTable extends React.Component {
       count: this.props.dataSource.length,
       selectedRowKeys: []
     };
-
   }
 
   onCellChange = ( key, dataIndex ) => {
@@ -47,35 +46,41 @@ class EditableTable extends React.Component {
     this.setState({count: count + 1});
   }
 
-  onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
-    this.setState({ selectedRowKeys });
-  }
 
   createColumns = ( columns ) => {
     const cols = columns.map( col => {
-      if ( col.editable ) {
-        return ( {
-            title: col.title,
-            dataIndex: col.dataIndex,
-            width: 200,
-            render: ( text, record ) => (
-              <EditableCell
-                style={{width: 200}}
-                options={col.options}
-                type={col.type}
-                value={text}
-                onChange={this.onCellChange( record.key, col.dataIndex )}
-              /> )
-          } )
-      } else {
-        return ( {
-            title : col.title,
-            dataIndex: col.dataIndex,
-          } )
-      }
+      return ( {
+        title: col.title,
+        dataIndex: col.dataIndex,
+        width: 200,
+        render: ( text, record ) => (
+          <EditableCell
+            style={{width: 200}}
+            options={col.options}
+            type={col.type}
+            value={text}
+            onChange={this.onCellChange( record.key, col.dataIndex )}
+          /> )
+        } )
     } );
     this.setState({columns: cols})
+  }
+
+  handleRowClick = (e, record) => {
+    const { selectedRowKeys } = this.state;
+// pressing alt allows multi-select
+    if ( selectedRowKeys.includes(record.key) && e.nativeEvent.altKey ) {
+      const i = selectedRowKeys.indexOf(record.key);
+      this.setState({ selectedRowKeys:
+        selectedRowKeys.filter((el, idx) => { return ( idx !== i ) })
+      })
+    } else if ( e.nativeEvent.altKey ) {
+      this.setState({ selectedRowKeys: [...selectedRowKeys, record.key] });
+    } else {
+// But only when ONE row is selected will the redux store be changed
+      this.setState({ selectedRowKeys: [record.key] });
+      this.props.selectSingleRow(this.props.table, record.key);
+    }
   }
 
   componentDidMount() {
@@ -86,14 +91,16 @@ class EditableTable extends React.Component {
   }
 
   render() {
+    console.log(this.state.selectedRowKeys);
     const { columns, selectedRowKeys } = this.state;
     let { dataSource } = this.props;
-    const rowSelection = {
-      selectedRowKeys,
-      fixed: true,
-      onChange: this.onSelectChange
-    };
     let scrollX = 1500;
+
+    const rowClassName = (record) => {
+      if (selectedRowKeys.includes(record.key)) {
+        return 'row-selected';
+      }
+    }
 
     return (
       <div>
@@ -102,10 +109,12 @@ class EditableTable extends React.Component {
           <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
         </div>
         <Table
-          scroll={{ x: scrollX }}
+          onRow={(record) => ({
+            onClick: (e) => this.handleRowClick(e, record)
+          })}
+          rowClassName={rowClassName}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
-          rowSelection={rowSelection}
           columns={columns ? columns : []}
         />
       </div> );

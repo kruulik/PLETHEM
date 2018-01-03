@@ -44,7 +44,6 @@ const tables = (state = initialState, action) => {
       return merge({}, state, { [action.table]: {
         [action.row]: next
       }})
-
     default:
       return state;
   }
