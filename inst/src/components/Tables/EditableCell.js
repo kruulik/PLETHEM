@@ -7,10 +7,11 @@ const Option = Select.Option;
 class EditableCell extends React.Component {
 
   constructor(props){
-    this.state = {
+    super(props);
+    this.state = ({
       value: this.props.value,
       editable: false,
-    }
+    })
   }
 
   handleChangeText = (e) => {
