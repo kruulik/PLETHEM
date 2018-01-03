@@ -54,26 +54,19 @@ class EditableTable extends React.Component {
 
   createColumns = ( columns ) => {
     const cols = columns.map( col => {
-      if ( col.editable ) {
-        return ( {
-            title: col.title,
-            dataIndex: col.dataIndex,
-            width: 200,
-            render: ( text, record ) => (
-              <EditableCell
-                style={{width: 200}}
-                options={col.options}
-                type={col.type}
-                value={text}
-                onChange={this.onCellChange( record.key, col.dataIndex )}
-              /> )
-          } )
-      } else {
-        return ( {
-            title : col.title,
-            dataIndex: col.dataIndex,
-          } )
-      }
+      return ( {
+        title: col.title,
+        dataIndex: col.dataIndex,
+        width: 200,
+        render: ( text, record ) => (
+          <EditableCell
+            style={{width: 200}}
+            options={col.options}
+            type={col.type}
+            value={text}
+            onChange={this.onCellChange( record.key, col.dataIndex )}
+          /> )
+        } )
     } );
     this.setState({columns: cols})
   }
@@ -86,26 +79,18 @@ class EditableTable extends React.Component {
   }
 
   render() {
-    const { columns, selectedRowKeys } = this.state;
+    const { columns } = this.state;
     let { dataSource } = this.props;
-    const rowSelection = {
-      selectedRowKeys,
-      fixed: true,
-      onChange: this.onSelectChange
-    };
     let scrollX = 1500;
 
     return (
       <div>
         <div className="table-actions-row">
           <Button ghost type="primary" className="editable-table-btn" onClick={this.handleAdd}>Add Item</Button>
-          <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
         </div>
         <Table
-          scroll={{ x: scrollX }}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
-          rowSelection={rowSelection}
           columns={columns ? columns : []}
         />
       </div> );
