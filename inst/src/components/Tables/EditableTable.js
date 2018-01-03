@@ -105,7 +105,7 @@ class EditableTable extends React.Component {
           scroll={{ x: scrollX }}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
-          // rowSelection={rowSelection}
+          rowSelection={rowSelection}
           columns={columns ? columns : []}
         />
       </div> );
