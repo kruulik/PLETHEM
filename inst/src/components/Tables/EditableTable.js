@@ -23,10 +23,6 @@ class EditableTable extends React.Component {
     };
   }
 
-  componentDidMount() {
-    document.addEventListener('onClick')
-  }
-
   onCellChange = ( key, dataIndex ) => {
     return (value) => {
       const dataSource = [...this.props.dataSource];
@@ -50,10 +46,10 @@ class EditableTable extends React.Component {
     this.setState({count: count + 1});
   }
 
-  onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
-    this.setState({ selectedRowKeys });
-  }
+  // onSelectChange = (selectedRowKeys) => {
+  //   console.log('selectedRowKeys changed: ', selectedRowKeys);
+  //   this.setState({ selectedRowKeys });
+  // }
 
   createColumns = ( columns ) => {
     const cols = columns.map( col => {
@@ -75,8 +71,15 @@ class EditableTable extends React.Component {
   }
 
   handleRowClick = (record) => {
-    debugger
-    console.log('waaaat');
+    const { selectedRowKeys } = this.state;
+    if ( selectedRowKeys.includes(record.key) ) {
+      const i = selectedRowKeys.indexOf(record.key);
+      this.setState({ selectedRowKeys:
+        selectedRowKeys.filter((el, idx) => { return ( idx !== i ) })
+      })
+    } else {
+      this.setState({ selectedRowKeys: [...selectedRowKeys, record.key] })
+    }
   }
 
   componentDidMount() {
@@ -87,7 +90,8 @@ class EditableTable extends React.Component {
   }
 
   render() {
-    const { columns } = this.state;
+    console.log(this.state.selectedRowKeys);
+    const { columns, selectedRowKeys } = this.state;
     let { dataSource } = this.props;
     let scrollX = 1500;
 
@@ -95,9 +99,12 @@ class EditableTable extends React.Component {
       <div>
         <div className="table-actions-row">
           <Button ghost type="primary" className="editable-table-btn" onClick={this.handleAdd}>Add Item</Button>
+          <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
         </div>
         <Table
-          onRow={(record) => ({ onClick: this.handleRowClick(record) })}
+          onRow={(record) => ({
+            onClick: () => this.handleRowClick(record)
+          })}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
           columns={columns ? columns : []}
