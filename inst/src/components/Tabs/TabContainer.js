@@ -5,6 +5,7 @@ import { Tabs } from 'antd';
 const TabPane = Tabs.TabPane;
 
 import { EditableTable } from 'components';
+// import { SupplementalTable } from 'components';
 
 
 class TabContainer extends Component {
@@ -16,6 +17,7 @@ class TabContainer extends Component {
         <Tabs type="card" >
           <TabPane tab="Organisms" key="1">
             <EditableTable table="organisms" maxWidth={maxWidth}/>
+
           </TabPane>
           <TabPane tab="Exposure Scenarios" key="2">
             <EditableTable table="exposure" />

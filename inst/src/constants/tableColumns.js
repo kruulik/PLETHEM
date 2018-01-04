@@ -29,6 +29,7 @@ const tableColumns = {
       key: 'gender',
       editable: 'true',
       type: 'select',
+      width: 110,
       options: [ 'Male', 'Female' ]
     }, {
       title: 'Age',
