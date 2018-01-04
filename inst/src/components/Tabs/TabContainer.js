@@ -10,12 +10,12 @@ import { EditableTable } from 'components';
 class TabContainer extends Component {
 
   render(){
-
+    const {maxWidth} = this.props;
     return (
       <div className="tabs-wrapper">
         <Tabs type="card" >
           <TabPane tab="Organisms" key="1">
-            <EditableTable table="organisms"/>
+            <EditableTable table="organisms" maxWidth={maxWidth}/>
           </TabPane>
           <TabPane tab="Exposure Scenarios" key="2">
             <EditableTable table="exposure" />

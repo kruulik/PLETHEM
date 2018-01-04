@@ -46,16 +46,15 @@ class EditableTable extends React.Component {
     this.setState({count: count + 1});
   }
 
-
   createColumns = ( columns ) => {
     const cols = columns.map( col => {
       return ( {
         title: col.title,
         dataIndex: col.dataIndex,
-        width: 200,
+        width: col.width || 120,
         render: ( text, record ) => (
           <EditableCell
-            style={{width: 200}}
+            width={ col.width || 120 }
             options={col.options}
             type={col.type}
             value={text}
@@ -68,7 +67,9 @@ class EditableTable extends React.Component {
 
   handleRowClick = (e, record) => {
     const { selectedRowKeys } = this.state;
-// pressing alt allows multi-select
+
+// NOTE pressing alt allows multi-select, but only when ONE row is selected will the redux store be changed.
+
     if ( selectedRowKeys.includes(record.key) && e.nativeEvent.altKey ) {
       const i = selectedRowKeys.indexOf(record.key);
       this.setState({ selectedRowKeys:
@@ -77,7 +78,6 @@ class EditableTable extends React.Component {
     } else if ( e.nativeEvent.altKey ) {
       this.setState({ selectedRowKeys: [...selectedRowKeys, record.key] });
     } else {
-// But only when ONE row is selected will the redux store be changed
       this.setState({ selectedRowKeys: [record.key] });
       this.props.selectSingleRow(this.props.table, record.key);
     }
@@ -91,16 +91,22 @@ class EditableTable extends React.Component {
   }
 
   render() {
-
     const { columns, selectedRowKeys } = this.state;
     let { dataSource } = this.props;
-    let scrollX = 1500;
 
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
         return 'row-selected';
       }
     }
+
+    let scrollX = 0;
+    if (columns.length > 0) {
+      columns.map(col => {
+        scrollX += col.width;
+      })
+    }
+
 
     return (
       <div>
@@ -109,7 +115,10 @@ class EditableTable extends React.Component {
           <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
         </div>
         <Table
-          onRow={(record) => ({
+          pagination={false}
+          scroll={{ x: scrollX, y: 300 }}
+          onRow={(record) =>
+            ({
             onClick: (e) => this.handleRowClick(e, record)
           })}
           rowClassName={rowClassName}
@@ -124,7 +133,8 @@ class EditableTable extends React.Component {
 const mapStateToProps = ( state, ownProps ) => {
   const table = ownProps.table;
   return {
-    dataSource: selectTableData(state, table)
+    dataSource: selectTableData(state, table),
+    ownProps
   }
 };
 
