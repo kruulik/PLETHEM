@@ -6,16 +6,18 @@ const tableColumns = {
       key: 'organismName',
       editable: 'true',
       type: 'text',
+      width: 170
     }, {
       title: 'Species',
       dataIndex: 'species',
       key: 'species',
       editable: 'true',
       type: 'select',
+      width: 140,
       options: [
         'Mouse',
         'Rat',
-        'GuineaPigadFwefwEFwerfawefawefawefaw',
+        'Guinea PigGuin eaPig',
         'Rabbit',
         'Dog',
         'Mokey',
@@ -27,6 +29,7 @@ const tableColumns = {
       key: 'gender',
       editable: 'true',
       type: 'select',
+      width: 110,
       options: [ 'Male', 'Female' ]
     }, {
       title: 'Age',
@@ -65,82 +68,109 @@ const tableColumns = {
       title: 'Schedule Name',
       dataIndex: 'scheduleName',
       key: 'scheduleName',
-      editable: 'true'
+      editable: 'true',
+      type: 'text',
+      width: 150,
     }, {
       title: 'Route',
       dataIndex: 'route',
       key: 'route',
-      editable: 'true'
+      editable: 'true',
+      type: 'select',
+      options: [
+        "Intravenous",
+        "Oral",
+        "Inhalation",
+        "Dermal"
+      ]
     }, {
       title: 'Activity Site',
       dataIndex: 'site',
       key: 'site',
-      editable: 'true'
+      editable: 'true',
+      type: 'select',
+      options: [
+        "Resting",
+        "Light Work",
+      ]
     }, {
       title: 'Doses/day',
       dataIndex: 'doseDay',
       key: 'doseDay',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Doses/week',
       dataIndex: 'doseWeek',
       key: 'doseWeek',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Total Weight',
       dataIndex: 'totalWeight',
       key: 'totalWeight',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Oral Dose',
       dataIndex: 'oralDose',
       key: 'oralDose',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'IV Dose',
       dataIndex: 'ivDose',
       key: 'ivDose',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Air Conc.',
       dataIndex: 'airConc',
       key: 'airConc',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Dermal Dose',
       dataIndex: 'dermalDose',
       key: 'dermalDose',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Start Time',
       dataIndex: 'startTime',
       key: 'startTime',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Duration',
       dataIndex: 'duration',
       key: 'duration',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Interval',
       dataIndex: 'interval',
       key: 'interval',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Exposed Skin Area',
       dataIndex: 'exposedSkinArea',
       key: 'exposedSkinArea',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Skin Temp',
       dataIndex: 'skinTemp',
       key: 'skinTemp',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }, {
       title: 'Air Temp',
       dataIndex: 'airTemp',
       key: 'airTemp',
-      editable: 'true'
+      editable: 'true',
+      type: 'numeric',
     }
   ],
   compounds: [

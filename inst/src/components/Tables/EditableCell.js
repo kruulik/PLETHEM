@@ -44,6 +44,7 @@ class EditableCell extends React.Component {
       case 'text':
         return (
           <Input
+            style={{width: this.props.width - 18}}
             value={value}
             onBlur={this.check}
             onChange={this.handleChangeText}
@@ -54,6 +55,7 @@ class EditableCell extends React.Component {
       case 'numeric':
         return (
           <InputNumber
+            style={{width: this.props.width - 17}}
             value={value || 0}
             onChange={this.handleChangeInput}
             suffix={<Icon type="check" onClick={this.check}/>}
@@ -63,6 +65,7 @@ class EditableCell extends React.Component {
 
         return (
           <Select
+            style={{width: this.props.width - 17}}
             onChange={this.handleChangeInput}
             value={value || this.props.options[0]}
           >
@@ -106,7 +109,7 @@ class EditableCell extends React.Component {
     }
 
     return (
-      <div className="editable-cell">
+      <div className="editable-cell" >
         { cell }
       </div>
     );
