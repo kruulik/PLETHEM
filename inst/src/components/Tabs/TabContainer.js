@@ -5,19 +5,23 @@ import { Tabs } from 'antd';
 const TabPane = Tabs.TabPane;
 
 import { EditableTable } from 'components';
-// import { SupplementalTable } from 'components';
+import { SupplementalTable } from 'components';
 
 
 class TabContainer extends Component {
 
   render(){
-    const {maxWidth} = this.props;
+    const { tabsWH } = this.props;
     return (
       <div className="tabs-wrapper">
-        <Tabs type="card" >
-          <TabPane tab="Organisms" key="1">
-            <EditableTable table="organisms" maxWidth={maxWidth}/>
-
+        <Tabs type="card" style={{ height: '100%' }}>
+          <TabPane  tab="Organisms" key="1" className="tab-content-wrapper">
+            <EditableTable table="organisms" tabsWH={tabsWH} />
+            <div className="supplemental-data-wrapper">
+              <SupplementalTable parentTable="organisms" tabsWH={tabsWH} />
+              <div className="plot-wireframe"></div>
+              <div>bla</div>
+            </div>
           </TabPane>
           <TabPane tab="Exposure Scenarios" key="2">
             <EditableTable table="exposure" />

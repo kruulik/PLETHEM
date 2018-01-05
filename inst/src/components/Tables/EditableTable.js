@@ -19,7 +19,9 @@ class EditableTable extends React.Component {
       columns: [],
       dataSource: [],
       count: this.props.dataSource.length,
-      selectedRowKeys: []
+      selectedRowKeys: [],
+      scrollX: 0,
+      scrollY: 350,
     };
   }
 
@@ -46,15 +48,17 @@ class EditableTable extends React.Component {
     this.setState({count: count + 1});
   }
 
-  createColumns = ( columns ) => {
+  createColumns = ( columns, defaultW = 120 ) => {
+    let totalColumnsWidth = 0;
     const cols = columns.map( col => {
+      totalColumnsWidth += col.width || defaultW;
       return ( {
         title: col.title,
         dataIndex: col.dataIndex,
-        width: col.width || 120,
+        width: col.width || defaultW,
         render: ( text, record ) => (
           <EditableCell
-            width={ col.width || 120 }
+            width={ col.width || defaultW }
             options={col.options}
             type={col.type}
             value={text}
@@ -62,8 +66,15 @@ class EditableTable extends React.Component {
           /> )
         } )
     } );
-    this.setState({columns: cols})
+
+    this.setState({
+      columns: cols,
+      scrollX: totalColumnsWidth,
+    })
   }
+
+
+
 
   handleRowClick = (e, record) => {
     const { selectedRowKeys } = this.state;
@@ -83,44 +94,49 @@ class EditableTable extends React.Component {
     }
   }
 
+
+
+
   componentDidMount() {
     const { table, dataSource } = this.props;
+
     const columns = tableColumns[table];
     this.createColumns(columns);
     this.props.createTable(table);
+
   }
 
-  render() {
-    const { columns, selectedRowKeys } = this.state;
-    let { dataSource } = this.props;
+  // componentWillReceiveProps(nextProps) {
+  //   debugger
+  //   this.setState({
+  //     scrollY: nextProps.tabsWH.tabsHeight,
+  //   })
+  // }
 
+  render() {
+    const { columns, selectedRowKeys, scrollX, scrollY } = this.state;
+    let { dataSource, tabsWH } = this.props;
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
         return 'row-selected';
       }
     }
 
-    let scrollX = 0;
-    if (columns.length > 0) {
-      columns.map(col => {
-        scrollX += col.width;
-      })
-    }
-
+console.log(scrollX, scrollY, tabsWH)
 
     return (
-      <div>
+      <div className="editable-table-wrapper">
         <div className="table-actions-row">
           <Button ghost type="primary" className="editable-table-btn" onClick={this.handleAdd}>Add Item</Button>
           <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
         </div>
         <Table
           pagination={false}
-          scroll={{ x: scrollX, y: 300 }}
+          scroll={{ x: scrollX, y: scrollY }}
           onRow={(record) =>
             ({
-            onClick: (e) => this.handleRowClick(e, record)
-          })}
+              onClick: (e) => this.handleRowClick(e, record)
+            })}
           rowClassName={rowClassName}
           bordered={true}
           dataSource={dataSource ? dataSource : []}

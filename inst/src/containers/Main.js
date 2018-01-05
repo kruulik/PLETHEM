@@ -19,6 +19,7 @@ class Main extends Component {
       windowWidth: window.innerWidth,
       windwHeight: window.innerHeight,
       tabsWidth: null,
+      tabsHeight: null,
       tabs: null,
     });
   }
@@ -28,10 +29,12 @@ class Main extends Component {
     const w = window.innerWidth;
     const h = window.innerHeight;
     const tabsWidth = tabs.getBoundingClientRect().width;
+    const tabsHeight = tabs.getBoundingClientRect().height;
     this.setState({
       wWidth: w,
       wHeight: h,
       tabsWidth: tabsWidth,
+      tabsHeight: tabsHeight,
     });
   }
 
@@ -39,7 +42,8 @@ class Main extends Component {
     const tabs = document.querySelector(".ant-tabs-content");
     this.setState({
       tabs,
-      tabsWidth: tabs.getBoundingClientRect().width
+      tabsWidth: tabs.getBoundingClientRect().width,
+      tabsHeight: tabs.getBoundingClientRect().height
     })
     window.addEventListener("resize", () => {
       let resizeEvent = requestAnimationFrame(this.updateSize)
@@ -51,14 +55,14 @@ class Main extends Component {
   }
 
   render() {
-    const { windowWidth, windowHeight, tabsWidth } = this.state;
+    const { windowWidth, windowHeight, tabsWidth, tabsHeight } = this.state;
     return (
       <Layout style={style.container}>
         <Header />
         <Sidebar />
         <Layout style={style.contentWrapper}>
-          <Content style={{ overflow: 'initial'}}>
-            <TabContainer maxWidth={tabsWidth} />
+          <Content style={{ overflow: 'initial', height: '100%'}}>
+            <TabContainer tabsWH={{tabsWidth, tabsHeight}} />
           </Content>
         </Layout>
       </Layout>
@@ -82,10 +86,12 @@ export default connect(mapStateToProps, null)(Main);
 
 const style = {
   container: {
+    height: '100vh',
   },
   contentWrapper: {
     marginLeft: '300px',
-    paddingTop: '60px',
-    height: '100vh'
+    marginTop: '60px',
+    height: 'calc(100vh - 60px)',
+    // border: '3px solid red'
   }
 }
