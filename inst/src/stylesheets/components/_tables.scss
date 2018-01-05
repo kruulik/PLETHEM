@@ -28,3 +28,29 @@
 .row-selected {
   background-color: #ffbb001f;
 }
+
+.tab-content-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .editable-table-wrapper {
+    border: 1px solid green;
+  }
+
+  .supplemental-data-wrapper {
+    border: 1px solid red;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.tabs-wrapper {
+  height: 100%;
+}
+
+.ant-tabs-content {
+  height:  calc(100% - 64px);
+}

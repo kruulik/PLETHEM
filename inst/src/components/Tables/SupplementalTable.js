@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Table } from 'antd';
 
 import tableColumns from 'constants/tableColumns';
+import supplementalTables from 'constants/supplementalTables';
 
 import { selectTableData } from 'reducers/selectors';
 import * as TableActions from 'actions/tableActions';
@@ -54,17 +55,17 @@ class SupplementalTable extends React.Component {
 
     return (
       <div>
-
+        <div>SupplementalTable</div>
         <Table
           pagination={false}
-          scroll={{ x: scrollX, y: 300 }}
+          scroll={{ x: scrollX }}
           onRow={(record) =>
             ({
-            onClick: (e) => this.handleRowClick(e, record)
-          })}
+              onClick: (e) => this.handleRowClick(e, record)
+            })}
           rowClassName={rowClassName}
           bordered={true}
-          dataSource={dataSource ? dataSource : []}
+          dataSource={dataSource ? dataSource : [] }
           columns={columns ? columns : []}
         />
       </div> );
