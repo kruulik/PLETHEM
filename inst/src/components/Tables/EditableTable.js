@@ -21,7 +21,7 @@ class EditableTable extends React.Component {
       count: this.props.dataSource.length,
       selectedRowKeys: [],
       scrollX: 0,
-      scrollY: 300,
+      scrollY: 350,
     };
   }
 
@@ -52,7 +52,6 @@ class EditableTable extends React.Component {
     let totalColumnsWidth = 0;
     const cols = columns.map( col => {
       totalColumnsWidth += col.width || defaultW;
-      // debugger
       return ( {
         title: col.title,
         dataIndex: col.dataIndex,
@@ -100,7 +99,6 @@ class EditableTable extends React.Component {
 
   componentDidMount() {
     const { table, dataSource } = this.props;
-    const { scrollX, scrollY } = this.state;
 
     const columns = tableColumns[table];
     this.createColumns(columns);
@@ -108,18 +106,11 @@ class EditableTable extends React.Component {
 
   }
 
-  //
-  //
-  // scrollDimensions = (x, y) => {
+  // componentWillReceiveProps(nextProps) {
   //   debugger
-  //   const { columns } = this.state;
   //   this.setState({
-  //     scrollX: columns.map(col => {
-  //       x += col.width;
-  //     }),
-  //     scrollY: 300
-  //   });
-  //
+  //     scrollY: nextProps.tabsWH.tabsHeight,
+  //   })
   // }
 
   render() {
@@ -131,7 +122,7 @@ class EditableTable extends React.Component {
       }
     }
 
-console.log(scrollX)
+console.log(scrollX, scrollY, tabsWH)
 
     return (
       <div className="editable-table-wrapper">
