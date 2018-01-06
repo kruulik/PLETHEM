@@ -54,7 +54,7 @@ class SupplementalTable extends React.Component {
 
 
     return (
-      <div>
+      <div className="supplemental-table">
         <div>SupplementalTable</div>
         <Table
           pagination={false}

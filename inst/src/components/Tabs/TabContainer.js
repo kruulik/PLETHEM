@@ -19,8 +19,9 @@ class TabContainer extends Component {
             <EditableTable table="organisms" tabsWH={tabsWH} />
             <div className="supplemental-data-wrapper">
               <SupplementalTable parentTable="organisms" tabsWH={tabsWH} />
-              <div className="plot-wireframe"></div>
-              <div>bla</div>
+              <div className="plot">
+                <div>plot goes here</div>
+              </div>
             </div>
           </TabPane>
           <TabPane tab="Exposure Scenarios" key="2">

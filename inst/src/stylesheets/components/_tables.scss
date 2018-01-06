@@ -39,11 +39,17 @@
   }
 
   .supplemental-data-wrapper {
-    border: 1px solid red;
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    .supplemental-table {
+      border: 1px solid red;
+      width: 100%;
+    }
+    .plot {
+      width: 100%;
+      border: 1px solid yellow;
+    }
   }
 }
 
