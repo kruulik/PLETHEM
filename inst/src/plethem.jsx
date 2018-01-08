@@ -8,6 +8,9 @@ import Root from 'containers/Root';
 
 import 'stylesheets/main.scss';
 
+// import 'services/scripts/jquery-3.1.1.min.js';
+import 'services/scripts/opencpu-0.4';
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -15,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
+  window.ocpu.seturl("http://localhost:5656/ocpu/library/plethembase/R");
+
 
   const renderApp = Component => {
     ReactDOM.render(

@@ -1,14 +1,19 @@
-/////////////////////////////////////////////////////////
-//  WebPack prod settings
-/////////////////////////////////////////////////////////
-//  author: Jose Quinto - https://blog.josequinto.com
-/////////////////////////////////////////////////////////
 
 const commonPaths = require("./common-paths");
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
+
+
+const fs = require('fs');
+const path = require('path');
+
+
+const lessToJs = require('less-vars-to-js');
+const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, '../src/stylesheets/ant-theme-vars.less'), 'utf8'));
+
 
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
@@ -56,7 +61,7 @@ module.exports = {
             '__DEVTOOLS__': false                           // Doesn´t have effect on my example
         }),
         new ExtractTextPlugin({
-            filename: 'static/css/main.css',
+            filename: 'main.css',
             allChunks: true
         }),
         // Plugings for optimizing size and performance.
@@ -103,7 +108,7 @@ module.exports = {
         // loaders -> rules in webpack 2
         rules: [
             {
-                test: /\.jsx$/,
+                test: /\.(js|jsx)$/,
                 use: [
                     {
                         loader: 'babel-loader'
@@ -112,7 +117,7 @@ module.exports = {
                 include: commonPaths.srcPath  // Use include instead exclude to improve build performance
             },
             {
-                test: /\.scss$/i,
+                test: /\.(scss|css)$/i,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
@@ -133,7 +138,19 @@ module.exports = {
                     ]
                 }),
                 include: commonPaths.stylesheetsPath
-            }
+            },
+            {
+            test: /\.less$/,
+            use: [
+              {loader: "style-loader"},
+              {loader: "css-loader"},
+              {loader: "less-loader",
+                options: {
+                  modifyVars: themeVariables
+                }
+              }
+            ]
+          }
         ]
     }
     // When importing a module whose path matches one of the following, just

@@ -5,6 +5,7 @@ import Main from './Main';
 
 class App extends Component {
 
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.errorMessage && this.props.errorMessage !== nextProps.errorMessage) {
       // handle error here

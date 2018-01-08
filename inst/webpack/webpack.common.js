@@ -22,7 +22,7 @@ const config = {
         path: commonPaths.outputPath,
         // chunkFilename: 'static/js/[name].chunk.js',
         // This is the URL that app is served from. We use "/" in development.
-        publicPath: '/'
+        publicPath: ''
     }
 };
 

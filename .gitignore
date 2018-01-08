@@ -1,9 +1,9 @@
 .idea/
 node_modules/
-www/
 build/
 dist/
 *.iml
 webpack-assets.json
 webpack-stats.json
 npm-debug.log
+.Rproj.user
