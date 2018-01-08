@@ -68,8 +68,10 @@ module.exports = {
         allChunks: true
     }),
     new webpack.ProvidePlugin({
-      'jQuery': "services/scripts/jquery-3.1.1.min.js"
-      // 'ocpu': 'services/scripts/opencpu-0.4.js'
+      $: 'jquery',
+      jQuery: 'jQuery',
+      // opencpu: 'opencpu.js'
+      opencpu: 'services/scripts/opencpu-0.5.js'
     })
   ],
 

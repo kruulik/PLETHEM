@@ -1,6 +1,6 @@
 /**
  * Javascript client library for OpenCPU
- * Version 0.4.3
+ * Version 0.5.0
  * Depends: jQuery
  * Requires HTML5 FormData support for file uploads
  * http://github.com/jeroenooms/opencpu.js
@@ -11,7 +11,13 @@
  * ocpu.seturl("../R") //default, use for apps
  * ocpu.seturl("//public.opencpu.org/ocpu/library/mypackage/R") //CORS
  * ocpu.seturl("/ocpu/library/mypackage/R") //hardcode path
+ * ocpu.seturl("https://user:secret/my.server.com/ocpu/library/pkg/R") // basic auth
  */
+
+//Warning for the newbies
+// if(!window.jQuery) {
+//   alert("Could not find jQuery! The HTML must include jquery.js before opencpu.js!")
+// }
 
 (function ( $ ) {
 
@@ -37,7 +43,11 @@
     };
 
     this.getFileURL = function(path){
-      return this.getLoc() + "files/" + path;
+      var new_url = document.createElement('a');
+      new_url.href = this.getLoc() + "files/" + path;
+      new_url.username = r_path.username;
+      new_url.password = r_path.password
+      return new_url.href;
     };
 
     this.getFile = function(path, success){
@@ -140,12 +150,10 @@
       var key = jqxhr.getResponseHeader('X-ocpu-session') || console.log("X-ocpu-session response header missing.");
       var txt = jqxhr.responseText;
 
-      //in case of cors we translate the relative path
-      // if(r_cors){
-      //   loc = r_path.protocol + "//" + r_path.host + loc;
-      //   this little bastard was messingn everything up: "http://localhost:5656http://localhost:5656/ocpu/tmp/x0de4465624/"
-      //   debugger
-      // }
+      //in case of cors we translate relative paths to the target domain
+      if(r_cors && loc.match("^/[^/]")){
+        loc = r_path.protocol + "//" + r_path.host + loc;
+      }
       handler(new Session(loc, key, txt));
     }).fail(function(){
       console.log("OpenCPU error HTTP " + jqxhr.status + "\n" + jqxhr.responseText);
@@ -159,7 +167,7 @@
   function r_fun_call_json(fun, args, handler){
     return r_fun_ajax(fun, {
       data: JSON.stringify(args || {}),
-      contentType : 'application/json',
+      contentType : 'application/json'
     }, handler);
   }
 
@@ -219,9 +227,7 @@
   //call a function and return JSON
   function rpc(fun, args, handler){
     return r_fun_call(fun, args, function(session){
-      debugger
       session.getObject(function(data){
-
         if(handler) handler(data);
       }).fail(function(){
         console.log("Failed to get JSON response for " + session.getLoc());
@@ -250,6 +256,10 @@
     });
   };
 
+  $.fn.graphic = function(session, n){
+    initplot(this).setlocation(session.getLoc(), n || "last");
+  }
+
   function initplot(targetdiv){
     if(targetdiv.data("ocpuplot")){
       return targetdiv.data("ocpuplot");
@@ -257,9 +267,9 @@
     var ocpuplot = function(){
       //local variables
       var Location;
+      var n = "last";
       var pngwidth;
       var pngheight;
-      var ratio = window.devicePixelRatio || 1;
 
       var plotdiv = $('<div />').attr({
         style: "width: 100%; height:100%; min-width: 100px; min-height: 100px; position:relative; background-repeat:no-repeat; background-size: 100% 100%;"
@@ -267,7 +277,7 @@
 
       var spinner = $('<span />').attr({
         style : "position: absolute; top: 20px; left: 20px; z-index:1000; font-family: monospace;"
-      }).text("loading...").appendTo(plotdiv);
+      }).text("loading...").appendTo(plotdiv).hide();
 
       var pdf = $('<a />').attr({
         target: "_blank",
@@ -288,10 +298,11 @@
         if(!Location) return;
         pngwidth = plotdiv.width();
         pngheight = plotdiv.height();
-        plotdiv.css("background-image", "url(" + Location + "graphics/last/png?width=" + pngwidth * ratio + "&height=" + pngheight * ratio + "&res=" + 72 * ratio + ")");
+        plotdiv.css("background-image", "url(" + Location + "graphics/" + n + "/png?width=" + pngwidth + "&height=" + pngheight + ")");
       }
 
-      function setlocation(newloc){
+      function setlocation(newloc, newn){
+        n = newn || n;
         Location = newloc;
         if(!Location){
           pdf.hide();
@@ -299,9 +310,9 @@
           png.hide();
           plotdiv.css("background-image", "");
         } else {
-          pdf.attr("href", Location + "graphics/last/pdf?width=11.69&height=8.27&paper=a4r").show();
-          svg.attr("href", Location + "graphics/last/svg?width=11.69&height=8.27").show();
-          png.attr("href", Location + "graphics/last/png?width=800&height=600").show();
+          pdf.attr("href", Location + "graphics/" + n + "/pdf?width=11.69&height=8.27&paper=a4r").show();
+          svg.attr("href", Location + "graphics/" + n + "/svg?width=11&height=6").show();
+          png.attr("href", Location + "graphics/" + n + "/png?width=800&height=600").show();
           updatepng();
         }
       }
@@ -375,6 +386,32 @@
         r_cors = true;
         if (!('withCredentials' in new XMLHttpRequest())) {
           alert("This browser does not support CORS. Try using Firefox or Chrome.");
+        } else if(r_path.username && r_path.password) {
+          //should only do this for calls to opencpu maybe
+          var regex = new RegExp(r_path.host);
+          $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+              //only use auth for ajax requests to ocpu
+              if(regex.test(settings.url)){
+                //settings.username = r_path.username;
+                //settings.password = r_path.password;
+
+                /* take out user:pass from target url */
+                var target = document.createElement('a');
+                target.href = settings.url;
+                settings.url = target.protocol + "//" + target.host + target.pathname
+
+                /* set basic auth header */
+                settings.xhrFields = settings.xhrFields || {};
+                settings.xhrFields.withCredentials = true;
+                settings.crossDomain = true;
+                xhr.setRequestHeader("Authorization", "Basic " + btoa(r_path.username + ":" + r_path.password));
+
+                /* debug */
+                console.log("Authenticated request to: " + settings.url + " (" + r_path.username + ", " + r_path.password + ")")
+              }
+            }
+          });
         }
       }
 
@@ -388,9 +425,10 @@
         console.log("Setting path to local (non-CORS) server " + r_path.href);
       }
 
-      //we use trycatch because javascript will throw an error in case CORS is refused.
-      $.get(r_path.href, function(resdata){
+      //CORS disallows redirects.
+      return $.get(r_path.href + "/", function(resdata){
         console.log("Path updated. Available objects/functions:\n" + resdata);
+
       }).fail(function(xhr, textStatus, errorThrown){
         alert("Connection to OpenCPU failed:\n" + textStatus + "\n" + xhr.responseText + "\n" + errorThrown);
       });
