@@ -55,7 +55,7 @@ class SupplementalTable extends React.Component {
 
     return (
       <div className="supplemental-table">
-        <div>SupplementalTable</div>
+        <div>suasdfasdfasdfasdfasp</div>
         <Table
           pagination={false}
           scroll={{ x: scrollX }}
@@ -68,6 +68,7 @@ class SupplementalTable extends React.Component {
           dataSource={dataSource ? dataSource : [] }
           columns={columns ? columns : []}
         />
+        bla
       </div> );
   }
 }

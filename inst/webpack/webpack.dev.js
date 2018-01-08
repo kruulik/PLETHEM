@@ -5,14 +5,20 @@ const fs = require('fs');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+
+// const DiskPlugin = require("webpack-disk-plugin");
+
 
 const lessToJs = require('less-vars-to-js');
 const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, '../src/stylesheets/ant-theme-vars.less'), 'utf8'));
 
-const publicUrl = '';
+const publicUrl = '.';
 
 module.exports = {
   devtool: 'inline-source-map',
+  watch: true,
   output: {
     pathinfo: true
   },
@@ -21,7 +27,7 @@ module.exports = {
     // All options here: https://webpack.js.org/configuration/dev-server/
 
     hot: true, // enable HMR on the server
-    contentBase: commonPaths.contentBasePath, // match the output path
+    contentBase: commonPaths.outputPath, // match the output path
     publicPath: '/', // match the output `publicPath`
     //host:"0.0.0.0",  Enable to integrate with Docker
     port: 3000,
@@ -38,6 +44,7 @@ module.exports = {
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
+
     new InterpolateHtmlPlugin({PUBLIC_URL: publicUrl}),
     // enable HMR globally
     new webpack.HotModuleReplacementPlugin(),
@@ -55,8 +62,17 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
 
     // do not emit compiled assets that include errors
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new ExtractTextPlugin({
+        filename: 'static/main.css',
+        allChunks: true
+    }),
+    new webpack.ProvidePlugin({
+      'jQuery': "services/scripts/jquery-3.1.1.min.js"
+      // 'ocpu': 'services/scripts/opencpu-0.4.js'
+    })
   ],
+
   module: {
     // loaders -> rules in webpack 2
     rules: [

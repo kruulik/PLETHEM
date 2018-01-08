@@ -88,6 +88,7 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "normalizr": "^3.2.4",
+    "opencpu": "^1.0.2",
     "pretty-error": "^2.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -111,6 +112,7 @@
     "serve-favicon": "^2.3.0",
     "url-loader": "^0.6.2",
     "warning": "^3.0.0",
+    "webpack-disk-plugin": "0.0.2",
     "webpack-isomorphic-tools": "^3.0.5"
   },
   "devDependencies": {

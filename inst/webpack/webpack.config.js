@@ -1,11 +1,4 @@
-//////////////////////////////////////////////////////////
-//  WebPack config with composition (webpack.academy)
-//      This is webpack config framework intended to
-//      choose between dev, prod configs and including
-//      addons in the configs
-//////////////////////////////////////////////////////////
-//  author: Jose Quinto - https://blog.josequinto.com
-//////////////////////////////////////////////////////////
+
 
 const errorConstants = require("./error-constants");
 const commonConfig = require("./webpack.common");
