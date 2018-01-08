@@ -1,8 +1,6 @@
 
 export const testOCPU = () => {
-debugger
   const req = window.ocpu.rpc("getIndusChemFateCompoundData", null, (output) => {
-    debugger
     console.log(JSON.parse(output))
   });
 }

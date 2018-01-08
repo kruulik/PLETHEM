@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import jquery from 'jquery';
+window.$ = window.jQuery = jquery;
 import { AppContainer } from 'react-hot-loader'; // required for HMR
 import merge from 'lodash/merge';
 
@@ -8,8 +10,7 @@ import Root from 'containers/Root';
 
 import 'stylesheets/main.scss';
 
-// import 'services/scripts/jquery-3.1.1.min.js';
-import 'services/scripts/opencpu-0.4';
+// import opencpu from 'opencpu.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,7 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  window.ocpu.seturl("http://localhost:5656/ocpu/library/plethembase/R");
+
+  window.jQuery ? opencpu : null;
+
 
 
   const renderApp = Component => {
@@ -31,6 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   renderApp(Root)
+
+  if (window) {
+    window.ocpu.seturl("http://localhost:5656/ocpu/library/plethembase/R");
+  }
 
   // Webpack Hot Module Replacement API
   if (module.hot) {
