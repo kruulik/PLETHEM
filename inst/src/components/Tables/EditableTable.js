@@ -23,6 +23,8 @@ class EditableTable extends React.Component {
       scrollX: 0,
       scrollY: 350,
     };
+    this.handleAdd = this.handleAdd.bind(this)
+
   }
 
   onCellChange = ( key, dataIndex ) => {
@@ -115,7 +117,7 @@ class EditableTable extends React.Component {
 
   render() {
     const { columns, selectedRowKeys, scrollX, scrollY } = this.state;
-    let { dataSource, tabsWH } = this.props;
+    let { dataSource, tabsWH, actions } = this.props;
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
         return 'row-selected';
@@ -127,8 +129,7 @@ console.log(scrollX, scrollY, tabsWH)
     return (
       <div className="editable-table-wrapper">
         <div className="table-actions-row">
-          <Button ghost type="primary" className="editable-table-btn" onClick={this.handleAdd}>Add Item</Button>
-          <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
+          {actions}
         </div>
         <Table
           pagination={false}
@@ -158,4 +159,4 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({...TableActions}, dispatch);
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( EditableTable );
+export default connect( mapStateToProps, mapDispatchToProps, null, {withRef: true} )( EditableTable );
