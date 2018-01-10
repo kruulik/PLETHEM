@@ -30,7 +30,7 @@ class EditableTable extends React.Component {
   onCellChange = ( key, dataIndex ) => {
     return (value) => {
       const dataSource = [...this.props.dataSource];
-      const {table} = this.props;
+        const {table} = this.props;
       const row = dataSource.find( item => item.key === key ).key.toString();
       const column = dataIndex;
       this.props.updateCell(row, value, table, column);
@@ -49,6 +49,8 @@ class EditableTable extends React.Component {
     this.props.addRow(table, count.toString() );
     this.setState({count: count + 1});
   }
+
+
 
   createColumns = ( columns, defaultW = 120 ) => {
     let totalColumnsWidth = 0;
@@ -75,9 +77,6 @@ class EditableTable extends React.Component {
     })
   }
 
-
-
-
   handleRowClick = (e, record) => {
     const { selectedRowKeys } = this.state;
 
@@ -96,7 +95,9 @@ class EditableTable extends React.Component {
     }
   }
 
-
+  disabled = () => {
+    return this.state.selectedRowKeys.length === 0
+  }
 
 
   componentDidMount() {
@@ -108,12 +109,6 @@ class EditableTable extends React.Component {
 
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   debugger
-  //   this.setState({
-  //     scrollY: nextProps.tabsWH.tabsHeight,
-  //   })
-  // }
 
   render() {
     const { columns, selectedRowKeys, scrollX, scrollY } = this.state;
@@ -124,12 +119,17 @@ class EditableTable extends React.Component {
       }
     }
 
-console.log(scrollX, scrollY, tabsWH)
-
     return (
       <div className="editable-table-wrapper">
         <div className="table-actions-row">
           {actions}
+          <Button
+            ghost
+            type="danger"
+            disabled={ this.disabled() }
+            className="editable-table-btn"
+            onClick={() => this.handleRemove() }
+          >Remove Selection</Button>
         </div>
         <Table
           pagination={false}
@@ -146,6 +146,8 @@ console.log(scrollX, scrollY, tabsWH)
       </div> );
   }
 }
+
+
 
 const mapStateToProps = ( state, ownProps ) => {
   const table = ownProps.table;

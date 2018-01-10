@@ -9,8 +9,20 @@ import { SupplementalTable } from 'components';
 
 class TabContainer extends Component {
 
-  handleClick = () => {
-    this.table.wrappedInstance.handleAdd();
+  constructor(props){
+    super(props);
+    this.state = ({
+      disabled: null,
+    })
+  }
+
+  wrappedRef = () => {
+    if (typeof this.table === 'undefined') {
+      return false
+    } else {
+
+      return this.table.wrappedInstance
+    }
   }
 
   render(){
@@ -28,16 +40,9 @@ class TabContainer extends Component {
                   <Button
                     ghost
                     type="primary"
-                    ref={node => (this.button = node)}
                     className="editable-table-btn"
-                    onClick={() => this.handleClick()}
-                  >Add Item</Button>
-                  {/* <Button
-                    ghost
-                    type="danger" disabled={this.refs.table.selectedRowKeys.length === 0 ? true : false}
-                    className="editable-table-btn"
-                    onClick={() => this.refs.table.handleRemove()}
-                  >Remove Selection</Button> */}
+                    onClick={() => this.wrappedRef().handleAdd() }
+                  >Add Organism</Button>
                 </div>
               }
             />
@@ -54,21 +59,34 @@ class TabContainer extends Component {
                 <Button
                   ghost
                   type="primary"
-                  ref={node => (this.button = node)}
                   className="editable-table-btn"
-                  onClick={() => this.handleClick()}
-                >Add Item</Button>
-                {/* <Button
-                  ghost
-                  type="danger" disabled={this.refs.table.selectedRowKeys.length === 0 ? true : false}
-                  className="editable-table-btn"
-                  onClick={() => this.refs.table.handleRemove()}
-                >Remove Selection</Button> */}
+                  onClick={() => this.wrappedRef().handleAdd()}
+                >Add Scenario</Button>
+
               </div>
             }/>
+            <div className="supplemental-data-wrapper">
+              <SupplementalTable parentTable="exposure" tabsWH={tabsWH} />
+            </div>
           </TabPane>
           <TabPane tab="Compounds" key="3">
-            <EditableTable table="compounds"/>
+            <EditableTable table="compounds" actions={
+              <div>
+                <Button
+                  ghost
+                  type="primary"
+                  className="editable-table-btn"
+                  onClick={() => this.wrappedRef().handleAdd()}
+                >Add Single Compound</Button>
+                <Button
+                  ghost
+                  type="primary"
+                  className="editable-table-btn"
+                  onClick={() => this.handleAdd()}
+                >Get All Compounds</Button>
+
+              </div>
+            }/>
           </TabPane>
           <TabPane tab="Reactions" key="4">
             <EditableTable table="reactions" />
