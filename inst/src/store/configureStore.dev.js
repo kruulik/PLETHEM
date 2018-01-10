@@ -24,7 +24,10 @@ const configureStore = () => {
 
   // store state to local storage but throttle save rate
   store.subscribe(throttle(() => {
-    saveState(store.getState());
+    saveState({
+      settings: store.getState().settings,
+      tables: store.getState().tables
+    });
   }, 1000));
 
   if (module.hot) {

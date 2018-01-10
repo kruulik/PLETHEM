@@ -1,4 +1,3 @@
-import * as APIUtil from 'api/table_api';
 
 export const UPDATE_CELL = 'UPDATE_CELL';
 export const RECEIVE_TABLE = 'RECEIVE_TABLE';

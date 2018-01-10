@@ -7,7 +7,7 @@ import { Table } from 'antd';
 import tableColumns from 'constants/tableColumns';
 import {columns} from 'constants/supplementalTables';
 
-import { selectTableData } from 'reducers/selectors';
+import { selectSupplementalData } from 'reducers/selectors';
 import * as TableActions from 'actions/tableActions';
 
 
@@ -73,8 +73,10 @@ class SupplementalTable extends React.Component {
 
 const mapStateToProps = ( state, ownProps ) => {
   const table = ownProps.parentTable;
+
   return {
-    dataSource: selectTableData(state, table),
+    // dataSource: selectSupplementalData(state, table ),
+    dataSource: [],
     ownProps
   }
 };

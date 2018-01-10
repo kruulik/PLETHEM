@@ -88,7 +88,7 @@ class EditableTable extends React.Component {
       });
 
       // Not sure if necessary but this deselects the row from store
-      selectedRowKeys.length < 2 ? selectSingleRow(table, -1) : null;
+      // selectedRowKeys.length < 2 ? selectSingleRow(table, -1) : null;
 
     } else if ( e.nativeEvent.altKey ) {
       this.setState({ selectedRowKeys: [...selectedRowKeys, record.key] });

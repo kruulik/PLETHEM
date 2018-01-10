@@ -41,7 +41,9 @@ class TabContainer extends Component {
               }
             />
             <div className="supplemental-data-wrapper">
-              <SupplementalTable parentTable="organisms" tabsWH={tabsWH} />
+              <SupplementalTable
+                parentTable="organisms"
+                tabsWH={tabsWH} />
               <div className="plot">
                 <div>plot goes here</div>
               </div>
