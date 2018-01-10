@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Table } from 'antd';
 
 import tableColumns from 'constants/tableColumns';
-import supplementalTables from 'constants/supplementalTables';
+import {columns} from 'constants/supplementalTables';
 
 import { selectTableData } from 'reducers/selectors';
 import * as TableActions from 'actions/tableActions';
@@ -17,6 +17,8 @@ class SupplementalTable extends React.Component {
 
     this.state = {
       columns: [],
+      count: this.props.dataSource.length,
+      selectedRowKeys: [],
     };
   }
 
@@ -32,7 +34,8 @@ class SupplementalTable extends React.Component {
   }
 
   componentDidMount() {
-
+    const { parentTable, dataSource } = this.props;
+    this.createColumns(columns);
   }
 
   render() {
@@ -55,14 +58,9 @@ class SupplementalTable extends React.Component {
 
     return (
       <div className="supplemental-table">
-        <div>suasdfasdfasdfasdfasp</div>
         <Table
           pagination={false}
           scroll={{ x: scrollX }}
-          onRow={(record) =>
-            ({
-              onClick: (e) => this.handleRowClick(e, record)
-            })}
           rowClassName={rowClassName}
           bordered={true}
           dataSource={dataSource ? dataSource : [] }
@@ -74,7 +72,7 @@ class SupplementalTable extends React.Component {
 }
 
 const mapStateToProps = ( state, ownProps ) => {
-  const table = ownProps.table;
+  const table = ownProps.parentTable;
   return {
     dataSource: selectTableData(state, table),
     ownProps

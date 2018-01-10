@@ -1,3 +1,5 @@
+import { uid } from 'util/uid';
+
 import {
   RECEIVE_TABLE,
   RECEIVE_ROW,
@@ -48,7 +50,7 @@ const tables = (state = initialState, action) => {
     case 'RECEIVE_COMPOUNDS':
       let compounds = JSON.parse(action.compounds);
       compounds.map((comp, i) => {
-        merge(comp, {key: `${comp.CAS}_IDX${i}`})
+        merge(comp, {key: `CAS=${comp.CAS}__UID=${uid()}`})
       })
       return merge({}, state, {compounds: compounds})
     default:

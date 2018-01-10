@@ -48,33 +48,39 @@ class TabContainer extends Component {
             </div>
           </TabPane>
           <TabPane tab="Exposure Scenarios" key="2">
-            <EditableTable table="exposure" ref={node => (this.exposure = node)} actions={
-              <div>
-                <Button
-                  ghost
-                  type="primary"
-                  className="editable-table-btn"
-                  onClick={() => this.wrappedRef('exposure').handleAdd()}
-                >Add Scenario</Button>
-
-              </div>
-            }/>
+            <EditableTable
+              pagination={false}
+              table="exposure"
+              ref={node => (this.exposure = node)}
+              actions={
+                <div>
+                  <Button
+                    ghost
+                    type="primary"
+                    className="editable-table-btn"
+                    onClick={() => this.wrappedRef('exposure').handleAdd()}
+                  >Add Scenario</Button>
+                </div>
+              }/>
             <div className="supplemental-data-wrapper">
-              <SupplementalTable parentTable="exposure" tabsWH={tabsWH} />
+              <SupplementalTable
+                parentTable="exposure"
+                tabsWH={tabsWH}
+              />
             </div>
           </TabPane>
           <TabPane tab="Compounds" key="3">
-            <EditableTable 
+            <EditableTable
               table="compounds"
               pagination={true}
               ref={node => (this.compounds = node)}
               actions={
-              <div>
-                <Button
-                  ghost
-                  type="primary"
-                  className="editable-table-btn"
-                  onClick={() => this.wrappedRef('compounds').handleAdd()}
+                <div>
+                  <Button
+                    ghost
+                    type="primary"
+                    className="editable-table-btn"
+                    onClick={() => this.wrappedRef('compounds').handleAdd()}
                 >Add Single Compound</Button>
                 <Button
                   ghost

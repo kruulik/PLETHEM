@@ -9,8 +9,6 @@ import PropTypes from 'prop-types';
 import { Layout, Button, Icon } from 'antd';
 const { Header } = Layout;
 
-import * as APIUtil from 'services/ocpu_curl_test';
-
 import * as ProjectActions from 'actions/projectActions';
 
 class AppHeader extends Component {
@@ -45,13 +43,6 @@ class AppHeader extends Component {
     reader.readAsText( input.target.files[ 0 ] );
   }
 
-  testOcpu = () => {
-    // debugger
-    console.log('pressed button');
-    APIUtil.testOCPU();
-
-  }
-
   render() {
 
     return (
@@ -62,7 +53,7 @@ class AppHeader extends Component {
           <Button type="default" ghost onClick={this.selectFile} icon="upload">Load Project</Button>
         </div>
           <div className="right-nav">
-            <Button type="default" ghost icon="caret-right" onClick={this.testOcpu}>Start Run</Button>
+            <Button type="default" ghost icon="caret-right">Start Run</Button>
             <Button type="danger" ghost icon="pause">Stop Run</Button>
           </div>
 

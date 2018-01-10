@@ -13,7 +13,6 @@ const ui = (state = initialState, action) => {
 
   switch(action.type) {
     case 'SELECT_ROW':
-    debugger
       return merge({}, state, { selectedTableRow: {
         [action.table]: action.rowID
       }});

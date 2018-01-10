@@ -108,7 +108,6 @@ class EditableTable extends React.Component {
 
     const columns = tableColumns[table];
     this.createColumns(columns);
-    this.props.createTable(table);
   }
 
 
