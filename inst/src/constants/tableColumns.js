@@ -176,9 +176,10 @@ const tableColumns = {
   compounds: [
     {
       title: 'Compound Name',
-      dataIndex: 'compoundName',
-      key: 'compoundName',
-      editable: 'true'
+      dataIndex: 'Compound',
+      key: 'Compound',
+      editable: 'true',
+      type: 'text'
     }, {
       title: 'MW',
       dataIndex: 'mw',

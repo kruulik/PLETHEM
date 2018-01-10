@@ -9,19 +9,12 @@ import { SupplementalTable } from 'components';
 
 class TabContainer extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = ({
-      disabled: null,
-    })
-  }
-
-  wrappedRef = () => {
-    if (typeof this.table === 'undefined') {
+  wrappedRef = (table) => {
+    console.log(this[table].wrappedInstance.props.table)
+    if (typeof this[table] === 'undefined') {
       return false
     } else {
-
-      return this.table.wrappedInstance
+      return this[table].wrappedInstance
     }
   }
 
@@ -29,19 +22,19 @@ class TabContainer extends Component {
     const { tabsWH } = this.props;
     return (
       <div className="tabs-wrapper">
-        <Tabs type="card" style={{ height: '100%' }}>
+        <Tabs type="card" style={{ height: '100%' }} onChange={this.tabChanged}>
           <TabPane  tab="Organisms" key="1" className="tab-content-wrapper">
             <EditableTable
               table="organisms"
               tabsWH={tabsWH}
-              ref={node => (this.table = node)}
+              ref={node => (this.organisms = node)}
               actions={
                 <div>
                   <Button
                     ghost
                     type="primary"
                     className="editable-table-btn"
-                    onClick={() => this.wrappedRef().handleAdd() }
+                    onClick={() => this.wrappedRef('organisms').handleAdd() }
                   >Add Organism</Button>
                 </div>
               }
@@ -54,13 +47,13 @@ class TabContainer extends Component {
             </div>
           </TabPane>
           <TabPane tab="Exposure Scenarios" key="2">
-            <EditableTable table="exposure" ref={node => (this.table = node)} actions={
+            <EditableTable table="exposure" ref={node => (this.exposure = node)} actions={
               <div>
                 <Button
                   ghost
                   type="primary"
                   className="editable-table-btn"
-                  onClick={() => this.wrappedRef().handleAdd()}
+                  onClick={() => this.wrappedRef('exposure').handleAdd()}
                 >Add Scenario</Button>
 
               </div>
@@ -70,19 +63,19 @@ class TabContainer extends Component {
             </div>
           </TabPane>
           <TabPane tab="Compounds" key="3">
-            <EditableTable table="compounds" actions={
+            <EditableTable table="compounds" ref={node => (this.compounds = node)} actions={
               <div>
                 <Button
                   ghost
                   type="primary"
                   className="editable-table-btn"
-                  onClick={() => this.wrappedRef().handleAdd()}
+                  onClick={() => this.wrappedRef('compounds').handleAdd()}
                 >Add Single Compound</Button>
                 <Button
                   ghost
                   type="primary"
                   className="editable-table-btn"
-                  onClick={() => this.handleAdd()}
+                  onClick={() => this.wrappedRef('compounds').props.requestCompounds()}
                 >Get All Compounds</Button>
 
               </div>

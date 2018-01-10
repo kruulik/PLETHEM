@@ -1,6 +1,7 @@
 import {
   RECEIVE_TABLE,
-  RECEIVE_ROW
+  RECEIVE_ROW,
+  RECEIVE_COMPOUNDS
 } from 'actions/tableActions';
 
 import merge from 'lodash/merge';
@@ -43,7 +44,11 @@ const tables = (state = initialState, action) => {
       next = Object.assign({}, prev[action.row], {[action.column]: action.value});
       return merge({}, state, { [action.table]: {
         [action.row]: next
-      }})
+      }});
+    case 'RECEIVE_COMPOUNDS':
+      debugger
+      let compounds = JSON.parse(action.compounds);
+      return merge({}, state, {compounds: compounds})
     default:
       return state;
   }
