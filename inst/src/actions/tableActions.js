@@ -42,7 +42,6 @@ export const selectSingleRow = (table, rowID) => ({
 })
 
 export const receiveCompounds = ({compounds, errors}) => {
-  debugger
   return {
     type: RECEIVE_COMPOUNDS,
     compounds,

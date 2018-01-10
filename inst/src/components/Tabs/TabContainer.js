@@ -26,6 +26,7 @@ class TabContainer extends Component {
           <TabPane  tab="Organisms" key="1" className="tab-content-wrapper">
             <EditableTable
               table="organisms"
+              pagination={false}
               tabsWH={tabsWH}
               ref={node => (this.organisms = node)}
               actions={
@@ -63,7 +64,11 @@ class TabContainer extends Component {
             </div>
           </TabPane>
           <TabPane tab="Compounds" key="3">
-            <EditableTable table="compounds" ref={node => (this.compounds = node)} actions={
+            <EditableTable 
+              table="compounds"
+              pagination={true}
+              ref={node => (this.compounds = node)}
+              actions={
               <div>
                 <Button
                   ghost

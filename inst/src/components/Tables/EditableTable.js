@@ -50,8 +50,6 @@ class EditableTable extends React.Component {
     this.setState({count: count + 1});
   }
 
-
-
   createColumns = ( columns, defaultW = 120 ) => {
     let totalColumnsWidth = 0;
     const cols = columns.map( col => {
@@ -79,6 +77,7 @@ class EditableTable extends React.Component {
 
   handleRowClick = (e, record) => {
     const { selectedRowKeys } = this.state;
+    const { selectSingleRow, table } = this.props;
 
 // NOTE pressing alt allows multi-select, but only when ONE row is selected will the redux store be changed.
 
@@ -86,12 +85,16 @@ class EditableTable extends React.Component {
       const i = selectedRowKeys.indexOf(record.key);
       this.setState({ selectedRowKeys:
         selectedRowKeys.filter((el, idx) => { return ( idx !== i ) })
-      })
+      });
+
+      // Not sure if necessary but this deselects the row from store
+      selectedRowKeys.length < 2 ? selectSingleRow(table, -1) : null;
+
     } else if ( e.nativeEvent.altKey ) {
       this.setState({ selectedRowKeys: [...selectedRowKeys, record.key] });
     } else {
       this.setState({ selectedRowKeys: [record.key] });
-      this.props.selectSingleRow(this.props.table, record.key);
+      selectSingleRow(table, record.key);
     }
   }
 
@@ -106,13 +109,12 @@ class EditableTable extends React.Component {
     const columns = tableColumns[table];
     this.createColumns(columns);
     this.props.createTable(table);
-
   }
 
 
   render() {
     const { columns, selectedRowKeys, scrollX, scrollY } = this.state;
-    let { dataSource, tabsWH, actions } = this.props;
+    let { dataSource, tabsWH, actions, pagination } = this.props;
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
         return 'row-selected';
@@ -132,7 +134,7 @@ class EditableTable extends React.Component {
           >Remove Selection</Button>
         </div>
         <Table
-          pagination={false}
+          pagination={pagination}
           scroll={{ x: scrollX, y: scrollY }}
           onRow={(record) =>
             ({

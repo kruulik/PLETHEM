@@ -46,8 +46,10 @@ const tables = (state = initialState, action) => {
         [action.row]: next
       }});
     case 'RECEIVE_COMPOUNDS':
-      debugger
       let compounds = JSON.parse(action.compounds);
+      compounds.map((comp, i) => {
+        merge(comp, {key: `${comp.CAS}_IDX${i}`})
+      })
       return merge({}, state, {compounds: compounds})
     default:
       return state;
