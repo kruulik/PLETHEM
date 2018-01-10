@@ -23,12 +23,14 @@ class EditableTable extends React.Component {
       scrollX: 0,
       scrollY: 350,
     };
+    this.handleAdd = this.handleAdd.bind(this)
+
   }
 
   onCellChange = ( key, dataIndex ) => {
     return (value) => {
       const dataSource = [...this.props.dataSource];
-      const {table} = this.props;
+        const {table} = this.props;
       const row = dataSource.find( item => item.key === key ).key.toString();
       const column = dataIndex;
       this.props.updateCell(row, value, table, column);
@@ -73,11 +75,9 @@ class EditableTable extends React.Component {
     })
   }
 
-
-
-
   handleRowClick = (e, record) => {
     const { selectedRowKeys } = this.state;
+    const { selectSingleRow, table } = this.props;
 
 // NOTE pressing alt allows multi-select, but only when ONE row is selected will the redux store be changed.
 
@@ -85,16 +85,22 @@ class EditableTable extends React.Component {
       const i = selectedRowKeys.indexOf(record.key);
       this.setState({ selectedRowKeys:
         selectedRowKeys.filter((el, idx) => { return ( idx !== i ) })
-      })
+      });
+
+      // Not sure if necessary but this deselects the row from store
+      selectedRowKeys.length < 2 ? selectSingleRow(table, -1) : null;
+
     } else if ( e.nativeEvent.altKey ) {
       this.setState({ selectedRowKeys: [...selectedRowKeys, record.key] });
     } else {
       this.setState({ selectedRowKeys: [record.key] });
-      this.props.selectSingleRow(this.props.table, record.key);
+      selectSingleRow(table, record.key);
     }
   }
 
-
+  disabled = () => {
+    return this.state.selectedRowKeys.length === 0
+  }
 
 
   componentDidMount() {
@@ -103,35 +109,32 @@ class EditableTable extends React.Component {
     const columns = tableColumns[table];
     this.createColumns(columns);
     this.props.createTable(table);
-
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   debugger
-  //   this.setState({
-  //     scrollY: nextProps.tabsWH.tabsHeight,
-  //   })
-  // }
 
   render() {
     const { columns, selectedRowKeys, scrollX, scrollY } = this.state;
-    let { dataSource, tabsWH } = this.props;
+    let { dataSource, tabsWH, actions, pagination } = this.props;
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
         return 'row-selected';
       }
     }
 
-console.log(scrollX, scrollY, tabsWH)
-
     return (
       <div className="editable-table-wrapper">
         <div className="table-actions-row">
-          <Button ghost type="primary" className="editable-table-btn" onClick={this.handleAdd}>Add Item</Button>
-          <Button ghost type="danger" disabled={selectedRowKeys.length === 0 ? true : false} className="editable-table-btn" onClick={this.handleRemove}>Remove Selection</Button>
+          {actions}
+          <Button
+            ghost
+            type="danger"
+            disabled={ this.disabled() }
+            className="editable-table-btn"
+            onClick={() => this.handleRemove() }
+          >Remove Selection</Button>
         </div>
         <Table
-          pagination={false}
+          pagination={pagination}
           scroll={{ x: scrollX, y: scrollY }}
           onRow={(record) =>
             ({
@@ -146,6 +149,8 @@ console.log(scrollX, scrollY, tabsWH)
   }
 }
 
+
+
 const mapStateToProps = ( state, ownProps ) => {
   const table = ownProps.table;
   return {
@@ -158,4 +163,4 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({...TableActions}, dispatch);
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( EditableTable );
+export default connect( mapStateToProps, mapDispatchToProps, null, {withRef: true} )( EditableTable );

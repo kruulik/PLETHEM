@@ -176,30 +176,47 @@ const tableColumns = {
   compounds: [
     {
       title: 'Compound Name',
-      dataIndex: 'compoundName',
-      key: 'compoundName',
-      editable: 'true'
+      dataIndex: 'Compound',
+      key: 'Compound',
+      editable: 'true',
+      type: 'text'
     }, {
       title: 'MW',
-      dataIndex: 'mw',
-      key: 'mw',
-      editable: 'true'
+      dataIndex: 'MW',
+      key: 'MW',
+      editable: 'true',
+      type: 'numeric'
     }, {
-      title: 'LogP',
-      dataIndex: 'logP',
-      key: 'logP',
-      editable: 'true'
+      title: 'LogP_7',
+      dataIndex: 'LogP_7p4',
+      key: 'LogP_7p4',
+      editable: 'true',
+      type: 'numeric'
     }, {
-      title: 'Ion Class',
-      dataIndex: 'ionClass',
-      key: 'ionClass',
-      editable: 'true'
+      title: 'Vapor Pressure',
+      dataIndex: 'VaporPressure',
+      key: 'VaporPressure',
+      editable: 'true',
+      type: 'numeric'
     }, {
-      title: 'More Columns.....',
-      dataIndex: 'moreColumns',
-      key: 'moreColumns',
-      editable: 'true'
-    }
+      title: 'AqSolubility',
+      dataIndex: 'AqSolubility',
+      key: 'AqSolubility',
+      editable: 'true',
+      type: 'numeric'
+    }, {
+      title: 'VMax Liver',
+      dataIndex: 'Vmax_Liver_Total',
+      key: 'Vmax_Liver_Total',
+      editable: 'true',
+      type: 'numeric'
+    }, {
+      title: 'F Ech',
+      dataIndex: 'F_ehc',
+      key: 'F_ehc',
+      editable: 'true',
+      type: 'numeric'
+    },
   ],
   reactions: [
     {

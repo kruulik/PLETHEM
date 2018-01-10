@@ -10,9 +10,6 @@ import Root from 'containers/Root';
 
 import 'stylesheets/main.scss';
 
-// import opencpu from 'opencpu.js';
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
   const store = configureStore();
