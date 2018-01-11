@@ -22,7 +22,7 @@ const initialState = {
 const tables = (state = initialState, action) => {
   Object.freeze( state );
 
-  let prev, next, table, column, rows;
+  let prev, next, table, column, rows, id;
 
   switch(action.type) {
     case 'RECEIVE_TABLE':
@@ -31,7 +31,8 @@ const tables = (state = initialState, action) => {
       });
     case 'RECEIVE_ROW':
       prev = state[action.table];
-      next = {[action.rowID]: {key: action.rowID}};
+      id = uid();
+      next = {[id]: {key: id}};
       rows = merge({}, prev, next);
       return merge({}, state, {[action.table]: rows});
     case'REMOVE_ROWS':

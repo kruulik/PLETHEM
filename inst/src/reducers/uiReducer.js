@@ -4,7 +4,9 @@ import {
 
 import merge from 'lodash/merge';
 
-const initialState = {}
+const initialState = {
+  selectedTableRow: {}
+}
 
 const ui = (state = initialState, action) => {
   Object.freeze( state );

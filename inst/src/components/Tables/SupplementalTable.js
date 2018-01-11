@@ -17,7 +17,7 @@ class SupplementalTable extends React.Component {
 
     this.state = {
       columns: [],
-      count: this.props.dataSource.length,
+      // count: this.props.dataSource.length,
       selectedRowKeys: [],
     };
   }
@@ -41,6 +41,7 @@ class SupplementalTable extends React.Component {
   render() {
     const { columns, selectedRowKeys } = this.state;
     let { dataSource } = this.props;
+    console.log(dataSource)
 
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
@@ -54,7 +55,6 @@ class SupplementalTable extends React.Component {
         scrollX += col.width;
       })
     }
-
 
     return (
       <div className="supplemental-table">
@@ -73,10 +73,9 @@ class SupplementalTable extends React.Component {
 
 const mapStateToProps = ( state, ownProps ) => {
   const table = ownProps.parentTable;
-
+  let dataSource = []; 
   return {
-    // dataSource: selectSupplementalData(state, table ),
-    dataSource: [],
+    dataSource: selectSupplementalData( state, table ),
     ownProps
   }
 };
