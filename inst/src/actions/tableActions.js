@@ -60,7 +60,19 @@ export const receiveDefaultPhys = (table, key, {details, errors}) => {
 
 export const testDefaultPhys = (table, key ) => {
   const details = {
+    age: {
+      key: `${key}_a`,
+      parameter: 'Age',
+      value: 25,
+      dist: 'Fixed',
+      mean: 75,
+      variability: 0,
+      min: 75,
+      max: 75
+    },
     bodyWeight: {
+      key: `${key}_0`,
+      parameter: 'Body Weight',
       value: 75,
       dist: 'Fixed',
       mean: 75,
@@ -69,6 +81,8 @@ export const testDefaultPhys = (table, key ) => {
       max: 75
     },
     bmi: {
+      key: `${key}_1`,
+      parameter: 'BMI',
       value: 25,
       dist: 'Fixed',
       mean: 25,
@@ -77,6 +91,28 @@ export const testDefaultPhys = (table, key ) => {
       max: 25
     },
     bsa: {
+      key: `${key}_2`,
+      parameter: 'BSI',
+      value: 1.7,
+      dist: 'Fixed',
+      mean: 1.7,
+      variability: 0,
+      min: 1.7,
+      max: 1.7
+    },
+    cardOut: {
+      key: `${key}_3`,
+      parameter: 'Cardiac Output',
+      value: 1.7,
+      dist: 'Fixed',
+      mean: 1.7,
+      variability: 0,
+      min: 1.7,
+      max: 1.7
+    },
+    LMPSF: {
+      key: `${key}_4`,
+      parameter: 'Liver Microsomal Protein Scaling Factor',
       value: 1.7,
       dist: 'Fixed',
       mean: 1.7,

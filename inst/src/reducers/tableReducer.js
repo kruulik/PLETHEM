@@ -58,7 +58,7 @@ const tables = (state = initialState, action) => {
     case 'RECEIVE_PHYS':
       prev = state[action.table][action.key];
       return merge({}, state, {[action.table]: {
-        [action.key]: action.details
+        [action.key]: {details: action.details}
       }});
     default:
       return state;

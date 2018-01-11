@@ -19,58 +19,59 @@ class SupplementalTable extends React.Component {
     this.state = {
       columns: [],
       selectedRowKeys: [],
-      dataSource: []
+      dataSource: [],
+      scrollY: this.props.scrollY || 200,
     };
   }
 
-  createColumns = ( columns ) => {
-    const cols = columns.map( col => {
-      return ( {
-        title: col.title,
-        dataIndex: col.dataIndex,
-        width: col.width || 120,
-      })
-    });
-    this.setState({columns: cols})
-  }
-
-  // onCellChange = ( key, dataIndex ) => {
-  //   const {updateCell, getDetails} = this.props;
-  //   return (value) => {
-  //     const dataSource = [...this.props.dataSource];
-  //       const {table} = this.props;
-  //     const row = dataSource.find( item => item.key === key ).key.toString();
-  //     const column = dataIndex;
-  //     updateCell(row, value, table, column);
-  //     // debugger
-  //     // getDetails(table, row);
-  //   };
-  // }
-
-  // createColumns = ( columns, defaultW = 120 ) => {
-  //   let totalColumnsWidth = 0;
+  // createColumns = ( columns ) => {
   //   const cols = columns.map( col => {
-  //     totalColumnsWidth += col.width || defaultW;
   //     return ( {
   //       title: col.title,
   //       dataIndex: col.dataIndex,
-  //       width: col.width || defaultW,
-  //       render: ( text, record ) => (
-  //         <EditableCell
-  //           width={ col.width || defaultW }
-  //           options={col.options}
-  //           type={col.type}
-  //           value={text}
-  //           // onChange={this.onCellChange( record.key, col.dataIndex )}
-  //         /> )
-  //       } )
-  //   } );
-  //
-  //   this.setState({
-  //     columns: cols,
-  //     scrollX: totalColumnsWidth,
-  //   })
+  //       width: col.width || 120,
+  //     })
+  //   });
+  //   this.setState({columns: cols})
   // }
+
+  onCellChange = ( key, dataIndex ) => {
+    const {updateCell, getDetails} = this.props;
+    return (value) => {
+      const dataSource = [...this.props.dataSource];
+        const {table} = this.props;
+      const row = dataSource.find( item => item.key === key ).key.toString();
+      const column = dataIndex;
+      updateCell(row, value, table, column);
+      // debugger
+      // getDetails(table, row);
+    };
+  }
+
+  createColumns = ( columns, defaultW = 120 ) => {
+    let totalColumnsWidth = 0;
+    const cols = columns.map( col => {
+      totalColumnsWidth += col.width || defaultW;
+      return ( {
+        title: col.title,
+        dataIndex: col.dataIndex,
+        width: col.width || defaultW,
+        render: ( text, record ) => (
+          <EditableCell
+            width={ col.width || defaultW }
+            options={col.options}
+            type={col.type}
+            value={text}
+            // onChange={this.onCellChange( record.key, col.dataIndex )}
+          /> )
+        } )
+    } );
+
+    this.setState({
+      columns: cols,
+      scrollX: totalColumnsWidth,
+    })
+  }
 
 
   componentDidMount() {
@@ -79,7 +80,7 @@ class SupplementalTable extends React.Component {
   }
 
   render() {
-    const { columns, selectedRowKeys } = this.state;
+    const { columns, selectedRowKeys, scrollY } = this.state;
     let { dataSource } = this.props;
     console.log(dataSource)
 
@@ -100,7 +101,7 @@ class SupplementalTable extends React.Component {
       <div className="supplemental-table">
         <Table
           pagination={false}
-          scroll={{ x: scrollX }}
+          scroll={{ x: scrollX, y: scrollY}}
           rowClassName={rowClassName}
           bordered={true}
           dataSource={dataSource ? dataSource : [] }

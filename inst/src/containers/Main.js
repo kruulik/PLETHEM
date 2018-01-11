@@ -29,21 +29,22 @@ class Main extends Component {
     const w = window.innerWidth;
     const h = window.innerHeight;
     const tabsWidth = tabs.getBoundingClientRect().width;
-    const tabsHeight = tabs.getBoundingClientRect().height;
+    const tabsHeight = h - tabs.getBoundingClientRect().top;
     this.setState({
       wWidth: w,
       wHeight: h,
       tabsWidth: tabsWidth,
       tabsHeight: tabsHeight,
     });
+
   }
 
   componentDidMount () {
-    const tabs = document.querySelector(".ant-tabs-content");
+    const tabs = document.querySelector(".tab-content-wrapper");
     this.setState({
       tabs,
       tabsWidth: tabs.getBoundingClientRect().width,
-      tabsHeight: tabs.getBoundingClientRect().height
+      tabsHeight: window.innerHeight - 160
     })
     window.addEventListener("resize", () => {
       let resizeEvent = requestAnimationFrame(this.updateSize)
@@ -56,6 +57,7 @@ class Main extends Component {
 
   render() {
     const { windowWidth, windowHeight, tabsWidth, tabsHeight } = this.state;
+    console.log(tabsHeight);
     return (
       <Layout style={style.container}>
         <Header />

@@ -21,7 +21,7 @@ class EditableTable extends React.Component {
       count: this.props.dataSource.length,
       selectedRowKeys: [],
       scrollX: 0,
-      scrollY: 350,
+      scrollY: this.props.scrollY
     };
     this.handleAdd = this.handleAdd.bind(this)
 
@@ -117,16 +117,17 @@ class EditableTable extends React.Component {
   }
 
 
+
   render() {
-    const { columns, selectedRowKeys, scrollX, scrollY } = this.state;
-    let { dataSource, tabsWH, actions, pagination, state } = this.props;
+    const { columns, selectedRowKeys, scrollX } = this.state;
+    let { dataSource, tabsWH, actions, pagination, state, scrollY } = this.props;
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
         return 'row-selected';
       }
     }
+    // console.log(tabsWH.tabsHeight)
 
-console.log(dataSource);
     return (
       <div className="editable-table-wrapper">
         <div className="table-actions-row">

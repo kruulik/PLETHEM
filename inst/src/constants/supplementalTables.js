@@ -17,6 +17,12 @@ export const columns = [
       key: 'distribution',
       editable: 'true',
       type: 'select',
+      options: [
+        'Fixed',
+        'Uniform',
+        'Normal',
+        'Lognormal' 
+      ]
     }, {
       title: 'Mean',
       dataIndex: 'mean',
