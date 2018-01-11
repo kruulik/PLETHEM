@@ -47,7 +47,6 @@ class TabContainer extends Component {
               table="organisms"
               getDetails={testDefaultPhys}
               pagination={false}
-              tabsWH={tabsWH}
               scrollY={tabsWH.tabsHeight * 0.5 - 40}
               ref={node => (this.organisms = node)}
               rowDefaults={{
@@ -69,9 +68,10 @@ class TabContainer extends Component {
             />
             <div className="supplemental-data-wrapper">
               <SupplementalTable
-                // scrollY={maxHeight * 0.5}
+                scrollY={tabsWH.tabsHeight * 0.5 - 35}
                 parentTable="organisms"
-                tabsWH={tabsWH} />
+
+              />
               <div className="plot">
                 <div>plot goes here</div>
               </div>

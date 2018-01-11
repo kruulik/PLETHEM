@@ -29,7 +29,7 @@ class Main extends Component {
     const w = window.innerWidth;
     const h = window.innerHeight;
     const tabsWidth = tabs.getBoundingClientRect().width;
-    const tabsHeight = h - tabs.getBoundingClientRect().top;
+    const tabsHeight = h - 166;
     this.setState({
       wWidth: w,
       wHeight: h,
@@ -44,7 +44,7 @@ class Main extends Component {
     this.setState({
       tabs,
       tabsWidth: tabs.getBoundingClientRect().width,
-      tabsHeight: window.innerHeight - 160
+      tabsHeight: window.innerHeight - 166
     })
     window.addEventListener("resize", () => {
       let resizeEvent = requestAnimationFrame(this.updateSize)

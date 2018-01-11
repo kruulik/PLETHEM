@@ -19,8 +19,7 @@ class SupplementalTable extends React.Component {
     this.state = {
       columns: [],
       selectedRowKeys: [],
-      dataSource: [],
-      scrollY: this.props.scrollY || 200,
+      dataSource: []
     };
   }
 
@@ -75,14 +74,14 @@ class SupplementalTable extends React.Component {
 
 
   componentDidMount() {
-    const { parentTable, dataSource } = this.props;
+    const { parentTable } = this.props;
     this.createColumns(columns);
   }
 
   render() {
-    const { columns, selectedRowKeys, scrollY } = this.state;
-    let { dataSource } = this.props;
-    console.log(dataSource)
+    const { columns, selectedRowKeys } = this.state;
+    let { dataSource, scrollY } = this.props;
+    console.log(scrollY)
 
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {

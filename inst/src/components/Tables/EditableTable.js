@@ -120,7 +120,7 @@ class EditableTable extends React.Component {
 
   render() {
     const { columns, selectedRowKeys, scrollX } = this.state;
-    let { dataSource, tabsWH, actions, pagination, state, scrollY } = this.props;
+    let { dataSource, actions, pagination, state, scrollY } = this.props;
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
         return 'row-selected';
