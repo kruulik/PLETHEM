@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { Table } from 'antd';
+import { EditableCell } from 'components';
 
-import tableColumns from 'constants/tableColumns';
+// import tableColumns from 'constants/tableColumns';
 import {columns} from 'constants/supplementalTables';
 
 import { selectSupplementalData } from 'reducers/selectors';
@@ -17,8 +18,8 @@ class SupplementalTable extends React.Component {
 
     this.state = {
       columns: [],
-      // count: this.props.dataSource.length,
       selectedRowKeys: [],
+      dataSource: []
     };
   }
 
@@ -32,6 +33,45 @@ class SupplementalTable extends React.Component {
     });
     this.setState({columns: cols})
   }
+
+  // onCellChange = ( key, dataIndex ) => {
+  //   const {updateCell, getDetails} = this.props;
+  //   return (value) => {
+  //     const dataSource = [...this.props.dataSource];
+  //       const {table} = this.props;
+  //     const row = dataSource.find( item => item.key === key ).key.toString();
+  //     const column = dataIndex;
+  //     updateCell(row, value, table, column);
+  //     // debugger
+  //     // getDetails(table, row);
+  //   };
+  // }
+
+  // createColumns = ( columns, defaultW = 120 ) => {
+  //   let totalColumnsWidth = 0;
+  //   const cols = columns.map( col => {
+  //     totalColumnsWidth += col.width || defaultW;
+  //     return ( {
+  //       title: col.title,
+  //       dataIndex: col.dataIndex,
+  //       width: col.width || defaultW,
+  //       render: ( text, record ) => (
+  //         <EditableCell
+  //           width={ col.width || defaultW }
+  //           options={col.options}
+  //           type={col.type}
+  //           value={text}
+  //           // onChange={this.onCellChange( record.key, col.dataIndex )}
+  //         /> )
+  //       } )
+  //   } );
+  //
+  //   this.setState({
+  //     columns: cols,
+  //     scrollX: totalColumnsWidth,
+  //   })
+  // }
+
 
   componentDidMount() {
     const { parentTable, dataSource } = this.props;
@@ -66,14 +106,13 @@ class SupplementalTable extends React.Component {
           dataSource={dataSource ? dataSource : [] }
           columns={columns ? columns : []}
         />
-        bla
       </div> );
   }
 }
 
 const mapStateToProps = ( state, ownProps ) => {
   const table = ownProps.parentTable;
-  let dataSource = []; 
+  let dataSource = [];
   return {
     dataSource: selectSupplementalData( state, table ),
     ownProps

@@ -3,7 +3,8 @@ import { uid } from 'util/uid';
 import {
   RECEIVE_TABLE,
   RECEIVE_ROW,
-  RECEIVE_COMPOUNDS
+  RECEIVE_COMPOUNDS,
+  RECEIVE_PHYS
 } from 'actions/tableActions';
 
 import merge from 'lodash/merge';
@@ -32,7 +33,7 @@ const tables = (state = initialState, action) => {
     case 'RECEIVE_ROW':
       prev = state[action.table];
       id = uid();
-      next = {[id]: {key: id}};
+      next = {[id]: merge({key: id}, action.defaults)};
       rows = merge({}, prev, next);
       return merge({}, state, {[action.table]: rows});
     case'REMOVE_ROWS':
@@ -52,8 +53,13 @@ const tables = (state = initialState, action) => {
       let compounds = JSON.parse(action.compounds);
       compounds.map((comp, i) => {
         merge(comp, {key: `CAS=${comp.CAS}__UID=${uid()}`})
-      })
-      return merge({}, state, {compounds: compounds})
+      });
+      return merge({}, state, {compounds: compounds});
+    case 'RECEIVE_PHYS':
+      prev = state[action.table][action.key];
+      return merge({}, state, {[action.table]: {
+        [action.key]: action.details
+      }});
     default:
       return state;
   }

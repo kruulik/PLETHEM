@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+
 
 import { Tabs, Button } from 'antd';
 const TabPane = Tabs.TabPane;
 
 import { EditableTable } from 'components';
 import { SupplementalTable } from 'components';
+
+import * as TableActions from 'actions/tableActions';
+
 
 class TabContainer extends Component {
 
@@ -19,16 +24,26 @@ class TabContainer extends Component {
   }
 
   render(){
-    const { tabsWH } = this.props;
+
+    // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
+
+    const { tabsWH, getDefaultPhysiologicalData, testDefaultPhys } = this.props;
     return (
       <div className="tabs-wrapper">
         <Tabs type="card" style={{ height: '100%' }} onChange={this.tabChanged}>
           <TabPane  tab="Organisms" key="1" className="tab-content-wrapper">
             <EditableTable
               table="organisms"
+              getDetails={testDefaultPhys}
               pagination={false}
               tabsWH={tabsWH}
               ref={node => (this.organisms = node)}
+              rowDefaults={{
+                organismName: '–',
+                species: 'Rat',
+                gender: 'Female',
+                age: '25'
+              }}
               actions={
                 <div>
                   <Button
@@ -83,16 +98,16 @@ class TabContainer extends Component {
                     type="primary"
                     className="editable-table-btn"
                     onClick={() => this.wrappedRef('compounds').handleAdd()}
-                >Add Single Compound</Button>
-                <Button
-                  ghost
-                  type="primary"
-                  className="editable-table-btn"
-                  onClick={() => this.wrappedRef('compounds').props.requestCompounds()}
-                >Get All Compounds</Button>
+                  >Add Single Compound</Button>
+                  <Button
+                    ghost
+                    type="primary"
+                    className="editable-table-btn"
+                    onClick={() => this.wrappedRef('compounds').props.requestCompounds()}
+                  >Get All Compounds</Button>
 
-              </div>
-            }/>
+                </div>
+              }/>
           </TabPane>
           <TabPane tab="Reactions" key="4">
             <EditableTable table="reactions" />
@@ -116,12 +131,6 @@ class TabContainer extends Component {
 }
 
 
-
-const tableOptions = (table) => {
-
-}
-
-
 const mapStateToProps = (state) => {
   // Might use this later to fill tabs/tables and pass props
   return {
@@ -130,12 +139,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-
-  };
+  return bindActionCreators({...TableActions}, dispatch);
 };
 
-const style = {
-}
-
-export default connect(mapStateToProps, null)(TabContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TabContainer);

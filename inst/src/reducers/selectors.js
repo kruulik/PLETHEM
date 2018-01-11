@@ -10,14 +10,15 @@ export const selectTableData = ( state, table ) => {
 
 export const selectSupplementalData = ( state, table ) => {
   const selectedItem = state.ui.selectedTableRow[table];
-  // debugger
-  if ( typeof selectedItem !== 'undefined' ) {
+  if ( typeof selectedItem !== 'undefined' && typeof state.tables[table][selectedItem] !== 'undefined' ) {
     let data = state.tables[table][selectedItem];
-    return Object.keys(data).reduce((arr, datum, i) => {
-      return arr = datum === 'key' ? arr : [...arr, {
+    const rows = Object.keys(data).reduce((arr, datum, i) => {
+      return arr = (datum === 'key') || (datum === 'organismName') ? arr : [...arr, {
         [datum]: data[datum],
         key: `${data['key']}_${i}`
       }]
     }, []);
+    debugger
+    return rows
   }
 }
