@@ -2,8 +2,24 @@
   white-space: nowrap;
 }
 
-.ant-table-wrapper {
+.ant-table-scroll {
   // overflow: scroll;
+  ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 16px;
+      background: #f7f7f7;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(12, 139, 214, 0.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  }
+}
+
+.ant-table-fixed-header .ant-table-scroll .ant-table-header {
+    overflow: inherit;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 .ant-table {
