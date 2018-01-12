@@ -51,19 +51,29 @@ class SupplementalTable extends React.Component {
     let totalColumnsWidth = 0;
     const cols = columns.map( col => {
       totalColumnsWidth += col.width || defaultW;
-      return ( {
-        title: col.title,
-        dataIndex: col.dataIndex,
-        width: col.width || defaultW,
-        render: ( text, record ) => (
-          <EditableCell
-            width={ col.width || defaultW }
-            options={col.options}
-            type={col.type}
-            value={text}
-            // onChange={this.onCellChange( record.key, col.dataIndex )}
-          /> )
-        } )
+      if (col.editable) {
+        return ( {
+          title: col.title,
+          dataIndex: col.dataIndex,
+          width: col.width || defaultW,
+          render: ( text, record ) => (
+            <EditableCell
+              width={ col.width || defaultW }
+              options={col.options}
+              type={col.type}
+              value={text}
+              // onChange={this.onCellChange( record.key, col.dataIndex )}
+            /> )
+          } )
+      } else {
+        return ({
+          title: col.title,
+          dataIndex: col.dataIndex,
+          width: col.width || defaultW
+        })
+
+      }
+
     } );
 
     this.setState({

@@ -33,9 +33,15 @@ const tables = (state = initialState, action) => {
     case 'RECEIVE_ROW':
       prev = state[action.table];
       id = uid();
-      next = {[id]: merge({key: id}, action.defaults, {details: {}})};
-      rows = merge({}, prev, next);
+// NOTE: Not sure if this is the right way to go about adding 'details' obj to each item
   debugger
+      // let details =
+      next = {[id]: merge({key: id}, action.defaults, {
+        details: {
+
+        }
+      })};
+      rows = merge({}, prev, next);
       return merge({}, state, {[action.table]: rows});
     case'REMOVE_ROWS':
       rows = action.rowIDs;
@@ -46,7 +52,10 @@ const tables = (state = initialState, action) => {
       return next;
     case 'UPDATE_CELL':
       prev = state[action.table];
-      next = Object.assign({}, prev[action.row], {[action.column]: action.value});
+      next = Object.assign({}, prev[action.row], {
+        [action.column]: action.value
+      });
+      debugger
       return merge({}, state, { [action.table]: {
         [action.row]: next
       }});
@@ -57,7 +66,6 @@ const tables = (state = initialState, action) => {
       });
       return merge({}, state, {compounds: compounds});
     case 'RECEIVE_PHYS':
-    debugger
       prev = state[action.table][action.key];
       return merge({}, state, {[action.table]: {
         [action.key]: {details: action.details}

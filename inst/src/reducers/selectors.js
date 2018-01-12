@@ -15,7 +15,6 @@ export const selectSupplementalData = ( state, table ) => {
     const rows = Object.values(data)
     // What the hell did I even write here....
     // const rows = Object.keys(data).reduce((arr, datum, i) => {
-    //   debugger
     //   return arr = (datum === 'key') || (datum === 'organismName') || (datum === 'age') ? arr : [...arr, {
     //     [datum]: data[datum],
     //     key: `${data['key']}_${i}`

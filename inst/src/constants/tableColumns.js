@@ -155,7 +155,8 @@ const tableColumns = {
       dataIndex: 'Compound',
       key: 'Compound',
       editable: 'true',
-      type: 'text'
+      type: 'text',
+      width: 170, 
     }, {
       title: 'MW',
       dataIndex: 'MW',
