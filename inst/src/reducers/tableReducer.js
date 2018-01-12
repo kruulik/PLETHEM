@@ -33,9 +33,8 @@ const tables = (state = initialState, action) => {
     case 'RECEIVE_ROW':
       prev = state[action.table];
       id = uid();
+      
 // NOTE: Not sure if this is the right way to go about adding 'details' obj to each item
-  debugger
-      // let details =
       next = {[id]: merge({key: id}, action.defaults, {
         details: {
 
@@ -55,7 +54,6 @@ const tables = (state = initialState, action) => {
       next = Object.assign({}, prev[action.row], {
         [action.column]: action.value
       });
-      debugger
       return merge({}, state, { [action.table]: {
         [action.row]: next
       }});

@@ -10,6 +10,7 @@ import tableColumns from 'constants/tableColumns';
 import * as TableActions from 'actions/tableActions';
 import { selectTableData } from 'reducers/selectors';
 
+
 class EditableTable extends React.Component {
   constructor( props ) {
     super( props );
@@ -27,6 +28,7 @@ class EditableTable extends React.Component {
 
   }
 
+
   onCellChange = ( key, dataIndex ) => {
     console.log('called from cellChange');
     const {updateCell, getDetails} = this.props;
@@ -36,8 +38,6 @@ class EditableTable extends React.Component {
       const row = dataSource.find( item => item.key === key ).key.toString();
       const column = dataIndex;
       updateCell(row, value, table, column);
-      // debugger
-      // getDetails(table, row);
     };
   }
 
@@ -111,12 +111,10 @@ class EditableTable extends React.Component {
 
   componentDidMount() {
     const { table, dataSource } = this.props;
-
     const columns = tableColumns[table];
     this.createColumns(columns);
+
   }
-
-
 
   render() {
     const { columns, selectedRowKeys, scrollX } = this.state;
@@ -126,7 +124,6 @@ class EditableTable extends React.Component {
         return 'row-selected';
       }
     }
-    // console.log(tabsWH.tabsHeight)
 
     return (
       <div className="editable-table-wrapper">
@@ -140,6 +137,7 @@ class EditableTable extends React.Component {
             onClick={() => this.handleRemove() }
           >Remove Selection</Button>
         </div>
+
         <Table
           pagination={pagination}
           scroll={{ x: scrollX, y: scrollY }}
@@ -147,6 +145,7 @@ class EditableTable extends React.Component {
             ({
               onClick: (e) => this.handleRowClick(e, record)
             })}
+
           rowClassName={rowClassName}
           bordered={true}
           dataSource={dataSource ? dataSource : []}
