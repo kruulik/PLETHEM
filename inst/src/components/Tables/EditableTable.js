@@ -21,19 +21,23 @@ class EditableTable extends React.Component {
       count: this.props.dataSource.length,
       selectedRowKeys: [],
       scrollX: 0,
-      scrollY: 350,
+      scrollY: this.props.scrollY
     };
     this.handleAdd = this.handleAdd.bind(this)
 
   }
 
   onCellChange = ( key, dataIndex ) => {
+    console.log('called from cellChange');
+    const {updateCell, getDetails} = this.props;
     return (value) => {
       const dataSource = [...this.props.dataSource];
         const {table} = this.props;
       const row = dataSource.find( item => item.key === key ).key.toString();
       const column = dataIndex;
-      this.props.updateCell(row, value, table, column);
+      updateCell(row, value, table, column);
+      // debugger
+      // getDetails(table, row);
     };
   }
 
@@ -45,9 +49,9 @@ class EditableTable extends React.Component {
   }
 
   handleAdd = () => {
-    const { count, table } = this.state;
-    this.props.addRow(table, count.toString() );
-    this.setState({count: count + 1});
+    const { table } = this.state;
+    const { rowDefaults } = this.props;
+    this.props.addRow(table, rowDefaults );
   }
 
   createColumns = ( columns, defaultW = 120 ) => {
@@ -77,8 +81,7 @@ class EditableTable extends React.Component {
 
   handleRowClick = (e, record) => {
     const { selectedRowKeys } = this.state;
-    const { selectSingleRow, table } = this.props;
-
+    const { selectSingleRow, table, getDetails, state } = this.props;
 // NOTE pressing alt allows multi-select, but only when ONE row is selected will the redux store be changed.
 
     if ( selectedRowKeys.includes(record.key) && e.nativeEvent.altKey ) {
@@ -95,6 +98,9 @@ class EditableTable extends React.Component {
     } else {
       this.setState({ selectedRowKeys: [record.key] });
       selectSingleRow(table, record.key);
+      console.log('called from selectRow');
+
+      getDetails(table, record.key);
     }
   }
 
@@ -111,14 +117,16 @@ class EditableTable extends React.Component {
   }
 
 
+
   render() {
-    const { columns, selectedRowKeys, scrollX, scrollY } = this.state;
-    let { dataSource, tabsWH, actions, pagination } = this.props;
+    const { columns, selectedRowKeys, scrollX } = this.state;
+    let { dataSource, actions, pagination, state, scrollY } = this.props;
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {
         return 'row-selected';
       }
     }
+    // console.log(tabsWH.tabsHeight)
 
     return (
       <div className="editable-table-wrapper">
@@ -154,12 +162,13 @@ const mapStateToProps = ( state, ownProps ) => {
   const table = ownProps.table;
   return {
     dataSource: selectTableData(state, table),
-    ownProps
+    ownProps,
+    state: state.tables
   }
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({...TableActions}, dispatch);
+  return bindActionCreators({...TableActions}, dispatch)
 };
 
 export default connect( mapStateToProps, mapDispatchToProps, null, {withRef: true} )( EditableTable );

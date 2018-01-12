@@ -3,7 +3,8 @@ import { uid } from 'util/uid';
 import {
   RECEIVE_TABLE,
   RECEIVE_ROW,
-  RECEIVE_COMPOUNDS
+  RECEIVE_COMPOUNDS,
+  RECEIVE_PHYS
 } from 'actions/tableActions';
 
 import merge from 'lodash/merge';
@@ -22,7 +23,7 @@ const initialState = {
 const tables = (state = initialState, action) => {
   Object.freeze( state );
 
-  let prev, next, table, column, rows;
+  let prev, next, table, column, rows, id;
 
   switch(action.type) {
     case 'RECEIVE_TABLE':
@@ -31,7 +32,15 @@ const tables = (state = initialState, action) => {
       });
     case 'RECEIVE_ROW':
       prev = state[action.table];
-      next = {[action.rowID]: {key: action.rowID}};
+      id = uid();
+// NOTE: Not sure if this is the right way to go about adding 'details' obj to each item
+  debugger
+      // let details =
+      next = {[id]: merge({key: id}, action.defaults, {
+        details: {
+
+        }
+      })};
       rows = merge({}, prev, next);
       return merge({}, state, {[action.table]: rows});
     case'REMOVE_ROWS':
@@ -43,7 +52,10 @@ const tables = (state = initialState, action) => {
       return next;
     case 'UPDATE_CELL':
       prev = state[action.table];
-      next = Object.assign({}, prev[action.row], {[action.column]: action.value});
+      next = Object.assign({}, prev[action.row], {
+        [action.column]: action.value
+      });
+      debugger
       return merge({}, state, { [action.table]: {
         [action.row]: next
       }});
@@ -51,8 +63,13 @@ const tables = (state = initialState, action) => {
       let compounds = JSON.parse(action.compounds);
       compounds.map((comp, i) => {
         merge(comp, {key: `CAS=${comp.CAS}__UID=${uid()}`})
-      })
-      return merge({}, state, {compounds: compounds})
+      });
+      return merge({}, state, {compounds: compounds});
+    case 'RECEIVE_PHYS':
+      prev = state[action.table][action.key];
+      return merge({}, state, {[action.table]: {
+        [action.key]: {details: action.details}
+      }});
     default:
       return state;
   }

@@ -15,13 +15,13 @@ const tableColumns = {
       type: 'select',
       width: 140,
       options: [
+        'Human',
         'Mouse',
         'Rat',
         'Guinea PigGuin eaPig',
         'Rabbit',
         'Dog',
-        'Mokey',
-        'Human'
+        'Mokey'
       ]
     }, {
       title: 'Gender',
@@ -35,30 +35,6 @@ const tableColumns = {
       title: 'Age',
       dataIndex: 'age',
       key: 'age',
-      editable: 'true',
-      type: 'numeric'
-    }, {
-      title: 'Height',
-      dataIndex: 'height',
-      key: 'height',
-      editable: 'true',
-      type: 'numeric'
-    }, {
-      title: 'BW',
-      dataIndex: 'bw',
-      key: 'bw',
-      editable: 'true',
-      type: 'numeric'
-    }, {
-      title: 'BMI',
-      dataIndex: 'bmi',
-      key: 'bmi',
-      editable: 'true',
-      type: 'numeric'
-    }, {
-      title: 'BSA',
-      dataIndex: 'bsa',
-      key: 'bsa',
       editable: 'true',
       type: 'numeric'
     }
@@ -179,7 +155,8 @@ const tableColumns = {
       dataIndex: 'Compound',
       key: 'Compound',
       editable: 'true',
-      type: 'text'
+      type: 'text',
+      width: 170, 
     }, {
       title: 'MW',
       dataIndex: 'MW',
