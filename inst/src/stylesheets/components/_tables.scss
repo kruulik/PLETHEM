@@ -20,6 +20,8 @@
     overflow: inherit;
     padding-bottom: 0;
     margin-bottom: 0;
+    // padding-right: 16px;
+    margin-right: 16px; 
 }
 
 .ant-table {
@@ -57,15 +59,18 @@
 
   .supplemental-data-wrapper {
     height: 100%;
+    width: 100%;
+    border: 1px solid red;
     display: flex;
     flex-direction: row;
     .supplemental-table {
-      // border: 1px solid red;
-      width: 100%;
+      // width: 100%;
+      overflow: auto;
+      flex: 3;
     }
     .plot {
-      width: 100%;
-      // border: 1px solid yellow;
+      border: 1px solid green;
+      flex: 1;
     }
   }
 }

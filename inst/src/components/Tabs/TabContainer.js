@@ -61,7 +61,6 @@ class TabContainer extends Component {
               <SupplementalTable
                 scrollY={tabsWH.tabsHeight * 0.5 - 35}
                 parentTable="organisms"
-
               />
               <div className="plot">
                 <div>plot goes here</div>
