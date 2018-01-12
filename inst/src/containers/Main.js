@@ -57,7 +57,6 @@ class Main extends Component {
 
   render() {
     const { windowWidth, windowHeight, tabsWidth, tabsHeight } = this.state;
-    console.log(tabsHeight);
     return (
       <Layout style={style.container}>
         <Header />

@@ -81,7 +81,6 @@ class SupplementalTable extends React.Component {
   render() {
     const { columns, selectedRowKeys } = this.state;
     let { dataSource, scrollY } = this.props;
-    console.log(scrollY)
 
     const rowClassName = (record) => {
       if (selectedRowKeys.includes(record.key)) {

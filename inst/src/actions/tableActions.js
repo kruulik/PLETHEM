@@ -22,7 +22,7 @@ export const createTable = (tableName) => ({
   tableName
 })
 
-export const addRow = (table, defaults) => ({
+export const addRow = (table, defaults={}) => ({
   type: RECEIVE_ROW,
   table,
   defaults

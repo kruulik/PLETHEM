@@ -38,31 +38,6 @@ const tableColumns = {
       editable: 'true',
       type: 'numeric'
     }
-    // , {
-    //   title: 'Height',
-    //   dataIndex: 'height',
-    //   key: 'height',
-    //   editable: 'true',
-    //   type: 'numeric'
-    // }, {
-    //   title: 'BW',
-    //   dataIndex: 'bw',
-    //   key: 'bw',
-    //   editable: 'true',
-    //   type: 'numeric'
-    // }, {
-    //   title: 'BMI',
-    //   dataIndex: 'bmi',
-    //   key: 'bmi',
-    //   editable: 'true',
-    //   type: 'numeric'
-    // }, {
-    //   title: 'BSA',
-    //   dataIndex: 'bsa',
-    //   key: 'bsa',
-    //   editable: 'true',
-    //   type: 'numeric'
-    // }
   ],
   exposure: [
     {

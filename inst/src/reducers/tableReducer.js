@@ -33,8 +33,9 @@ const tables = (state = initialState, action) => {
     case 'RECEIVE_ROW':
       prev = state[action.table];
       id = uid();
-      next = {[id]: merge({key: id}, action.defaults)};
+      next = {[id]: merge({key: id}, action.defaults, {details: {}})};
       rows = merge({}, prev, next);
+  debugger
       return merge({}, state, {[action.table]: rows});
     case'REMOVE_ROWS':
       rows = action.rowIDs;
@@ -56,6 +57,7 @@ const tables = (state = initialState, action) => {
       });
       return merge({}, state, {compounds: compounds});
     case 'RECEIVE_PHYS':
+    debugger
       prev = state[action.table][action.key];
       return merge({}, state, {[action.table]: {
         [action.key]: {details: action.details}

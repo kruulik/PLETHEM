@@ -82,7 +82,6 @@ class EditableTable extends React.Component {
   handleRowClick = (e, record) => {
     const { selectedRowKeys } = this.state;
     const { selectSingleRow, table, getDetails, state } = this.props;
-
 // NOTE pressing alt allows multi-select, but only when ONE row is selected will the redux store be changed.
 
     if ( selectedRowKeys.includes(record.key) && e.nativeEvent.altKey ) {
@@ -100,6 +99,7 @@ class EditableTable extends React.Component {
       this.setState({ selectedRowKeys: [record.key] });
       selectSingleRow(table, record.key);
       console.log('called from selectRow');
+
       getDetails(table, record.key);
     }
   }

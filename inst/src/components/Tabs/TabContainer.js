@@ -29,20 +29,11 @@ class TabContainer extends Component {
     // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
 
     const { tabsWH, getDefaultPhysiologicalData, testDefaultPhys } = this.props;
-    // console.log(tabsWH)
-
-    // const container = document.querySelector('.ant-tabs-content');
-    // let scrollY = 701;
-    // if (container){
-    //   scrollY = container.getBoundingClientRect().height - 40;
-    //   debugger
-    // }
-    // console.log(scrollY)
 
     return (
       <div className="tabs-wrapper">
-        <Tabs type="card" style={{ height: '100%' }} onChange={this.tabChanged}>
-          <TabPane tab="Organisms" key="1" className="tab-content-wrapper" style={styles.tabContent}>
+        <Tabs type="card" style={{ height: '100%' }} >
+          <TabPane tab="Organisms" key="1" className="tab-content-wrapper" >
             <EditableTable
               table="organisms"
               getDetails={testDefaultPhys}
@@ -82,6 +73,8 @@ class TabContainer extends Component {
               pagination={false}
               table="exposure"
               ref={node => (this.exposure = node)}
+              scrollY={tabsWH.tabsHeight * 0.5 - 40}
+              getDetails={() => console.log('Should fetch row details')}
               actions={
                 <div>
                   <Button
@@ -95,7 +88,7 @@ class TabContainer extends Component {
             <div className="supplemental-data-wrapper">
               <SupplementalTable
                 parentTable="exposure"
-                tabsWH={tabsWH}
+
               />
             </div>
           </TabPane>
