@@ -10,7 +10,7 @@ const TabPane = Tabs.TabPane;
 import { EditableTable } from 'components';
 import { SupplementalTable } from 'components';
 
-import { VictoryChart, VictoryLine, VictoryZoomContainer } from 'victory';
+import { VictoryChart, VictoryLine, VictoryZoomContainer, VictoryCursorContainer, createContainer, VictoryTooltip, VictoryLabel } from 'victory';
 
 import * as TableActions from 'actions/tableActions';
 import { generateConcPlotData } from 'reducers/transpose';
@@ -30,19 +30,52 @@ class TabContainer extends Component {
 
 
 renderChart = (data, selected) => {
+
+  const ChartContainer = createContainer('zoom', 'cursor');
+  let lines = Object.keys(data).map((datum, i) => {
+                let d = data[datum];
+                return (
+                  <VictoryLine
+                    key={i}
+                    interpolation="natural"
+                    data={d}
+                    style={{
+                      data: { stroke: d.color }
+                    }}
+                  />
+                );
+              })
+
+  const Null = () => null;
+  const Cursor = ({ x, y, active, text }) => {
+    let labels = [];
+    Object.values(data).forEach((datum, i) => {
+      labels.push(
+        <text key={i} x={x+18} y={y-(14 * i)} style={{ textAnchor: 'middle', fill: 'black' }}>
+          {`${datum.find(val => (val.x >= text)).title }: ${datum.find(val => (val.x >= text)).y.toPrecision(3) }`}
+        </text>
+      )
+    })
+    return (
+      <g>
+        {labels}
+        <path d={`M${x},250 L${x},50`} style={{ strokeWidth: 1, stroke: 'deeppink' }} />
+      </g>
+    )
+  }
+
   return (
-    <VictoryChart containerComponent={
-      <VictoryZoomContainer/>
-    }>
-      {Object.keys(data).map((datum, i) => {
-        return (
-          <VictoryLine
-            key={i}
-            interpolation="natural"
-            data={data[datum]}
-          />
-        )
-      })}
+    <VictoryChart
+      containerComponent={
+        <ChartContainer
+          cursorLabel={(d) => d.x}
+          cursorDimension={"x"}
+          cursorLabelComponent={<Cursor />}
+          cursorLabelOffset={0}
+          cursorComponent={<Null/>}
+        />
+      }>
+      {lines}
     </VictoryChart>
   )
 
@@ -51,11 +84,10 @@ renderChart = (data, selected) => {
 
   render(){
     const { concentrationPlotData } = this.props;
-    // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
-// if (concentrationPlotData.length > 1) {
-//   debugger
-// }
 
+    // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
+    // TODO: REFACTOR!!!
+    // TODO: Charts should be their own components
 
     const { tabsWH, getDefaultPhysiologicalData, testDefaultPhys } = this.props;
 
@@ -162,7 +194,7 @@ renderChart = (data, selected) => {
               defaultActiveKey={'1'}>
               <Panel header="Concentration" key="1">
 
-                {concentrationPlotData ? this.renderChart(concentrationPlotData) : null}
+                {concentrationPlotData.Lungs.length > 0 ? this.renderChart(concentrationPlotData) : null}
 
               </Panel>
             </Collapse>
