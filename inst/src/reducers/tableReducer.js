@@ -33,12 +33,10 @@ const tables = (state = initialState, action) => {
     case 'RECEIVE_ROW':
       prev = state[action.table];
       id = uid();
-      
+
 // NOTE: Not sure if this is the right way to go about adding 'details' obj to each item
       next = {[id]: merge({key: id}, action.defaults, {
-        details: {
-
-        }
+        details: {}
       })};
       rows = merge({}, prev, next);
       return merge({}, state, {[action.table]: rows});

@@ -6,6 +6,7 @@ export const REMOVE_ROWS = 'REMOVE_ROWS';
 export const SELECT_ROW = 'SELECT_ROW';
 export const RECEIVE_COMPOUNDS = 'RECEIVE_COMPOUNDS';
 export const RECEIVE_PHYS = 'RECEIVE_PHYS';
+export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
 
 export const updateCell = (row, value, table, column) => {
   return ({
@@ -149,3 +150,15 @@ export const getDefaultPhysiologicalData = (data) => dispatch => {
 // export const getDefaultPhysiologicalData = (table, key) => {
 //   (details) dispatch(receiveDefaultPhys(table, key, {details: details}))
 // }
+
+export const receiveTestResults = (output) => {
+  return {
+    type: RECEIVE_RESULTS,
+    output: JSON.parse(output.outputs[0])
+  }
+}
+
+export const runTestScenario = (args) => dispatch => {
+  const req = window.ocpu.rpc("runSingleScenario", args,
+  (output) => dispatch(receiveTestResults({outputs: output})))
+}

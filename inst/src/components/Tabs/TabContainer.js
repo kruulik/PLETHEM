@@ -3,13 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 
-import { Tabs, Button } from 'antd';
+import { Tabs, Button, Collapse } from 'antd';
+const { Panel } = Collapse;
 const TabPane = Tabs.TabPane;
 
 import { EditableTable } from 'components';
 import { SupplementalTable } from 'components';
 
+import { VictoryLine } from 'victory';
+
 import * as TableActions from 'actions/tableActions';
+import { generateConcPlotData } from 'reducers/transpose';
+
 
 
 class TabContainer extends Component {
@@ -24,9 +29,25 @@ class TabContainer extends Component {
   }
 
 
-  render(){
+renderChart = (data) => {
 
+  return (
+    <VictoryLine
+      interpolation="natural"
+      data={data}
+    />
+  )
+
+}
+
+
+  render(){
+    const { concentrationPlotData } = this.props;
     // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
+if (concentrationPlotData.length > 1) {
+  debugger
+}
+
 
     const { tabsWH, getDefaultPhysiologicalData, testDefaultPhys } = this.props;
 
@@ -127,7 +148,16 @@ class TabContainer extends Component {
             <div>Tab Contents</div>
           </TabPane>
           <TabPane tab="Plots" key="8">
-            <div>Tab Contents</div>
+            <Collapse
+              style={styles.collapse}
+              bordered={false}
+              defaultActiveKey={'1'}>
+              <Panel header="Concentration" key="1">
+
+                {concentrationPlotData.length > 1 ? this.renderChart(concentrationPlotData) : null}
+
+              </Panel>
+            </Collapse>
           </TabPane>
         </Tabs>
       </div>
@@ -146,8 +176,11 @@ const styles = {
 
 const mapStateToProps = (state) => {
   // Might use this later to fill tabs/tables and pass props
+  // const concentrationPlotData = state.results.sampleData
+  const concData = state.results.sampleData;
   return {
-    state
+    state,
+    concentrationPlotData: generateConcPlotData(concData)
   };
 };
 
