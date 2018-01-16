@@ -5,7 +5,9 @@ import * as TableActions from 'actions/tableActions';
 
 import { VictoryChart, VictoryLine, VictoryZoomContainer, VictoryCursorContainer, createContainer, VictoryTooltip, VictoryLabel, Flyout } from 'victory';
 
-import { generateConcPlotData } from 'reducers/transpose';
+import { PlotSelector } from 'components';
+
+// import { generateConcPlotData } from 'reducers/transpose';
 
 class InteractiveChart extends Component {
 
@@ -73,14 +75,15 @@ class InteractiveChart extends Component {
   }
 
   render() {
-    const { concentrationPlotData } = this.props;
-
+    const { datapoints } = this.props;
     return (
       <div className="plot-wrapper">
-        <span>* Scroll to zoom, click and drag to pan.</span>
-        {concentrationPlotData.Lungs.length > 0 ? this.renderChart(concentrationPlotData) : null}
+        <div className="plot">
+          <span>* Scroll to zoom, click and drag to pan.</span>
+          {datapoints.Lungs.length > 0 ? this.renderChart(datapoints) : null}
+        </div>
+        {/* <PlotSelector /> */}
       </div>
-
     )
   }
 }
@@ -104,10 +107,11 @@ const styles = {
 
 const mapStateToProps = (state) => {
 
-  const concData = state.results.sampleData;
+  const datapoints = state.results.sampleData;
   return {
     state,
-    concentrationPlotData: generateConcPlotData(concData)
+    datapoints
+    // concentrationPlotData: generateConcPlotData(concData)
   };
 };
 

@@ -27,7 +27,7 @@ export const generateConcPlotData = (concData = []) => {
     Liver: [],
     Kidney: [],
     ArterialBlood: [],
-    // VenousBlood: []
+    VenousBlood: []
   }
 
   concData.forEach(data => {
@@ -69,11 +69,12 @@ export const generateConcPlotData = (concData = []) => {
         case 12:
           lines.ArterialBlood.push({y: data[d], x: data[0], color: 'lightgray', title: 'Arterial Blood'});
           break;
-        // case 13:
-        //   lines.VenousBlood.push({y: data[d], x: data[0], color: 'darkred', title: 'Venous Blood'});
-        //   break;
+        case 13:
+          lines.VenousBlood.push({y: data[d], x: data[0], color: 'darkred', title: 'Venous Blood'});
+          break;
       }
     }
     });
+    debugger
   return lines;
 }

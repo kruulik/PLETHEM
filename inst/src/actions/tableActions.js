@@ -8,6 +8,9 @@ export const RECEIVE_COMPOUNDS = 'RECEIVE_COMPOUNDS';
 export const RECEIVE_PHYS = 'RECEIVE_PHYS';
 export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
 
+import { generateConcPlotData } from 'reducers/transpose';
+
+
 export const updateCell = (row, value, table, column) => {
   return ({
     type: UPDATE_CELL,
@@ -152,9 +155,10 @@ export const getDefaultPhysiologicalData = (data) => dispatch => {
 // }
 
 export const receiveTestResults = (output) => {
+  const transposed = generateConcPlotData(JSON.parse(output.outputs)[0]);
   return {
     type: RECEIVE_RESULTS,
-    output: JSON.parse(output.outputs[0])
+    transposed
   }
 }
 

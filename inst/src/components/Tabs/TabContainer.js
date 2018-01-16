@@ -29,8 +29,6 @@ class TabContainer extends Component {
   }
 
   render(){
-
-
     // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
     // TODO: REFACTOR!!!
     // TODO: Charts should be their own components

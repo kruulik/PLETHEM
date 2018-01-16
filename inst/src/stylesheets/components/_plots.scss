@@ -1,0 +1,11 @@
+.plot-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  .plot {
+    flex: 2;
+  }
+  .plot-selector {
+    flex: 1; 
+  }
+}
