@@ -10,7 +10,7 @@ const TabPane = Tabs.TabPane;
 import { EditableTable } from 'components';
 import { SupplementalTable } from 'components';
 
-import { VictoryChart, VictoryLine } from 'victory';
+import { VictoryChart, VictoryLine, VictoryZoomContainer } from 'victory';
 
 import * as TableActions from 'actions/tableActions';
 import { generateConcPlotData } from 'reducers/transpose';
@@ -30,10 +30,10 @@ class TabContainer extends Component {
 
 
 renderChart = (data, selected) => {
-
-
   return (
-    <VictoryChart>
+    <VictoryChart containerComponent={
+      <VictoryZoomContainer/>
+    }>
       {Object.keys(data).map((datum, i) => {
         return (
           <VictoryLine
@@ -42,7 +42,6 @@ renderChart = (data, selected) => {
             data={data[datum]}
           />
         )
-
       })}
     </VictoryChart>
   )
