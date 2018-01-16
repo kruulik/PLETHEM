@@ -10,7 +10,7 @@ const TabPane = Tabs.TabPane;
 import { EditableTable } from 'components';
 import { SupplementalTable } from 'components';
 
-import { VictoryLine } from 'victory';
+import { VictoryChart, VictoryLine } from 'victory';
 
 import * as TableActions from 'actions/tableActions';
 import { generateConcPlotData } from 'reducers/transpose';
@@ -29,13 +29,22 @@ class TabContainer extends Component {
   }
 
 
-renderChart = (data) => {
+renderChart = (data, selected) => {
+
 
   return (
-    <VictoryLine
-      interpolation="natural"
-      data={data}
-    />
+    <VictoryChart>
+      {Object.keys(data).map((datum, i) => {
+        return (
+          <VictoryLine
+            key={i}
+            interpolation="natural"
+            data={data[datum]}
+          />
+        )
+
+      })}
+    </VictoryChart>
   )
 
 }
@@ -44,9 +53,9 @@ renderChart = (data) => {
   render(){
     const { concentrationPlotData } = this.props;
     // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
-if (concentrationPlotData.length > 1) {
-  debugger
-}
+// if (concentrationPlotData.length > 1) {
+//   debugger
+// }
 
 
     const { tabsWH, getDefaultPhysiologicalData, testDefaultPhys } = this.props;
@@ -154,7 +163,7 @@ if (concentrationPlotData.length > 1) {
               defaultActiveKey={'1'}>
               <Panel header="Concentration" key="1">
 
-                {concentrationPlotData.length > 1 ? this.renderChart(concentrationPlotData) : null}
+                {concentrationPlotData ? this.renderChart(concentrationPlotData) : null}
 
               </Panel>
             </Collapse>

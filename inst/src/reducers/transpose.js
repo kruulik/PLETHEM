@@ -14,56 +14,72 @@ export const generateConcPlotData = (concData = []) => {
   // 11 -> Kidney
   // 12 -> Arterial Blood
   // 13 -> Venous Blood
+  let lines = {
+    Time: [],
+    Lungs: [],
+    Heart: [],
+    Brain: [],
+    Skin: [],
+    Fat: [],
+    Muscle: [],
+    Bone: [],
+    BoneMarrow: [],
+    GITract: [],
+    Liver: [],
+    Kidney: [],
+    ArterialBlood: [],
+    VenousBlood: []
+  }
 
-  const rData = concData.map(data => {
-    let tempObj = {};
+  concData.forEach(data => {
+    // let lines. {};
+    // debugger
     for (let d = 0; d < data.length; d++) {
       switch(d) {
-        case 0:
-          tempObj['Time'] = {x: data[d], y: data[0]};
-          break;
+        // case 0:
+        //   lines.Time.push({x: data[d]});
+        //   break;
         case 1:
-          tempObj['Lungs'] = {x: data[d], y: data[0]};
+          lines.Lungs.push({y: data[d], x: data[0]});
           break;
         case 2:
-          tempObj['Heart'] = {x: data[d], y: data[0]};
+          lines.Heart.push({y: data[d], x: data[0]});
           break;
         case 3:
-          tempObj['Brain'] = {x: data[d], y: data[0]};
+          lines.Brain.push({y: data[d], x: data[0]});
           break;
         case 4:
-          tempObj['Skin'] = {x: data[d], y: data[0]};
+          lines.Skin.push({y: data[d], x: data[0]});
           break;
         case 5:
-          tempObj['Fat'] = {x: data[d], y: data[0]};
+          lines.Fat.push({y: data[d], x: data[0]});
           break;
         case 6:
-          tempObj['Muscle'] = {x: data[d], y: data[0]};
+          lines.Muscle.push({y: data[d], x: data[0]});
           break;
         case 7:
-          tempObj['Bone'] = {x: data[d], y: data[0]};
+          lines.Bone.push({y: data[d], x: data[0]});
           break;
         case 8:
-          tempObj['Bone Marrow'] = {x: data[d], y: data[0]};
+          lines.BoneMarrow.push({y: data[d], x: data[0]});
           break;
         case 9:
-          tempObj['GI Tract'] = {x: data[d], y: data[0]};
+          lines.GITract.push({y: data[d], x: data[0]});
           break;
         case 10:
-          tempObj['Liver'] = {x: data[d], y: data[0]};
+          lines.Liver.push({y: data[d], x: data[0]});
           break;
         case 11:
-          tempObj['Kidney'] = {x: data[d], y: data[0]};
+          lines.Kidney.push({y: data[d], x: data[0]});
           break;
         case 12:
-          tempObj['Arterial Blood'] = {x: data[d], y: data[0]};
+          lines.ArterialBlood.push({y: data[d], x: data[0]});
           break;
         case 13:
-          tempObj['Venous Blood'] = {x: data[d], y: data[0]};
+          lines.VenousBlood.push({y: data[d], x: data[0]});
           break;
       }
     }
-    return tempObj;
-  });
-  return rData;
+    });
+  return lines;
 }
