@@ -9,11 +9,11 @@ const TabPane = Tabs.TabPane;
 
 import { EditableTable } from 'components';
 import { SupplementalTable } from 'components';
+import { InteractiveChart } from 'components';
 
 import { VictoryChart, VictoryLine, VictoryZoomContainer, VictoryCursorContainer, createContainer, VictoryTooltip, VictoryLabel } from 'victory';
 
 import * as TableActions from 'actions/tableActions';
-import { generateConcPlotData } from 'reducers/transpose';
 
 
 
@@ -28,62 +28,8 @@ class TabContainer extends Component {
     }
   }
 
-
-renderChart = (data, selected) => {
-
-  const ChartContainer = createContainer('zoom', 'cursor');
-  let lines = Object.keys(data).map((datum, i) => {
-                let d = data[datum];
-                return (
-                  <VictoryLine
-                    key={i}
-                    interpolation="natural"
-                    data={d}
-                    style={{
-                      data: { stroke: d.color }
-                    }}
-                  />
-                );
-              })
-
-  const Null = () => null;
-  const Cursor = ({ x, y, active, text }) => {
-    let labels = [];
-    Object.values(data).forEach((datum, i) => {
-      labels.push(
-        <text key={i} x={x+18} y={y-(14 * i)} style={{ textAnchor: 'middle', fill: 'black' }}>
-          {`${datum.find(val => (val.x >= text)).title }: ${datum.find(val => (val.x >= text)).y.toPrecision(3) }`}
-        </text>
-      )
-    })
-    return (
-      <g>
-        {labels}
-        <path d={`M${x},250 L${x},50`} style={{ strokeWidth: 1, stroke: 'deeppink' }} />
-      </g>
-    )
-  }
-
-  return (
-    <VictoryChart
-      containerComponent={
-        <ChartContainer
-          cursorLabel={(d) => d.x}
-          cursorDimension={"x"}
-          cursorLabelComponent={<Cursor />}
-          cursorLabelOffset={0}
-          cursorComponent={<Null/>}
-        />
-      }>
-      {lines}
-    </VictoryChart>
-  )
-
-}
-
-
   render(){
-    const { concentrationPlotData } = this.props;
+
 
     // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
     // TODO: REFACTOR!!!
@@ -194,7 +140,7 @@ renderChart = (data, selected) => {
               defaultActiveKey={'1'}>
               <Panel header="Concentration" key="1">
 
-                {concentrationPlotData.Lungs.length > 0 ? this.renderChart(concentrationPlotData) : null}
+                <InteractiveChart />
 
               </Panel>
             </Collapse>
@@ -215,12 +161,8 @@ const styles = {
 
 
 const mapStateToProps = (state) => {
-  // Might use this later to fill tabs/tables and pass props
-  // const concentrationPlotData = state.results.sampleData
-  const concData = state.results.sampleData;
   return {
-    state,
-    concentrationPlotData: generateConcPlotData(concData)
+    state
   };
 };
 

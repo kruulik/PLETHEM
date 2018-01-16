@@ -18,9 +18,8 @@
 
 .ant-table-fixed-header .ant-table-scroll .ant-table-header {
     overflow: inherit;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    // padding-right: 16px;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
     margin-right: 16px;
 }
 
@@ -30,6 +29,7 @@
     border-top-right-radius: 0;
   }
 }
+
 .ant-table-thead::after {
   content: "";
   border-top: 1px solid #e8e8e8;
