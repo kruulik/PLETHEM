@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import { Layout, Button, Icon } from 'antd';
 const { Header } = Layout;
 
-import * as ProjectActions from 'actions/projectActions';
+// import * as ProjectActions from 'actions/projectActions';
+import * as TableActions from 'actions/tableActions';
 
 class AppHeader extends Component {
 
@@ -45,6 +46,44 @@ class AppHeader extends Component {
 
   render() {
 
+    const cpd = {
+      AqSolubility : 6000,
+      CAS : "107-06-2",
+      Compound : "1,2-Dichloroethane",
+      Density : 1240,
+      F_ehc : 0,
+      Km_Liver : 2.5,
+      LogP_5p5 : 1.48,
+      LogP_7p4 : 1.48,
+      MW : 98.96,
+      VaporPressure : 10500,
+      Vmax_Liver_Total : 450,
+      key : "CAS=107-06-2__UID=72ddebbd-b13f-4b34-9296-dd214b74aa75"
+    }
+    const args = {
+      age: 25,
+      gender: 0,
+      species: 0,
+      compounds: [
+        {
+            odose: 100,
+            ivdose: 0,
+            mw: 98.96,
+            kow: 1.48,
+            kowsk: 1.48,
+            pvap: 10500.0,
+            tgas: 25.0,
+            density: 1240.0,
+            swat: 6000.0,
+            kabs: 1,
+            fabs: 1,
+            vmax: 450,
+            km: 2.5,
+            kbil: 0.0
+        }
+      ]
+    }
+
     return (
       <Header className="app-header">
         <span className="logo">PLETHEM PRO</span>
@@ -53,7 +92,7 @@ class AppHeader extends Component {
           <Button type="default" ghost onClick={this.selectFile} icon="upload">Load Project</Button>
         </div>
           <div className="right-nav">
-            <Button type="default" ghost icon="caret-right">Start Run</Button>
+            <Button type="default" ghost icon="caret-right" onClick={() => this.props.runTestScenario(args)}>Start Run</Button>
             <Button type="danger" ghost icon="pause">Stop Run</Button>
           </div>
 
@@ -81,7 +120,8 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({...ProjectActions}, dispatch);
+  // return bindActionCreators({...ProjectActions}, dispatch);
+  return bindActionCreators({...TableActions}, dispatch);
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( AppHeader );

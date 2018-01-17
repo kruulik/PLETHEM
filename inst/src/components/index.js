@@ -7,6 +7,8 @@ import TabContainer from './Tabs/TabContainer';
 import EditableTable from './Tables/EditableTable';
 import SupplementalTable from './Tables/SupplementalTable';
 import EditableCell from './Tables/EditableCell';
+import InteractiveChart from './Charts/InteractiveChart';
+import PlotSelector from './Charts/PlotSelector';
 
 
 export {
@@ -17,5 +19,7 @@ export {
   TabContainer,
   EditableTable,
   SupplementalTable,
-  EditableCell
+  EditableCell,
+  InteractiveChart,
+  PlotSelector
 }

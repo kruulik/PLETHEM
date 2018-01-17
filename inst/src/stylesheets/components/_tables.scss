@@ -18,8 +18,28 @@
 
 .ant-table-fixed-header .ant-table-scroll .ant-table-header {
     overflow: inherit;
-    padding-bottom: 0;
-    margin-bottom: 0;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-right: 16px;
+}
+
+.ant-table-thead {
+  th:last-child {
+    border-right: none;
+    border-top-right-radius: 0;
+  }
+}
+
+.ant-table-thead::after {
+  content: "";
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  height: 36px;
+  position: absolute;
+  top: 0;
+  left: calc(100% - 16px);
+  width: 16px;
+  background: #fafafa;
 }
 
 .ant-table {
@@ -52,20 +72,24 @@
 
   .editable-table-wrapper {
     height: 100%;
+    border-bottom: 1px solid lightgray;
     // border: 1px solid green;
   }
 
   .supplemental-data-wrapper {
+    margin-top: 16px;
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     .supplemental-table {
-      // border: 1px solid red;
-      width: 100%;
+      // width: 100%;
+      border-right: 1px solid lightgray;
+      overflow: auto;
+      flex: 2;
     }
     .plot {
-      width: 100%;
-      // border: 1px solid yellow;
+      flex: 1;
     }
   }
 }

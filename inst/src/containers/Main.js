@@ -90,7 +90,7 @@ const style = {
     height: '100vh',
   },
   contentWrapper: {
-    marginLeft: '300px',
+    marginLeft: '260px',
     marginTop: '60px',
     height: 'calc(100vh - 60px)',
     // border: '3px solid red'

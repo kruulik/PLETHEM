@@ -72,7 +72,7 @@ class Sidebar extends Component {
     return (
       <Sider
         className="app-sidebar"
-        width={300}
+        width={260}
         style={styles.sidebar}>
 
         <Collapse

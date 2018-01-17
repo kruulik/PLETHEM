@@ -3,13 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 
-import { Tabs, Button } from 'antd';
+import { Tabs, Button, Collapse } from 'antd';
+const { Panel } = Collapse;
 const TabPane = Tabs.TabPane;
 
 import { EditableTable } from 'components';
 import { SupplementalTable } from 'components';
+import { InteractiveChart } from 'components';
+
+import { VictoryChart, VictoryLine, VictoryZoomContainer, VictoryCursorContainer, createContainer, VictoryTooltip, VictoryLabel } from 'victory';
 
 import * as TableActions from 'actions/tableActions';
+
 
 
 class TabContainer extends Component {
@@ -23,10 +28,10 @@ class TabContainer extends Component {
     }
   }
 
-
   render(){
-
     // NOTE: For each etitable table, pass the selector or action+reducer that should fire when a row is clicked. This avoids needing conditional logic within the EditableTable component.
+    // TODO: REFACTOR!!!
+    // TODO: Charts should be their own components
 
     const { tabsWH, getDefaultPhysiologicalData, testDefaultPhys } = this.props;
 
@@ -61,7 +66,6 @@ class TabContainer extends Component {
               <SupplementalTable
                 scrollY={tabsWH.tabsHeight * 0.5 - 35}
                 parentTable="organisms"
-
               />
               <div className="plot">
                 <div>plot goes here</div>
@@ -128,7 +132,16 @@ class TabContainer extends Component {
             <div>Tab Contents</div>
           </TabPane>
           <TabPane tab="Plots" key="8">
-            <div>Tab Contents</div>
+            <Collapse
+              style={styles.collapse}
+              bordered={false}
+              defaultActiveKey={'1'}>
+              <Panel header="Concentration" key="1">
+
+                <InteractiveChart />
+
+              </Panel>
+            </Collapse>
           </TabPane>
         </Tabs>
       </div>
@@ -146,7 +159,6 @@ const styles = {
 
 
 const mapStateToProps = (state) => {
-  // Might use this later to fill tabs/tables and pass props
   return {
     state
   };
