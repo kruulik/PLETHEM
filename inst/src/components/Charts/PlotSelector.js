@@ -26,15 +26,15 @@ class PlotSelector extends Component {
     }
 
     const columns = [{
-      title: 'Option',
-      dataIndex: 'option'
+      title: 'Select / Deselect All',
+      dataIndex: 'option',
     }]
 
     return (
       <div className="plot-selector">
-        <Tabs type="card" style={{ height: '100%' }} >
+        <Tabs tabPosition="top" type="line" size="small" style={{ height: '100%' }} >
           <TabPane tab="Sample" key="1" className="plot-selector-tab-content" bordered>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+            <Table  showHeader={true} pagination={false} scroll={{y: 380}} size="small" rowSelection={rowSelection} columns={columns} dataSource={data} />
           </TabPane>
           <TabPane tab="Simulations" key="2" className="plot-selector-tab-content" >
           </TabPane>

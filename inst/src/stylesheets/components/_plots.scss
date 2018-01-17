@@ -4,8 +4,16 @@
   width: 100%;
   .plot {
     flex: 2;
+    max-height: calc(80vh - 120px);
   }
   .plot-selector {
-    flex: 1; 
+    flex: 1;
+    // width: 22vw;
+    width: 200px;
+    .ant-table-content {
+      min-height: 200px;
+      // min-width: 200px;
+    }
+
   }
 }

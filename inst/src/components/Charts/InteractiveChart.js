@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TableActions from 'actions/tableActions';
 
-import { VictoryChart, VictoryLine, VictoryZoomContainer, VictoryCursorContainer, createContainer, VictoryTooltip, VictoryLabel, Flyout } from 'victory';
+import { VictoryChart, VictoryAxis, VictoryTheme, VictoryLine, VictoryZoomContainer, VictoryCursorContainer, createContainer, VictoryTooltip, VictoryLabel, Flyout } from 'victory';
 
 import { PlotSelector } from 'components';
-
-// import { generateConcPlotData } from 'reducers/transpose';
 
 class InteractiveChart extends Component {
 
@@ -20,11 +18,12 @@ class InteractiveChart extends Component {
   }
 
   handleSelection = ( selectedOptions ) => {
+    // debugger
     this.setState({ selectedOptions }, this.filterPlots);
-
   }
 
   filterPlots = () => {
+    // debugger
     const { datapoints } = this.props;
     const {rows, data} = datapoints;
     let source, filteredData = {};
@@ -39,7 +38,8 @@ class InteractiveChart extends Component {
   }
 
   renderChart = (data) => {
-    if (typeof data === 'undefined') {
+    if (data === {}) {
+      // debugger
       return null;
     }
 
@@ -53,7 +53,7 @@ class InteractiveChart extends Component {
                       interpolation="natural"
                       data={d}
                       style={{
-                        data: { stroke: d.color }
+                        data: { stroke: 'darkgray', strokeWidth: 1 }
                       }}
                     />
                   );
@@ -83,7 +83,7 @@ class InteractiveChart extends Component {
 
       return (
         <g>
-          <path d={`M${x},250 L${x},50`} style={styles.cursor} />
+          <path d={`M${x},300 L${x},0`} style={styles.cursor} />
           <rect x={x + 8} y={y-(labels.length * 11 + 2)} height={labels.length * 11 + 10} style={styles.tooltip}
           />
           {labels}
@@ -93,8 +93,15 @@ class InteractiveChart extends Component {
 
     return (
       <VictoryChart
+        padding={{ top: 0, bottom: 0, left: 45, right: 20 }}
+        style={{
+
+        }}
+        // theme={VictoryTheme.material}
+        domainPadding={{x: [0, -300], y: [0, 30]}}
         containerComponent={
           <ChartContainer
+
             cursorLabel={(d) => d.x}
             cursorDimension={"x"}
             cursorLabelComponent={<Cursor />}
@@ -102,6 +109,26 @@ class InteractiveChart extends Component {
             cursorComponent={<Null/>}
           />
         }>
+        <VictoryAxis
+          dependentAxis
+          offsetX={45}
+          crossAxis={true}
+          style={{
+            tickLabels: {
+              fontSize: '2ev',
+              padding: 5
+            }
+          }}/>
+        <VictoryAxis
+          offsetY={0}
+          offsetX={0}
+          crossAxis
+          style={{
+            tickLabels: {
+              fontSize: 11,
+              padding: 5
+            }
+          }}/>
         {lines}
       </VictoryChart>
     )
@@ -109,20 +136,20 @@ class InteractiveChart extends Component {
   }
 
   render() {
-    const { datapoints } = this.props;
     const { filteredData } = this.state;
-    const {rows, data} = datapoints;
+    const { datapoints } = this.props;
+// debugger
+    const { rows } = typeof datapoints !== 'undefined' ? datapoints : {}
 
     return (
       <div className="plot-wrapper">
         <div className="plot">
-          {/* {this.filterPlots(data, rows)} */}
-          {this.renderChart(filteredData)}
           <span>* Scroll to zoom, click and drag to pan.</span>
+          {typeof datapoints !== 'undefined' ? this.renderChart(filteredData) : null}
         </div>
         <PlotSelector
           changeSelection={this.handleSelection}
-          rows={rows}
+          rows={typeof datapoints !== 'undefined' ? rows : []}
           selectedOptions={this.state.selectedOptions}
         />
       </div>
@@ -136,7 +163,7 @@ const styles = {
   },
   cursor: {
     strokeWidth: 1,
-    stroke: 'deeppink'
+    stroke: '#FF3D00'
   },
   tooltip: {
     fill: 'rgba(0,0,0,0.5)',
