@@ -1,19 +1,5 @@
 export const generateConcPlotData = (concData = []) => {
 
-  // 0 -> Time
-  // 1 -> Lungs
-  // 2 -> Heart
-  // 3 -> Brain
-  // 4 -> Skin
-  // 5 -> Fat
-  // 6 -> Muscle
-  // 7 -> Bone
-  // 8 -> Bone Marrow
-  // 9 -> GI Tract
-  // 10 -> Liver
-  // 11 -> Kidney
-  // 12 -> Arterial Blood
-  // 13 -> Venous Blood
   let lines = {
     Lungs: [],
     Heart: [],
@@ -75,6 +61,5 @@ export const generateConcPlotData = (concData = []) => {
       }
     }
     });
-    debugger
-  return lines;
+  return {rows: Object.keys(lines), data: lines};
 }

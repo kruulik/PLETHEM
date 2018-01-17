@@ -18,7 +18,10 @@ const results = (state = initialState, action) => {
   switch(action.type) {
     case 'RECEIVE_RESULTS':
     id = uid();
-    return merge({}, state, { sampleData: action.transposed })
+    return merge({}, state, { sampleData: {
+      data: action.data,
+      rows: action.rows
+    }})
     default:
       return state;
   }

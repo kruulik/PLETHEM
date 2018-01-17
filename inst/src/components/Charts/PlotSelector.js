@@ -3,22 +3,42 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TableActions from 'actions/tableActions';
 
-import { Tabs } from 'antd';
+import { Tabs, Table } from 'antd';
 const TabPane = Tabs.TabPane;
 
 class PlotSelector extends Component {
 
-  listItems = () => {
-
-  }
 
   render () {
+
+    const {rows} = this.props;
+
+    const data = rows.map((row, i) => {
+      return {
+        key: i,
+        option: row
+      }
+    })
+
+    const rowSelection = {
+      selectedOptions: this.props.selectedOptions,
+      onChange: this.props.changeSelection,
+    }
+
+    const columns = [{
+      title: 'Option',
+      dataIndex: 'option'
+    }]
 
     return (
       <div className="plot-selector">
         <Tabs type="card" style={{ height: '100%' }} >
-          <TabPane tab="Plot" key="1" className="plot-selector-tab-content" >
-            {this.listItems()}
+          <TabPane tab="Sample" key="1" className="plot-selector-tab-content" bordered>
+            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+          </TabPane>
+          <TabPane tab="Simulations" key="2" className="plot-selector-tab-content" >
+          </TabPane>
+          <TabPane tab="Observations" key="3" className="plot-selector-tab-content" >
           </TabPane>
         </Tabs>
       </div>

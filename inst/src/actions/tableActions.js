@@ -158,7 +158,8 @@ export const receiveTestResults = (output) => {
   const transposed = generateConcPlotData(JSON.parse(output.outputs)[0]);
   return {
     type: RECEIVE_RESULTS,
-    transposed
+    data: transposed.data,
+    rows: transposed.rows
   }
 }
 
