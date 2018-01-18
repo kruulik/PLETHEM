@@ -89,7 +89,6 @@ class InteractiveChart extends Component {
     // const { datapoints } = this.props;
     // const {rows, data} = datapoints;
     const {rows, data, clippedData} = this.state;
-    debugger
     // const clippedData = this.clipData(data, rows);
 
     let source, filteredData = {};
@@ -204,9 +203,11 @@ class InteractiveChart extends Component {
   }
 
   changeYClip = (value) => {
-    this.setState({
-      minY: value,
-    }, this.clipData )
+    if (typeof value === 'number') {
+      this.setState({
+        minY: value,
+      }, this.clipData )
+    }
   }
 
   render() {
