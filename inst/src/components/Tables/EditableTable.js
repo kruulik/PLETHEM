@@ -30,7 +30,6 @@ class EditableTable extends React.Component {
 
 
   onCellChange = ( key, dataIndex ) => {
-    console.log('called from cellChange');
     const {updateCell, getDetails} = this.props;
     return (value) => {
       const dataSource = [...this.props.dataSource];

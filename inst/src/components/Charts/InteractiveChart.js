@@ -13,23 +13,73 @@ class InteractiveChart extends Component {
     super(props);
     this.state = ({
       selectedOptions: [],
-      filteredData: {}
+      filteredData: {},
+      minY: 0.1,
+      pHeight: 360,
     })
   }
 
-  handleSelection = ( selectedOptions ) => {
+  updateSize = (plot, other) => {
     // debugger
+    const p = plot.getBoundingClientRect();
+    const o = other.getBoundingClientRect();
+    console.log(plot, other, p.height, o.height)
+    this.setState({
+      pHeight: p.height - o.height - 40,
+    })
+  }
+
+  componentDidMount() {
+    // const pHeight = document.querySelector('.plot-container').getBoundingClientRect().height;
+    // const fHeight = document.querySelector('.plot-filters').getBoundingClientRect().height;
+
+    const plot = document.querySelector('.plot-container')
+    const other = document.querySelector('.plot-filters')
+    this.updateSize(plot, other);
+    window.addEventListener("resize", () => {
+      let resizeEvent = requestAnimationFrame(() => this.updateSize(plot, other))
+    });
+
+  }
+
+  handleSelection = ( selectedOptions ) => {
     this.setState({ selectedOptions }, this.filterPlots);
   }
 
+  clipData = (data, rows) => {
+    const { minY } = this.state;
+    let i, d, lowestIndex, clippedData = {};
+    const dataArray = Object.values(data);
+
+    let length = dataArray[0].length
+    for (i = length - 1; i > 0; i--) {
+      d = 0;
+      for (d = 0; d < dataArray.length; d++) {
+        if ( dataArray[d][i].y >= minY ) {
+          lowestIndex = i;
+          i = 0;
+          break;
+        }
+      }
+
+    }
+
+    rows.forEach(row => {
+      clippedData[row] = data[row].slice(0, lowestIndex);
+    });
+    return clippedData;
+  }
+
   filterPlots = () => {
-    // debugger
     const { datapoints } = this.props;
     const {rows, data} = datapoints;
+
+    const clippedData = this.clipData(data, rows);
+
     let source, filteredData = {};
     this.state.selectedOptions.forEach(d => {
       source = rows[d]
-      filteredData[source] = data[source];
+      filteredData[source] = clippedData[source];
     })
 
     this.setState({
@@ -39,7 +89,6 @@ class InteractiveChart extends Component {
 
   renderChart = (data) => {
     if (data === {}) {
-      // debugger
       return null;
     }
 
@@ -83,25 +132,26 @@ class InteractiveChart extends Component {
 
       return (
         <g>
-          <path d={`M${x},300 L${x},0`} style={styles.cursor} />
+          <path d={`M${x},280 L${x},10`} style={styles.cursor} />
           <rect x={x + 8} y={y-(labels.length * 11 + 2)} height={labels.length * 11 + 10} style={styles.tooltip}
           />
           {labels}
         </g>
       )
     }
-
+// debugger
     return (
       <VictoryChart
-        padding={{ top: 0, bottom: 0, left: 45, right: 20 }}
-        style={{
+        // height={this.state.pHeight}
+        // width={this.state.pWidth}
+        // height={100}
+        // width={pWidth}
 
-        }}
+        padding={{ top: 10, bottom: 20, left: 45, right: 20 }}
         // theme={VictoryTheme.material}
         domainPadding={{x: [0, -300], y: [0, 30]}}
         containerComponent={
           <ChartContainer
-
             cursorLabel={(d) => d.x}
             cursorDimension={"x"}
             cursorLabelComponent={<Cursor />}
@@ -112,17 +162,18 @@ class InteractiveChart extends Component {
         <VictoryAxis
           dependentAxis
           offsetX={45}
-          crossAxis={true}
+          crossAxis
           style={{
             tickLabels: {
-              fontSize: '2ev',
+              fontSize: 11,
               padding: 5
             }
           }}/>
         <VictoryAxis
-          offsetY={0}
+          offsetY={20}
           offsetX={0}
           crossAxis
+          padding={{ bottom: 60 }}
           style={{
             tickLabels: {
               fontSize: 11,
@@ -138,15 +189,20 @@ class InteractiveChart extends Component {
   render() {
     const { filteredData } = this.state;
     const { datapoints } = this.props;
-// debugger
+
     const { rows } = typeof datapoints !== 'undefined' ? datapoints : {}
 
     return (
       <div className="plot-wrapper">
-        <div className="plot">
+        <div className="plot-container">
           <span>* Scroll to zoom, click and drag to pan.</span>
-          {typeof datapoints !== 'undefined' ? this.renderChart(filteredData) : null}
+          <div className="plot">
+            {typeof datapoints !== 'undefined' ? this.renderChart(filteredData) : null}
+          </div>
+
+          <div className="plot-filters"></div>
         </div>
+
         <PlotSelector
           changeSelection={this.handleSelection}
           rows={typeof datapoints !== 'undefined' ? rows : []}
