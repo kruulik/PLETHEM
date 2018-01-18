@@ -9,7 +9,7 @@ export const generateConcPlotData = (concData = []) => {
     Muscle: [],
     Bone: [],
     BoneMarrow: [],
-    GITract: [],
+    // GITract: [],
     Liver: [],
     Kidney: [],
     ArterialBlood: [],
@@ -43,9 +43,9 @@ export const generateConcPlotData = (concData = []) => {
         case 8:
           lines.BoneMarrow.push({y: data[d], x: data[0], color: 'magenta', title: 'Bone Marrow'});
           break;
-        case 9:
-          lines.GITract.push({y: data[d], x: data[0], color: 'purple', title: 'GI Tract'});
-          break;
+        // case 9:
+        //   lines.GITract.push({y: data[d], x: data[0], color: 'purple', title: 'GI Tract'});
+        //   break;
         case 10:
           lines.Liver.push({y: data[d], x: data[0], color: 'teal', title: 'Liver'});
           break;

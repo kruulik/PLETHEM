@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TableActions from 'actions/tableActions';
 
+import { Slider, InputNumber, Row, Col } from 'antd';
+
 import { VictoryChart, VictoryAxis, VictoryTheme, VictoryLine, VictoryZoomContainer, VictoryCursorContainer, createContainer, VictoryTooltip, VictoryLabel, Flyout } from 'victory';
 
 import { PlotSelector } from 'components';
@@ -14,24 +16,28 @@ class InteractiveChart extends Component {
     this.state = ({
       selectedOptions: [],
       filteredData: {},
-      minY: 0.1,
+      minY: 0.01,
       pHeight: 360,
+      data: null,
+      rows: null,
+      clippedData: null,
     })
   }
 
   updateSize = (plot, other) => {
-    // debugger
     const p = plot.getBoundingClientRect();
     const o = other.getBoundingClientRect();
-    console.log(plot, other, p.height, o.height)
     this.setState({
       pHeight: p.height - o.height - 40,
     })
   }
 
   componentDidMount() {
-    // const pHeight = document.querySelector('.plot-container').getBoundingClientRect().height;
-    // const fHeight = document.querySelector('.plot-filters').getBoundingClientRect().height;
+    this.setState({
+      rows: this.props.datapoints.rows,
+      data: this.props.datapoints.data,
+    }, this.clipData );
+
 
     const plot = document.querySelector('.plot-container')
     const other = document.querySelector('.plot-filters')
@@ -39,15 +45,14 @@ class InteractiveChart extends Component {
     window.addEventListener("resize", () => {
       let resizeEvent = requestAnimationFrame(() => this.updateSize(plot, other))
     });
-
   }
 
   handleSelection = ( selectedOptions ) => {
     this.setState({ selectedOptions }, this.filterPlots);
   }
 
-  clipData = (data, rows) => {
-    const { minY } = this.state;
+  clipData = () => {
+    const { minY, data, rows } = this.state;
     let i, d, lowestIndex, clippedData = {};
     const dataArray = Object.values(data);
 
@@ -67,14 +72,16 @@ class InteractiveChart extends Component {
     rows.forEach(row => {
       clippedData[row] = data[row].slice(0, lowestIndex);
     });
-    return clippedData;
+    this.setState({
+      clippedData
+    }, this.filterPlots)
   }
 
   filterPlots = () => {
-    const { datapoints } = this.props;
-    const {rows, data} = datapoints;
-
-    const clippedData = this.clipData(data, rows);
+    // const { datapoints } = this.props;
+    // const {rows, data} = datapoints;
+    const {rows, data, clippedData} = this.state;
+    // const clippedData = this.clipData(data, rows);
 
     let source, filteredData = {};
     this.state.selectedOptions.forEach(d => {
@@ -110,6 +117,13 @@ class InteractiveChart extends Component {
 
     const Null = () => null;
 
+
+    const title = (datum, text) => {
+      const valX = datum.find(val => (val.x >= text))
+      console.log(valX)
+      return valX.title
+    }
+
     const Cursor = ({ x, y, active, text }) => {
       let labels = [];
       Object.values(data).forEach((datum, i) => {
@@ -124,7 +138,7 @@ class InteractiveChart extends Component {
             textAnchor="start"
           >
             {
-              `${datum.find(val => (val.x >= text)).title }: ${datum.find(val => (val.x >= text)).y.toPrecision(3)}`
+              `${ title(datum, text) }: ${datum.find(val => (val.x >= text)).y.toPrecision(3)}`
             }
           </text>
         );
@@ -142,11 +156,6 @@ class InteractiveChart extends Component {
 // debugger
     return (
       <VictoryChart
-        // height={this.state.pHeight}
-        // width={this.state.pWidth}
-        // height={100}
-        // width={pWidth}
-
         padding={{ top: 10, bottom: 20, left: 45, right: 20 }}
         // theme={VictoryTheme.material}
         domainPadding={{x: [0, -300], y: [0, 30]}}
@@ -183,7 +192,12 @@ class InteractiveChart extends Component {
         {lines}
       </VictoryChart>
     )
+  }
 
+  changeYClip = (value) => {
+    this.setState({
+      minY: value,
+    }, this.clipData )
   }
 
   render() {
@@ -200,7 +214,25 @@ class InteractiveChart extends Component {
             {typeof datapoints !== 'undefined' ? this.renderChart(filteredData) : null}
           </div>
 
-          <div className="plot-filters"></div>
+          <div className="plot-filters">
+            <Row>
+              <Col span={12}>
+                <Slider min={0} max={0.7} onChange={this.changeYClip} step={0.001} value={this.state.minY} />
+                <div>Y plot limit.</div>
+
+              </Col>
+              <Col span={4}>
+                <InputNumber
+                  min={0}
+                  max={0.7}
+                  step={0.001}
+                  style={{ marginLeft: 16 }}
+                  value={this.state.minY}
+                  onChange={this.changeYClip}
+                />
+              </Col>
+            </Row>
+          </div>
         </div>
 
         <PlotSelector
@@ -233,9 +265,10 @@ const styles = {
 const mapStateToProps = (state) => {
 
   const datapoints = state.results.sampleData;
+
   return {
     state,
-    datapoints
+    datapoints: typeof datapoints === 'undefined' ? {data: {'null':[]}, rows:[] }: datapoints,
     // concentrationPlotData: generateConcPlotData(concData)
   };
 };
