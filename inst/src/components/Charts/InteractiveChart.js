@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as TableActions from 'actions/tableActions';
+import {minBy, maxBy} from 'lodash';
 
 import { Slider, InputNumber, Row, Col } from 'antd';
 
@@ -13,6 +14,7 @@ class InteractiveChart extends Component {
 
   constructor(props){
     super(props);
+    this.entireDomain = this.getEntireDomain(props.datapoints.data);
     this.state = ({
       selectedOptions: [],
       filteredData: {},
@@ -21,7 +23,23 @@ class InteractiveChart extends Component {
       data: null,
       rows: null,
       clippedData: null,
-    })
+      zoomedXDomain: this.entireDomain,
+    });
+  }
+
+  getEntireDomain(propData) {
+    // debugger
+    // console.log(Object.values(propData)[0]);
+    // const propData = props.datapoints.data || props
+    const data = Object.values(propData)[0];
+    // debugger
+    const domain = {
+      // y: [_.minBy(data, d => d.y).y, _.maxBy(data, d => d.y).y],
+      x: [ data[0].x, _.last(data).x ]
+    };
+    // console.log(data, domain);
+    // debugger
+    return domain;
   }
 
   updateSize = (plot, other) => {
@@ -33,7 +51,6 @@ class InteractiveChart extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // debugger
     this.setState({
       data: nextProps.datapoints.data,
       rows: nextProps.datapoints.rows,
@@ -59,42 +76,80 @@ class InteractiveChart extends Component {
     this.setState({ selectedOptions }, this.filterPlots);
   }
 
-  clipData = () => {
-    const { minY, data, rows } = this.state;
-    let i, d, lowestIndex, clippedData = {};
-    const dataArray = Object.values(data);
+  // clipData = () => {
+  //   const { minY, data, rows, zoomedXDomain } = this.state;
+  //   // debugger
+  //   let i, d, lowestIndex, clippedData = {}, zoomed = {};
+  //   const dataArray = Object.values(data);
+  //
+  //   let length = dataArray[0].length
+  //   for (i = length - 1; i > 0; i--) {
+  //     d = 0;
+  //     for (d = 0; d < dataArray.length; d++) {
+  //       if ( dataArray[d][i].y >= minY ) {
+  //         lowestIndex = i;
+  //         i = 0;
+  //         break;
+  //       }
+  //     }
+  //   }
+  //
+  //   rows.forEach(row => {
+  //     clippedData[row] = data[row].slice(0, lowestIndex);
+  //   });
+  //   const newDomain = this.getEntireDomain(Object.values(data));
+  //   this.onDomainChange(newDomain);
+  //   this.setState({
+  //     clippedData
+  //   }, this.filterPlots);
+  //   // console.log(updatedX)
+  //   // return clippedData
+  // }
 
-    let length = dataArray[0].length
-    for (i = length - 1; i > 0; i--) {
-      d = 0;
-      for (d = 0; d < dataArray.length; d++) {
-        if ( dataArray[d][i].y >= minY ) {
-          lowestIndex = i;
-          i = 0;
-          break;
-        }
-      }
+  clipData = (dX) => {
+    const { zoomedXDomain, minY, data, rows } = this.state;
+    if (dX) {
+      this.setState({
+        zoomedXDomain: {x: dX}
+      });
+      // console.log(`Zoomed Domain(scroll): ${dX}`)
 
-    }
+    } else {
 
-    rows.forEach(row => {
-      clippedData[row] = data[row].slice(0, lowestIndex);
-    });
+      let i, d, x, lowestIndex, zoomed = {};
+      const dataArray = Object.values(data);
+
+      let length = dataArray[0].length
+       for (i = length - 1; i > 0; i--) {
+         d = 0;
+         for (d = 0; d < dataArray.length; d++) {
+           if ( dataArray[d][i].y >= minY ) {
+             lowestIndex = i;
+             // debugger
+             x = dataArray[d][i].x
+             i = 0;
+             break;
+           }
+         }
+       }
+       // console.log(`Zoomed Domain(clip): ${[0, x]}`)
     this.setState({
-      clippedData
-    }, this.filterPlots)
+      zoomedXDomain: {x: [0, x]}
+    });
+  }
   }
 
   filterPlots = () => {
     // const { datapoints } = this.props;
     // const {rows, data} = datapoints;
-    const {rows, data, clippedData} = this.state;
-    // const clippedData = this.clipData(data, rows);
+    const { rows, data } = this.state;
 
+    // const clippedData = this.clipData();
+// debugger
     let source, filteredData = {};
     this.state.selectedOptions.forEach(d => {
       source = rows[d]
-      filteredData[source] = clippedData[source];
+      filteredData[source] = data[source];
     })
 
     this.setState({
@@ -102,10 +157,22 @@ class InteractiveChart extends Component {
     });
   }
 
-  renderChart = (data) => {
-    if (data === {}) {
+  onDomainChange(domain) {
+    // debugger
+    // console.log(domain.x)
+    this.clipData(domain.x);
+    // this.setState({
+    //   zoomedXDomain: domain.x,
+    // }, this.filterPlots);
+  }
+
+  renderChart = () => {
+    if (this.state.data === {}) {
       return null;
     }
+    // console.log('rendering Chart')
+
+    const data = this.state.filteredData;
 
     const ChartContainer = createContainer('zoom', 'cursor');
 
@@ -125,11 +192,13 @@ class InteractiveChart extends Component {
 
     const Null = () => null;
 
-
-    const title = (datum, text) => {
-      const valX = datum.find(val => (val.x >= text))
-      console.log(valX)
-      return valX.title
+    const annotation = (datum, text) => {
+      const obj = datum.find(val => (val.x >= text))
+      if (typeof obj !== 'undefined') {
+        return obj
+      } else {
+        return {title: 'undefined', y: 0};
+      }
     }
 
     const Cursor = ({ x, y, active, text }) => {
@@ -146,7 +215,7 @@ class InteractiveChart extends Component {
             textAnchor="start"
           >
             {
-              `${ title(datum, text) }: ${datum.find(val => (val.x >= text)).y.toPrecision(3)}`
+              `${ annotation(datum, text).title }: ${ annotation(datum, text).y.toPrecision(3)}`
             }
           </text>
         );
@@ -161,14 +230,20 @@ class InteractiveChart extends Component {
         </g>
       )
     }
-// debugger
+
     return (
       <VictoryChart
-        padding={{ top: 10, bottom: 20, left: 45, right: 20 }}
+        // domain={this.entireDomain}
+
+        // domain={{x: [0, 10]}}
+        padding={{ top: 10, bottom: 20, left: 25, right: 20 }}
         // theme={VictoryTheme.material}
         domainPadding={{x: [0, -300], y: [0, 30]}}
         containerComponent={
           <ChartContainer
+            zoomDomain={this.state.zoomedXDomain}
+            zoomDimension="x"
+            onZoomDomainChange={this.onDomainChange.bind(this)}
             cursorLabel={(d) => d.x}
             cursorDimension={"x"}
             cursorLabelComponent={<Cursor />}
@@ -178,7 +253,7 @@ class InteractiveChart extends Component {
         }>
         <VictoryAxis
           dependentAxis
-          offsetX={45}
+          offsetX={25}
           crossAxis
           style={{
             tickLabels: {
@@ -206,7 +281,7 @@ class InteractiveChart extends Component {
     if (typeof value === 'number') {
       this.setState({
         minY: value,
-      }, this.clipData )
+      }, this.clipData)
     }
   }
 
@@ -221,7 +296,7 @@ class InteractiveChart extends Component {
         <div className="plot-container">
           <span>* Scroll to zoom, click and drag to pan.</span>
           <div className="plot">
-            {typeof datapoints !== 'undefined' ? this.renderChart(filteredData) : null}
+            {typeof datapoints !== 'undefined' ? this.renderChart() : null}
           </div>
 
           <div className="plot-filters">
